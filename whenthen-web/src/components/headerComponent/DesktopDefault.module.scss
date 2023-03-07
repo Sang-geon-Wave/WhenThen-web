@@ -1,0 +1,66 @@
+@import '../../assets/scsses/config';
+
+.logo {
+  position: relative;
+  // background-color: white;
+  display: flex;
+  flex-direction: row;
+  margin-top: 2vh;
+  margin-left: 2vh;
+  margin-right: 2vh;
+  height: 4vh;
+  width: 60vh;
+}
+.blank {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.button {
+  position: relative;
+  margin-right: 1vh;
+  height: 5vh;
+  width: 25vh;
+  text-align: center;
+  line-height: normal;
+  display: inline;
+  background-color: white;
+  border-radius: 25px;
+}
+.main {
+  background-color: white;
+  height: 100vh;
+}
+.header {
+  align-items: center;
+  position: fixed;
+  display: flex;
+  height: 7vh;
+  width: 100%;
+  background-color: beige;
+  font-size: larger;
+  /* font-style:; */
+}
+.linkButtonSet {
+  /* background-color: purple; */
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* min-width: ; */
+}
+.linkButton {
+  background-color: white;
+  position: relative;
+  height: 5vh;
+  width: 10vh;
+  color: black;
+}
+.footer {
+  position: relative;
+  min-height: 20vh;
+  width: 100%;
+  background-color: gray;
+  font-size: 12;
+  color: white;
+}
