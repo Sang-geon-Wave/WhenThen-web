@@ -6,12 +6,11 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 export interface ProbsTimelineDateComponent {
   date: string;
   message: string;
-  highlight: boolean;
 }
 
 const TimelineDateComponent: React.FunctionComponent<
   ProbsTimelineDateComponent
-> = ({ date, message, highlight }) => {
+> = ({ date, message }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -19,14 +18,23 @@ const TimelineDateComponent: React.FunctionComponent<
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  return highlight ? (
-    <div className={styles.highlightMessage}>
-      {date}
-      {message}
-    </div>
-  ) : (
+  // return highlight ? (
+  //   <div className={styles.highlightMessage}>
+  //     {date}
+  //     <br></br>
+  //     {message}
+  //   </div>
+  // ) : (
+  //   <div className={styles.message}>
+  //     {date}
+  //     <br></br>
+  //     {message}
+  //   </div>
+  // );
+  return (
     <div className={styles.message}>
-      {date}
+      <div className={styles.dateTitle}>{date}</div>
+      <br></br>
       {message}
     </div>
   );
