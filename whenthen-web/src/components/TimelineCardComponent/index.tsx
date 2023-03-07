@@ -4,12 +4,13 @@ import list from './testData';
 
 const TimelineCardComponent = () => {
   return (
-    <div style={{ margin: '1rem' }}>
-      {list.map((singer) => (
+    <div>
+      {list.map((movie) => (
         <Card
-          title={singer.title}
-          imgUrl={singer.imgUrl}
-          content={singer.content}
+          title={movie.title}
+          sub={movie.sub}
+          imgUrl={movie.imgUrl}
+          content={movie.content}
         ></Card>
       ))}
     </div>

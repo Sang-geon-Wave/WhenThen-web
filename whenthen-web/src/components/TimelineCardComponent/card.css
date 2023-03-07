@@ -1,0 +1,26 @@
+.mainBlock {
+  margin: 1%;
+  padding: 1%;
+  display: block;
+  border-color: rgb(193, 193, 193);
+  border-style: solid;
+  border-top-width: thin;
+  border-bottom-width: thick;
+  border-left-width: 20px;
+  border-right-width: medium;
+  background-color: white;
+  text-align: left;
+}
+
+.movieIntroduceBlock {
+  float: left;
+  width: 78%;
+  height: 100%;
+  text-align: left;
+}
+
+.morePageButton {
+  display: inline-block;
+  text-align: right;
+  width: 100%;
+}
