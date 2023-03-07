@@ -11,58 +11,82 @@ const Card: React.FunctionComponent<TimelineCardComponent> = ({
   imgUrl,
   content,
 }) => {
+  const len: number = content.split('\n').length - 1;
+  const FS: number = 16;
   let [more, detail] = useState(false);
   const set_detail = () => {
     if (more === false) detail(true);
     else detail(false);
   };
   return (
-    <div
-      style={{
-        margin: '1rem',
-        display: 'inline-block',
-        width: '90%',
-        height: '100%',
-      }}
-    >
-      <h1>Title: {title}</h1>
-      <div>
-        <img
-          width={'20%'}
-          height={'100%'}
-          src={imgUrl}
-          style={{
-            float: 'left',
-            marginRight: '1rem',
-          }}
-        />
-        <textarea
-          readOnly
-          style={{
-            float: 'left',
-            width: '70%',
-            height: more ? '330px' : '200px',
-            border: 'none',
-            resize: 'none',
-          }}
-        >
-          {content}
-        </textarea>
-        <button onClick={set_detail}>더보기</button>
-      </div>
+    <>
       <div
         style={{
-          margin: '1rem',
-          display: 'inline-block',
-          width: '100%',
-          height: '100%',
+          margin: '1%',
+          padding: '1%',
+          display: 'block',
+          borderColor: 'black',
+          borderStyle: 'double',
+          backgroundColor: 'beige',
+          textAlign: 'left',
+          fontSize: `${FS}px`,
         }}
       >
-        <button>좋아요</button>
-        <button>구독</button>
-        <button>알림설정</button>
+        <div
+          style={{
+            display: 'inline-block',
+            width: '100%',
+          }}
+        >
+          <img
+            src={imgUrl}
+            style={{
+              float: 'left',
+              width: '20%',
+              marginRight: '1%',
+            }}
+          />
+          <div
+            className=""
+            style={{
+              float: 'left',
+              width: '78%',
+              height: '100%',
+              textAlign: 'left',
+            }}
+          >
+            <h1 style={{ fontSize: '5vh' }}>Title: {title}</h1>
+            <textarea
+              onClick={set_detail}
+              readOnly
+              style={{
+                width: '100%',
+                height: more ? `${FS * len + FS * 0.5}px` : `${4 * FS}px`,
+                border: 'none',
+                resize: 'none',
+                overflow: more ? 'auto' : 'hidden',
+              }}
+            >
+              {content}
+            </textarea>
+          </div>
+        </div>
+        {more && (
+          <div
+            style={{
+              //margin: '1rem',
+              display: 'inline-block',
+              textAlign: 'right',
+              width: '100%',
+            }}
+          >
+            <button>좋아요</button>
+            <button>구독</button>
+            <button>알림설정</button>
+          </div>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 
