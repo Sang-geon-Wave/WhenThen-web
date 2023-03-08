@@ -1,0 +1,72 @@
+$base-color: rgb(193, 193, 193);
+
+.mainBlock {
+  margin: 1%;
+  padding: 1%;
+  display: inline-block;
+  border-color: $base-color;
+  border-style: solid;
+  border-top-width: thin;
+  border-bottom-width: thick;
+  border-left-width: 20px;
+  border-right-width: medium;
+  background-color: white;
+  text-align: left;
+  width: 94%;
+}
+
+.movieIntroduceBlock {
+  float: left;
+  width: 78%;
+  height: 100%;
+  text-align: left;
+}
+
+.imgBlock {
+  border-radius: 5vh;
+  float: left;
+  width: 20%;
+  margin-right: 1%;
+}
+
+.titleClickBlock {
+  font-size: 5vh;
+}
+
+.titleBlock {
+  font-size: 10vh;
+}
+
+.subClickBlock {
+  font-size: 2.5vh;
+  color: rgb(193, 193, 193);
+}
+
+subBlock {
+  font-size: 4vh;
+  color: rgb(193, 193, 193);
+}
+
+.contentClickBlock {
+  border: none;
+  outline: none;
+  background-color: white;
+  width: 100%;
+  resize: none;
+  overflow: auto;
+}
+
+.contentBlock {
+  border: none;
+  outline: none;
+  background-color: white;
+  width: 100%;
+  resize: none;
+  overflow: hidden;
+}
+
+.morePageButton {
+  display: inline-block;
+  text-align: right;
+  width: 100%;
+}
