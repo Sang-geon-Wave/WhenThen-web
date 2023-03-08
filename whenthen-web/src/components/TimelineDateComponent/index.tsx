@@ -1,16 +1,17 @@
 import React from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-// import stylesMobileDefault from './MobileDefault.module.scss';
+import TimelineCardsComponent from '../TimelineCardsComponent';
 
 export interface ProbsTimelineDateComponent {
   date: string;
   message: string;
+  children: React.ReactElement[];
 }
 
 const TimelineDateComponent: React.FunctionComponent<
   ProbsTimelineDateComponent
-> = ({ date, message }) => {
+> = ({ date, message, children }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -18,24 +19,14 @@ const TimelineDateComponent: React.FunctionComponent<
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  // return highlight ? (
-  //   <div className={styles.highlightMessage}>
-  //     {date}
-  //     <br></br>
-  //     {message}
-  //   </div>
-  // ) : (
-  //   <div className={styles.message}>
-  //     {date}
-  //     <br></br>
-  //     {message}
-  //   </div>
-  // );
   return (
-    <div className={styles.message}>
-      <div className={styles.dateTitle}>{date}</div>
+    <div className={styles.timeline_date_container}>
+      <div className={styles.timeline_date_card_title}>{date}</div>
       <br></br>
       {message}
+      {children.map((child, index) => (
+        <TimelineCardsComponent key={index}>{child}</TimelineCardsComponent>
+      ))}
     </div>
   );
 };
