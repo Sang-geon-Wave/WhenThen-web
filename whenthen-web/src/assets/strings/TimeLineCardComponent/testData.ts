@@ -34,6 +34,10 @@ var movie2 = {
 존 랜도가 프로듀싱을 맡았다.`,
 };
 
-let list: any[] = [movie1, movie2];
+var movie3 = {
+  title: '아바타3',
+};
+
+let list: any[] = [movie1, movie2, movie3];
 
 export default list;

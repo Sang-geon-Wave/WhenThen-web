@@ -3,28 +3,33 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 
 export interface TimelineCardComponent {
   title: string;
-  sub: string;
-  imgUrl: string;
-  content: string;
+  sub?: string;
+  imgUrl?: string;
+  content?: string;
 }
 
 const Card: React.FunctionComponent<TimelineCardComponent> = ({
   title,
-  sub,
+  sub = '아직 정보가 없어요',
   imgUrl,
-  content,
+  content = '아직 정보가 없어요',
 }) => {
   const cardStyles = stylesDesktopDefault;
-  const len: number = content.split('\n').length;
+  const contentLineNo: number = content.split('\n').length;
   const FS: number = 14;
   let [more, detail] = useState(false);
   const set_detail = () => {
+    if (content === '아직 정보가 없어요') return;
     if (more === false) detail(true);
     else detail(false);
   };
   return (
     <div className={cardStyles.mainBlock}>
-      <img alt="loading" src={imgUrl} className={cardStyles.imgBlock} />
+      <img
+        alt="포스터 사진이 없어요"
+        src={imgUrl}
+        className={cardStyles.imgBlock}
+      />
       <div className={cardStyles.movieIntroduceBlock}>
         <h1 style={{ fontSize: more ? '5vh' : '10vh' }}>Title: {title}</h1>
         <h2
@@ -43,7 +48,7 @@ const Card: React.FunctionComponent<TimelineCardComponent> = ({
             more ? cardStyles.contentClickBlock : cardStyles.contentBlock
           }
           style={{
-            height: more ? `${FS * (len + 1.5)}px` : `${6 * FS}px`,
+            height: more ? `${FS * (contentLineNo + 1.5)}px` : `${6 * FS}px`,
             fontSize: `${FS}px`,
           }}
         >
