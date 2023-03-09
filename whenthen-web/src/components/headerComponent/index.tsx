@@ -1,20 +1,29 @@
 import React from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
+import { useObserver } from 'mobx-react-lite';
+import indexStore from './indexStore';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
-export interface ProbsHeaderComponent {
-  highlight: boolean;
-}
+// export interface headerProps {
+//   inClick(): void;
+// }
 
-const HeaderComponent: React.FunctionComponent<ProbsHeaderComponent> = ({}) => {
+const HeaderComponent = () => {
+  const { LoginStore } = indexStore();
+  function mySiteSignInButtonClicked() {
+    LoginStore.isLogin === true ? alert('logout!') : alert('login!');
+    LoginStore.isLogin === true
+      ? LoginStore.userLogout()
+      : LoginStore.userLogin();
+  }
+
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
-  const isLogIn = true;
   return (
     <div className={styles.headerComponent}>
       <header>
@@ -29,15 +38,22 @@ const HeaderComponent: React.FunctionComponent<ProbsHeaderComponent> = ({}) => {
             </a>
             <span>WhenThen</span>
           </h1>
-          <div className={styles.blank}></div>
-          <div className={styles.button}>
+          <div className={styles.topBarBlank}></div>
+          <div className={styles.topBarButton}>
             <span>about</span>
           </div>
-          <div className={styles.button}>
-            {isLogIn === true ? <span>log out</span> : <span>sign up</span>}
+          <div className={styles.topBarButton}>
+            {LoginStore.isLogin === true ? (
+              <span>log out</span>
+            ) : (
+              <span>sign up</span>
+            )}
           </div>
-          <div className={styles.button}>
-            {isLogIn === true ? (
+          <div
+            className={styles.topBarButton}
+            onClick={() => mySiteSignInButtonClicked()}
+          >
+            {LoginStore.isLogin === true ? (
               <a href="#">
                 <img
                   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpaboC_OonRfowhuzgVIZ7BkLQYiWNeSQkfA&usqp=CAU"
@@ -46,7 +62,7 @@ const HeaderComponent: React.FunctionComponent<ProbsHeaderComponent> = ({}) => {
                 />
               </a>
             ) : (
-              <span>log out</span>
+              <span>sign in</span>
             )}
           </div>
         </div>
