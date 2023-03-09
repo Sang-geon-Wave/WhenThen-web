@@ -1,0 +1,21 @@
+.carousel {
+  overflow: hidden;
+  width: 500px;
+}
+
+.carouselInner {
+  white-space: nowrap;
+  transition: transform 0.1s ease;
+  will-change: transform;
+}
+
+.carouselItem {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 200px;
+  width: 100%;
+  position: absoulte;
+  background-color: white;
+  color: #fff;
+}
