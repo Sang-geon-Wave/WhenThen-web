@@ -20,8 +20,8 @@ const TimelineDateComponent: React.FunctionComponent<
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   return (
-    <div className={styles.timeline_date_container}>
-      <div className={styles.timeline_date_card_title}>{date}</div>
+    <div className={styles.timelineDateContainer}>
+      <div className={styles.timelineDateCardTitle}>{date}</div>
       <br></br>
       {message}
       {children.map((child, index) => (
