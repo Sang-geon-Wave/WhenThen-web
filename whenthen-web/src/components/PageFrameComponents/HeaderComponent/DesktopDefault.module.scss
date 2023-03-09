@@ -1,4 +1,4 @@
-@import '../../assets/scsses/config';
+@import '../../../assets/scsses/config';
 
 .logo {
   position: relative;
@@ -10,6 +10,15 @@
   margin-right: 2vh;
   height: 4vh;
   width: 60vh;
+}
+.logoImg {
+  position: relative;
+  width: 4vh;
+  height: 4vh;
+}
+.myPageImg {
+  width: 40vh;
+  height: 40vh;
 }
 .topBarBlank {
   position: relative;
@@ -27,10 +36,6 @@
   background-color: white;
   border-radius: 25px;
 }
-.main {
-  background-color: white;
-  height: 100vh;
-}
 .header {
   align-items: center;
   position: fixed;
@@ -39,28 +44,4 @@
   width: 100%;
   background-color: beige;
   font-size: larger;
-  /* font-style:; */
-}
-.linkButtonSet {
-  /* background-color: purple; */
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  /* min-width: ; */
-}
-.linkButton {
-  background-color: white;
-  position: relative;
-  height: 5vh;
-  width: 10vh;
-  color: black;
-}
-.footer {
-  position: relative;
-  min-height: 20vh;
-  width: 100%;
-  background-color: gray;
-  font-size: 12;
-  color: white;
 }
