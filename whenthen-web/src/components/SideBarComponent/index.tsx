@@ -4,22 +4,13 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 
 import icon from '../../assets/images/menu.png';
 
-import Sidebar from './Sidebar';
-import SidebarList from './SidebarList';
-import SidebarItem from './SidebarItem';
-import SidebarLink from './SidebarLink';
-import SidebarSeparator from './SidebarSeparator';
+import { isActive } from '../../utils/sidebarUtils';
+import Sidebar from './SidebarItems/Sidebar';
+import SidebarList from './SidebarItems/SidebarList';
+import SidebarItem from './SidebarItems/SidebarItem';
+import SidebarLink from './SidebarItems/SidebarLink';
 
-export interface SidebarComponentProps {
-  // List: typeof SidebarList;
-  // Item: typeof SidebarItem;
-  // Link: typeof SidebarLink;
-  // Separator: typeof SidebarSeparator;
-}
-
-function isActive(path: string) {
-  return window.location.pathname.startsWith(path);
-}
+export interface SidebarComponentProps {}
 
 const SidebarComponent = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -35,18 +26,18 @@ const SidebarComponent = () => {
         <SidebarItem>
           <SidebarLink to="/" active={isActive('/')}>
             <img src={icon} width="12" height="12" alt="testA" />
-            &nbsp;&nbsp;대시보드
+            대시보드
           </SidebarLink>
         </SidebarItem>
         {/* <SidebarSeparator /> */}
         <SidebarItem>
           <SidebarLink to="/" active={isActive('/')}>
-            &nbsp;&nbsp;&nbsp;&nbsp;타임라인
+            타임라인
           </SidebarLink>
         </SidebarItem>
         <SidebarItem>
-          <SidebarLink to="/" active={isActive('/')}>
-            &nbsp;&nbsp;&nbsp;&nbsp;생성하기
+          <SidebarLink to="/" active={isActive('/nowhere')}>
+            생성하기
           </SidebarLink>
         </SidebarItem>
       </SidebarList>

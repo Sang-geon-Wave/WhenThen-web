@@ -5,13 +5,13 @@ const Item = styled.li`
   margin: 8px;
 `;
 
-interface SidebarItemProps {
+interface PropsSidebarItem {
   children: ReactNode;
   disabled?: boolean;
 }
 
-function SidebarItem({ children, disabled = false }: SidebarItemProps) {
-  return <Item role={disabled ? 'presentation' : undefined}>{children}</Item>;
-}
+const SidebarItem = ({ children, disabled = false }: PropsSidebarItem) => (
+  <Item role={disabled ? 'presentation' : undefined}>{children}</Item>
+);
 
 export default SidebarItem;

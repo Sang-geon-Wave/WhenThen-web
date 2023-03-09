@@ -18,8 +18,8 @@ interface SidebarListProps {
   expanded?: boolean;
 }
 
-function SidebarList({ children, expanded = true }: SidebarListProps) {
+const SidebarList = ({ children, expanded = true }: SidebarListProps) => {
   return <List expanded={expanded}>{children}</List>;
-}
+};
 
 export default SidebarList;

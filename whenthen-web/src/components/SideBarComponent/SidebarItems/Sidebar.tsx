@@ -5,14 +5,13 @@ const Body = styled.nav`
   max-width: 400px;
   align: right;
   padding-right: 20px;
+  background: #0f2b0f;
 `;
 
-interface SidebarProps {
+interface PropsSidebar {
   children: React.ReactNode;
 }
 
-function Sidebar({ children }: SidebarProps) {
-  return <Body>{children}</Body>;
-}
+const Sidebar = ({ children }: PropsSidebar) => <Body>{children}</Body>;
 
 export default Sidebar;

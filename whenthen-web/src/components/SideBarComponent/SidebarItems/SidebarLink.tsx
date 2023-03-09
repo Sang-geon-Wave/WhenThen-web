@@ -1,26 +1,22 @@
 import React, { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 
-function isCurrent(to: string): boolean {
-  return window.location.pathname.startsWith(to);
-}
+import { isCurrent } from '../../../utils/sidebarUtils';
 
-interface LinkProps {
-  active?: boolean;
-}
+interface LinkProps {}
 
 const Link = styled.a<LinkProps>`
   display: block;
   margin: 0 calc(20px * -1);
   padding: 8px 20px;
   border-radius: 4px;
-  color: #ffffff;
+  color: #cadbbd;
   text-decoration: none;
 
   ${(p) =>
-    p.active &&
     css`
       color: #a6ff4d;
+      background: #4e524c;
       font-weight: bold;
     `}
 
@@ -38,22 +34,18 @@ const Link = styled.a<LinkProps>`
   }
 `;
 
-interface SidebarLinkProps {
+interface PropsSidebarLink {
   children: ReactNode;
   to: string;
-  active?: boolean;
+  active: boolean;
 }
 
-function SidebarLink({ children, to, active = false }: SidebarLinkProps) {
+const SidebarLink = ({ children, to }: PropsSidebarLink): JSX.Element => {
   return (
-    <Link
-      href={to}
-      active={active}
-      aria-current={isCurrent(to) ? 'page' : undefined}
-    >
+    <Link href={to} aria-current={isCurrent(to) ? 'page' : undefined}>
       {children}
     </Link>
   );
-}
+};
 
 export default SidebarLink;
