@@ -5,7 +5,7 @@ interface ListProps {
   expanded?: boolean;
 }
 
-const List = styled.ul<ListProps>`
+const SidebarListType = styled.ul<ListProps>`
   display: ${(p) => (p.expanded ? 'block' : 'none')};
   margin: 0;
   padding: 0;
@@ -19,7 +19,7 @@ interface SidebarListProps {
 }
 
 const SidebarList = ({ children, expanded = true }: SidebarListProps) => {
-  return <List expanded={expanded}>{children}</List>;
+  return <SidebarListType expanded={expanded}>{children}</SidebarListType>;
 };
 
 export default SidebarList;

@@ -3,9 +3,9 @@ import styled, { css } from 'styled-components';
 
 import { isCurrent } from '../../../utils/sidebarUtils';
 
-interface LinkProps {}
+interface LinkType {}
 
-const Link = styled.a<LinkProps>`
+const SidebarLinkType = styled.a<LinkType>`
   display: block;
   margin: 0 calc(20px * -1);
   padding: 8px 20px;
@@ -42,9 +42,12 @@ interface PropsSidebarLink {
 
 const SidebarLink = ({ children, to }: PropsSidebarLink): JSX.Element => {
   return (
-    <Link href={to} aria-current={isCurrent(to) ? 'page' : undefined}>
+    <SidebarLinkType
+      href={to}
+      aria-current={isCurrent(to) ? 'page' : undefined}
+    >
       {children}
-    </Link>
+    </SidebarLinkType>
   );
 };
 

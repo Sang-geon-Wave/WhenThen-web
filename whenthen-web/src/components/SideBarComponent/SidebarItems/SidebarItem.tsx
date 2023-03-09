@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 
-const Item = styled.li`
+const SidebarItemType = styled.li`
   margin: 8px;
 `;
 
@@ -11,7 +11,9 @@ interface PropsSidebarItem {
 }
 
 const SidebarItem = ({ children, disabled = false }: PropsSidebarItem) => (
-  <Item role={disabled ? 'presentation' : undefined}>{children}</Item>
+  <SidebarItemType role={disabled ? 'presentation' : undefined}>
+    {children}
+  </SidebarItemType>
 );
 
 export default SidebarItem;

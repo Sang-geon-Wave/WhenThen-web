@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Body = styled.nav`
+const SidebarBodyType = styled.nav`
   min-width: 200px;
   max-width: 400px;
   align: right;
@@ -12,6 +12,8 @@ interface PropsSidebar {
   children: React.ReactNode;
 }
 
-const Sidebar = ({ children }: PropsSidebar) => <Body>{children}</Body>;
+const Sidebar = ({ children }: PropsSidebar) => (
+  <SidebarBodyType>{children}</SidebarBodyType>
+);
 
 export default Sidebar;
