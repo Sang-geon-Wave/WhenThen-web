@@ -1,17 +1,19 @@
 import React from 'react';
 import useRootData from '../../hooks/useRootData';
+import TimelineDummyCardComponent, {
+  ProbsTimelineDummyCardComponent,
+} from '../TimelineDummyCardComponent';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import TimelineCardsComponent from '../TimelineCardsComponent';
 
 export interface ProbsTimelineDateComponent {
   date: string;
   message: string;
-  children: React.ReactElement[];
+  cards: ProbsTimelineDummyCardComponent[];
 }
 
 const TimelineDateComponent: React.FunctionComponent<
   ProbsTimelineDateComponent
-> = ({ date, message, children }) => {
+> = ({ date, message, cards }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -24,8 +26,11 @@ const TimelineDateComponent: React.FunctionComponent<
       <div className={styles.timelineDateCardTitle}>{date}</div>
       <br></br>
       {message}
-      {children.map((child, index) => (
-        <TimelineCardsComponent key={index}>{child}</TimelineCardsComponent>
+      {cards.map((card, index) => (
+        <TimelineDummyCardComponent
+          key={index}
+          {...card}
+        ></TimelineDummyCardComponent>
       ))}
     </div>
   );

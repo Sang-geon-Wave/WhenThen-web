@@ -3,13 +3,13 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
-export interface ProbsTimelineCardsComponent {
-  children: React.ReactNode;
+export interface ProbsTimelineDummyCardComponent {
+  text: string;
 }
 
-const TimelineCardsComponent: React.FunctionComponent<
-  ProbsTimelineCardsComponent
-> = ({ children }) => {
+const TimelineDummyCardComponent: React.FunctionComponent<
+  ProbsTimelineDummyCardComponent
+> = ({ text }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -20,9 +20,9 @@ const TimelineCardsComponent: React.FunctionComponent<
 
   return (
     <div className={styles.dummyCard}>
-      <div>{children}</div>
+      <div>{text}</div>
     </div>
   );
 };
 
-export default TimelineCardsComponent;
+export default TimelineDummyCardComponent;
