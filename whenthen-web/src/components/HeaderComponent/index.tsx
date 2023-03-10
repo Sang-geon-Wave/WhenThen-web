@@ -1,5 +1,5 @@
 import React from 'react';
-import useRootData from '../../../hooks/useRootData';
+import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { observer } from 'mobx-react-lite';
 import { action, observe } from 'mobx';
