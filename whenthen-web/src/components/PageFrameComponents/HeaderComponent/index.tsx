@@ -1,29 +1,30 @@
 import React from 'react';
 import useRootData from '../../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import { useObserver } from 'mobx-react-lite';
+import { observer } from 'mobx-react-lite';
+import { action, observe } from 'mobx';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
 const HeaderComponent = () => {
-  const { loginStore } = useRootData(({ loginStore }) => ({
-    loginStore: loginStore,
-  }));
+  const { screenClass, isLogin, changeLoginState } = useRootData(
+    ({ appStore, loginStore }) => ({
+      screenClass: appStore.screenClass.get(),
+      isLogin: loginStore.isLogin.get(),
+      changeLoginState: loginStore.changeLoginState,
+    }),
+  );
+
+  const isDesktop = screenClass === 'xl';
+
   let myPageSignInButtonClicked = () => {
-    !!loginStore.isLogin ? alert('logout!') : alert('login!');
-    !!loginStore.isLogin
-      ? loginStore.changeLoginState(false)
-      : loginStore.changeLoginState(true);
+    !!isLogin ? alert('logout!') : alert('login!');
+    !!isLogin ? changeLoginState(false) : changeLoginState(true);
+    console.log(isLogin);
   };
   let signUpLogoutButtonClicked = () => {
-    !!loginStore.isLogin ? alert('logout!') : alert('sign up!');
-    !!loginStore.isLogin
-      ? loginStore.changeLoginState(false)
-      : loginStore.changeLoginState(false); // 회원가입 페이지로 이동
+    !!isLogin ? alert('logout!') : alert('sign up!');
+    !!isLogin ? changeLoginState(false) : changeLoginState(false); // 회원가입 페이지로 이동
   };
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
-  const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
@@ -45,13 +46,13 @@ const HeaderComponent = () => {
         className={styles.topBarButton}
         onClick={() => signUpLogoutButtonClicked()}
       >
-        {!!loginStore.isLogin ? <span>log out</span> : <span>sign up</span>}
+        {!!isLogin ? <span>log out</span> : <span>sign up</span>}
       </div>
       <div
         className={styles.topBarButton}
         onClick={() => myPageSignInButtonClicked()}
       >
-        {!!loginStore.isLogin ? (
+        {!!isLogin ? (
           <a href="#">
             <img
               className={styles.myPageImg}
