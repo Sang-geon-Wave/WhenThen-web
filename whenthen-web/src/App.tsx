@@ -2,7 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LandingPage from './pages/Landing';
 import MockPage from './pages/MockPage';
+import SidebarComponent from './components/SideBarComponent';
 import TimelineDatePage from './pages/TimelineDatePage';
+
 
 const App = () => (
   <Router>
