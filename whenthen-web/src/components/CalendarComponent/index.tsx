@@ -6,13 +6,25 @@ import daygridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import './dateColor.scss';
 
-const CalendarComponent = () => {
-  const CalendarStyle = stylesDesktopDefault;
+export interface Dates {
+  title: string;
+  date: string;
+}
+
+const CalendarComponent: React.FunctionComponent<Dates> = ({
+  title = 'test 3',
+  date = '2023-03-15',
+}) => {
+  const { screenClass } = useRootData(({ appStore }) => ({
+    screenClass: appStore.screenClass.get(),
+  }));
+  const isDesktop = screenClass === 'xl';
+  const style = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   return (
     <div>
-      <div className={CalendarStyle.test}>headline</div>
-      <div className={CalendarStyle.calendar} style={{ margin: '50px' }}>
+      <div className={style.test}>headline</div>
+      <div className={style.calendar} style={{ margin: '50px' }}>
         <FullCalendar
           initialView="dayGridMonth"
           plugins={[daygridPlugin, interactionPlugin]}
@@ -25,6 +37,7 @@ const CalendarComponent = () => {
           events={[
             { title: 'test 1', date: '2023-03-10' },
             { title: 'test 2', date: '2023-03-20' },
+            { title: title, date: date },
           ]}
         />
       </div>
