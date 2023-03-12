@@ -1,0 +1,32 @@
+@import '../../assets/scsses/config';
+
+.card {
+  background: $blue-light-grey1;
+  overflow: hidden;
+  transition: 0.3s;
+  border-radius: 5px;
+  width: 300px;
+  padding: 10px 10px;
+  margin: 5px 5px 5px 5px;
+}
+
+.container {
+  padding: 2px 16px;
+}
+
+.image {
+  width: 100%;
+  border-radius: 5px 5px 0 0;
+}
+
+.title {
+  font-size: 14px;
+}
+
+.subtitle {
+  font-size: 20px;
+}
+
+.content {
+  font-size: 15px;
+}
