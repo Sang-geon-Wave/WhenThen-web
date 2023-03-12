@@ -12,7 +12,6 @@ const App = () => (
       <Route path="/mock" element={<MockPage />} />
       <Route path="/timeline-date" element={<TimelineDatePage />} />
       <Route path="/" element={<LandingPage />} />
-      <Route path="/introduction" element={<IntroductionCardPage />} />
     </Routes>
   </Router>
 );
