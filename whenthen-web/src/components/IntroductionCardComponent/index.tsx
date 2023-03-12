@@ -17,12 +17,11 @@ const IntroductionCardComponent: React.FunctionComponent<
   }));
   const isDesktop = screenClass === 'xl';
 
-  // mobile style not exist
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   return (
     <div className={styles.card}>
-      <img className={styles.image} alt="No Image" src={imgUrl} />
+      {imgUrl && <img className={styles.image} alt="No Image" src={imgUrl} />}
       <div className={styles.container}>
         <h2 className={styles.title}>{title}</h2>
         <h1 className={styles.subtitle}>{subtitle}</h1>

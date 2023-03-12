@@ -4,7 +4,6 @@ import LandingPage from './pages/Landing';
 import MockPage from './pages/MockPage';
 import SidebarComponent from './components/SideBarComponent';
 import TimelineDatePage from './pages/TimelineDatePage';
-import IntroductionCardPage from './pages/IntroductionCardPage';
 
 const App = () => (
   <Router>
