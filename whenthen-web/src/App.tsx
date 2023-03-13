@@ -5,7 +5,6 @@ import MockPage from './pages/MockPage';
 import SidebarComponent from './components/SideBarComponent';
 import TimelineDatePage from './pages/TimelineDatePage';
 
-
 const App = () => (
   <Router>
     <Routes>
