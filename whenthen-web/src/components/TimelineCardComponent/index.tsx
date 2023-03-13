@@ -1,28 +1,35 @@
 import React, { useState } from 'react';
+import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 
-export interface TimelineCardComponent {
+export interface ProbsTimelineCardComponent {
   title: string;
   sub?: string;
   imgUrl?: string;
   content?: string;
 }
 
-const Card: React.FunctionComponent<TimelineCardComponent> = ({
+const TimelineCardComponent: React.FunctionComponent<
+  ProbsTimelineCardComponent
+> = ({
   title,
   sub = '아직 정보가 없어요',
   imgUrl,
   content = '아직 정보가 없어요',
 }) => {
-  const cardStyles = stylesDesktopDefault;
-  const contentLineNo: number = content.split('\n').length;
-  const FS: number = 14;
-  let [more, detail] = useState(false);
+  const { screenClass } = useRootData(({ appStore }) => ({
+    screenClass: appStore.screenClass.get(),
+  }));
+  const isDesktop = screenClass === 'xl';
+  const cardStyles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+
+  const [more, detail] = useState(false);
   const set_detail = () => {
     if (content === '아직 정보가 없어요') return;
     if (more === false) detail(true);
     else detail(false);
   };
+
   return (
     <div className={cardStyles.mainBlock}>
       <img
@@ -47,10 +54,6 @@ const Card: React.FunctionComponent<TimelineCardComponent> = ({
           className={
             more ? cardStyles.contentClickBlock : cardStyles.contentBlock
           }
-          style={{
-            height: more ? `${FS * (contentLineNo + 1.5)}px` : `${6 * FS}px`,
-            fontSize: `${FS}px`,
-          }}
         >
           {content}
         </textarea>
@@ -67,4 +70,4 @@ const Card: React.FunctionComponent<TimelineCardComponent> = ({
   );
 };
 
-export default Card;
+export default TimelineCardComponent;
