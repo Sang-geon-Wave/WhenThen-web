@@ -1,48 +1,53 @@
 @import '../../assets/scsses/config';
+* {
+  text-align: -webkit-match-parent;
+}
+a {
+  color: black !important;
+  text-decoration: none !important;
+}
 
-.logo {
-  position: relative;
-  // background-color: white;
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
   display: flex;
-  flex-direction: row;
-  margin-top: 2vh;
-  margin-left: 2vh;
-  margin-right: 2vh;
-  height: 4vh;
-  width: 60vh;
-  font-size: 4vh;
+  justify-content: space-between;
+  height: 50px;
+  background-color: beige;
+  overflow: hidden;
+}
+.logo {
+  display: block;
+  font-size: 30px;
+  color: white;
 }
 .logoImg {
-  position: relative;
-  width: 4vh;
-  height: 4vh;
+  margin: 0, 0, 170, 36;
+  fill: inherit;
+  fill-rule: nonzero;
+  max-width: 50px;
+  max-height: 50px;
+}
+.nav {
+  display: flex;
 }
 .myPageImg {
-  width: 4vh;
-  height: 4vh;
-}
-.topBarBlank {
-  position: relative;
-  width: 100%;
-  height: 100%;
+  margin: 0, 0, 170, 36;
+  fill: inherit;
+  fill-rule: nonzero;
+  max-width: 50px;
+  max-height: 50px;
 }
 .topBarButton {
-  position: relative;
-  margin-right: 1vh;
-  height: 5vh;
-  width: 25vh;
-  text-align: center;
-  font-size: 2vh;
-  display: inline;
-  background-color: white;
-  border-radius: 25px;
+  display: inline-block;
+  font-size: 20px;
+  margin-left: 2vw;
+  margin-right: 2vw;
+  color: black;
 }
-.header {
-  align-items: center;
-  position: fixed;
-  display: flex;
-  height: 7vh;
-  width: 100%;
-  background-color: beige;
-  font-size: larger;
+.topBarButton > span {
+  position: relative;
+  top: 12%;
 }

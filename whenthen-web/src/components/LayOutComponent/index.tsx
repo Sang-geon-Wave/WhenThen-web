@@ -1,28 +1,30 @@
 import React from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
+import HeaderComponent from '../HeaderComponent';
+import FooterComponent from '../FooterComponent';
+import SidebarComponent from '../SideBarComponent';
 // import stylesMobileDefault from './MobileDefault.module.scss';
+import { observer } from 'mobx-react-lite';
+import { action, observe } from 'mobx';
 
-const FooterComponent = () => {
+const LayOutComponent = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
+
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
-    <div className={styles.footer}>
-      <div>
-        <li>정보1</li>
-        <li>정보2</li>
-        <li>정보3</li>
+    <div>
+      <HeaderComponent />
+      <div className={styles.mainBlock}>
+        <SidebarComponent />
       </div>
-      <div className={styles.linkButtonSet}>
-        <div className={styles.linkButton}>git</div>
-        <div className={styles.linkButton}>notion</div>
-        <div className={styles.linkButton}></div>
-      </div>
+      <FooterComponent />
     </div>
   );
 };
-export default FooterComponent;
+
+export default LayOutComponent;
