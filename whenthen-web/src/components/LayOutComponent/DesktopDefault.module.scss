@@ -1,6 +1,22 @@
 @import '../../assets/scsses/config';
 .mainBlock {
-  position: inherit;
+  position: relative;
   margin-top: 50px;
   min-height: 150vh;
+}
+.sideBarArea {
+  position: absolute;
+  width: 200px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+.mainContentArea {
+  position: absolute;
+  vertical-align: middle;
+  // width: ;
+  top: 0;
+  left: 200px;
+  right: 0;
+  bottom: 0;
 }

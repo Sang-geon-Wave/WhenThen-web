@@ -4,7 +4,6 @@
   margin-top: 50px;
   position: fixed;
   width: 200px;
-  align-items: right;
   padding-left: 20px;
   background: #0f2b0f;
   top: 0;
@@ -39,10 +38,10 @@
   font-weight: bold;
 }
 .sideBarItem {
+  margin-top: 10px;
   margin: 8;
 }
 .sideBarList {
-  // display: ${(p) => (p.expanded ? 'block' : 'none')};
   padding-left: 20px;
   list-style: none;
 }

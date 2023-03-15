@@ -8,7 +8,11 @@ import SidebarComponent from '../SideBarComponent';
 import { observer } from 'mobx-react-lite';
 import { action, observe } from 'mobx';
 
-const LayOutComponent = () => {
+interface PropsLayOutComponent {
+  mainContent: JSX.Element;
+}
+
+const LayOutComponent = (props: PropsLayOutComponent) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -16,11 +20,15 @@ const LayOutComponent = () => {
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+  const { mainContent } = props;
   return (
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
-        <SidebarComponent />
+        <div className={styles.sideBarArea}>
+          <SidebarComponent />
+        </div>
+        <div className={styles.mainContentArea}>{mainContent}</div>
       </div>
       <FooterComponent />
     </div>
