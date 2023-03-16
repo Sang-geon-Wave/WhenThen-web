@@ -1,4 +1,17 @@
-const movie1 = {
+interface movieContent {
+  title: string;
+  sub?: string;
+  imgUrl?: string;
+  content?: string;
+}
+
+interface movieData {
+  date: string;
+  message: string;
+  cards: movieContent[];
+}
+
+const movie1: movieData = {
   date: '2023-01-01',
   message: '1더덕',
   cards: [
@@ -39,7 +52,7 @@ const movie1 = {
   ],
 };
 
-const movie2 = {
+const movie2: movieData = {
   date: '2023-01-02',
   message: '2더덕',
   cards: [
@@ -61,7 +74,7 @@ const movie2 = {
   ],
 };
 
-const movie3 = {
+const movie3: movieData = {
   date: '2023-01-02',
   message: '3더덕',
   cards: [
@@ -71,6 +84,6 @@ const movie3 = {
   ],
 };
 
-const list: any[] = [movie1, movie2, movie3];
+const timeLineMockDatas: movieData[] = [movie1, movie2, movie3];
 
-export default list;
+export default timeLineMockDatas;

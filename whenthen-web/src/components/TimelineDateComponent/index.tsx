@@ -2,17 +2,17 @@ import React from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import TimelineCardComponent, {
-  ProbsTimelineCardComponent,
+  PropsTimelineCardComponent,
 } from '../TimelineCardComponent';
 
-export interface ProbsTimelineDateComponent {
+export interface PropsTimelineDateComponent {
   date: string;
   message: string;
-  cards: ProbsTimelineCardComponent[];
+  cards: PropsTimelineCardComponent[];
 }
 
 const TimelineDateComponent: React.FunctionComponent<
-  ProbsTimelineDateComponent
+  PropsTimelineDateComponent
 > = ({ date, message, cards }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
@@ -24,14 +24,13 @@ const TimelineDateComponent: React.FunctionComponent<
   return (
     <div className={styles.timelineDateContainer}>
       <div className={styles.timelineDateCardTitle}>{date}</div>
-      <br></br>
       {message}
-      {cards.map((val) => (
+      {cards.map((card) => (
         <TimelineCardComponent
-          title={val.title}
-          sub={val.sub}
-          imgUrl={val.imgUrl}
-          content={val.content}
+          title={card.title}
+          sub={card.sub}
+          imgUrl={card.imgUrl}
+          content={card.content}
         ></TimelineCardComponent>
       ))}
     </div>

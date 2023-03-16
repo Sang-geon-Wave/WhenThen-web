@@ -1,24 +1,15 @@
 import React from 'react';
-import TimelineDateComponent, {
-  ProbsTimelineDateComponent,
-} from '../../components/TimelineDateComponent';
-import list from '../../assets/strings/TimeLinePage/testData';
+import TimelineDateComponent from '../../components/TimelineDateComponent';
+import timeLineMockDatas from '../../assets/strings/TimeLinePage/testData';
 
-export interface ProbsTimelinePage {
-  data: ProbsTimelineDateComponent[];
-}
-
-const TimelinePage: React.FunctionComponent<ProbsTimelinePage> = ({ data }) => {
-  if (data === null) {
-    data = list;
-  }
+const TimelinePage = () => {
   return (
     <div>
-      {data.map((val) => (
+      {timeLineMockDatas.map((timelineData) => (
         <TimelineDateComponent
-          date={val.date}
-          message={val.message}
-          cards={val.cards}
+          date={timelineData.date}
+          message={timelineData.message}
+          cards={timelineData.cards}
         ></TimelineDateComponent>
       ))}
     </div>

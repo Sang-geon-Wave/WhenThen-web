@@ -2,20 +2,25 @@ import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 
-export interface ProbsTimelineCardComponent {
+export interface PropsTimelineCardComponent {
   title: string;
   sub?: string;
   imgUrl?: string;
   content?: string;
 }
 
+enum DefaultEnum {
+  sub = 0,
+  content = 1,
+}
+
 const TimelineCardComponent: React.FunctionComponent<
-  ProbsTimelineCardComponent
+  PropsTimelineCardComponent
 > = ({
   title,
-  sub = '아직 정보가 없어요',
+  sub = DefaultEnum.sub,
   imgUrl,
-  content = '아직 정보가 없어요',
+  content = DefaultEnum.content,
 }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
@@ -23,11 +28,10 @@ const TimelineCardComponent: React.FunctionComponent<
   const isDesktop = screenClass === 'xl';
   const cardStyles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  const [more, detail] = useState(false);
-  const set_detail = () => {
-    if (content === '아직 정보가 없어요') return;
-    if (more === false) detail(true);
-    else detail(false);
+  const [moreInfo, setMoreInfo] = useState(false);
+  const switchMoreInfoState = () => {
+    if (content === DefaultEnum.content) return;
+    setMoreInfo(!moreInfo);
   };
 
   return (
@@ -38,31 +42,31 @@ const TimelineCardComponent: React.FunctionComponent<
         className={cardStyles.imgBlock}
       />
       <div className={cardStyles.movieIntroduceBlock}>
-        <h1 style={{ fontSize: more ? '5vh' : '10vh' }}>Title: {title}</h1>
+        <h1 style={{ fontSize: moreInfo ? '5vh' : '10vh' }}>Title: {title}</h1>
         <h2
           style={{
-            fontSize: more ? '2.5vh' : '4vh',
+            fontSize: moreInfo ? '2.5vh' : '4vh',
             color: 'rgb(188, 188, 188)',
           }}
         >
-          {sub}
+          {sub === DefaultEnum.sub ? '아직 정보가 없습니다.' : sub}
         </h2>
         <hr />
         <textarea
-          onClick={set_detail}
+          onClick={switchMoreInfoState}
           readOnly
           className={
-            more ? cardStyles.contentClickBlock : cardStyles.contentBlock
+            moreInfo ? cardStyles.contentClickBlock : cardStyles.contentBlock
           }
         >
-          {content}
+          {content === DefaultEnum.content ? '아직 정보가 없습니다.' : content}
         </textarea>
         <hr />
-        {more && (
-          <div className={cardStyles.morePageButton}>
-            <button>좋아요</button>
-            <button>구독</button>
-            <button>알림설정</button>
+        {moreInfo && (
+          <div className={cardStyles.moreInfoButtonBlock}>
+            <button className={cardStyles.moreInfoButton}>좋아요</button>
+            <button className={cardStyles.moreInfoButton}>구독</button>
+            <button className={cardStyles.moreInfoButton}>알림설정</button>
           </div>
         )}
       </div>

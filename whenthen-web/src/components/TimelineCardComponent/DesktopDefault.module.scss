@@ -52,8 +52,12 @@ $baseFont: 14px;
   font-size: $baseFont;
 }
 
-.morePageButton {
+.moreInfoButtonBlock {
   display: inline-block;
   text-align: right;
   width: 100%;
+}
+
+.moreInfoButton {
+  margin-left: 5px;
 }
