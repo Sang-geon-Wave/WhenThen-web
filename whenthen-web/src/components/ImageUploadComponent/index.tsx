@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
 export interface PropsImageUploadComponent {
