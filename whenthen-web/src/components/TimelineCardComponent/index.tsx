@@ -10,27 +10,24 @@ export interface PropsTimelineCardComponent {
 }
 
 enum DefaultEnum {
-  sub = 0,
-  content = 1,
+  defaultText = '아직 정보가 없어요',
 }
 
 const TimelineCardComponent: React.FunctionComponent<
   PropsTimelineCardComponent
-> = ({
-  title,
-  sub = DefaultEnum.sub,
-  imgUrl,
-  content = DefaultEnum.content,
-}) => {
+> = ({ title, sub, imgUrl, content }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
   const isDesktop = screenClass === 'xl';
   const cardStyles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
+  sub = sub == null ? DefaultEnum.defaultText : sub;
+  content = content == null ? DefaultEnum.defaultText : content;
+
   const [moreInfo, setMoreInfo] = useState(false);
   const switchMoreInfoState = () => {
-    if (content === DefaultEnum.content) return;
+    if (content === DefaultEnum.defaultText) return;
     setMoreInfo(!moreInfo);
   };
 
@@ -49,7 +46,7 @@ const TimelineCardComponent: React.FunctionComponent<
             color: 'rgb(188, 188, 188)',
           }}
         >
-          {sub === DefaultEnum.sub ? '아직 정보가 없습니다.' : sub}
+          {sub}
         </h2>
         <hr />
         <textarea
@@ -59,7 +56,7 @@ const TimelineCardComponent: React.FunctionComponent<
             moreInfo ? cardStyles.contentClickBlock : cardStyles.contentBlock
           }
         >
-          {content === DefaultEnum.content ? '아직 정보가 없습니다.' : content}
+          {content}
         </textarea>
         <hr />
         {moreInfo && (

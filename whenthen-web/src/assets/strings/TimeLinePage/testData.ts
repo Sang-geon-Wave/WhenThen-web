@@ -1,20 +1,9 @@
-interface movieContent {
-  title: string;
-  sub?: string;
-  imgUrl?: string;
-  content?: string;
-}
-
-interface movieData {
-  date: string;
-  message: string;
-  cards: movieContent[];
-}
+import { movieData } from '../../../types/movieData';
 
 const movie1: movieData = {
-  date: '2023-01-01',
-  message: '1더덕',
-  cards: [
+  Date: '2023-01-01',
+  Message: '1더덕',
+  Cards: [
     {
       title: '아바타1',
       sub: 'SF | 미국 | 166분 | 2009',
@@ -53,9 +42,9 @@ const movie1: movieData = {
 };
 
 const movie2: movieData = {
-  date: '2023-01-02',
-  message: '2더덕',
-  cards: [
+  Date: '2023-01-02',
+  Message: '2더덕',
+  Cards: [
     {
       title: '아바타2',
       sub: '액션 | 미국 | 192분 | 2022',
@@ -75,15 +64,15 @@ const movie2: movieData = {
 };
 
 const movie3: movieData = {
-  date: '2023-01-02',
-  message: '3더덕',
-  cards: [
+  Date: '2023-01-02',
+  Message: '3더덕',
+  Cards: [
     {
       title: '아바타3',
     },
   ],
 };
 
-const timeLineMockDatas: movieData[] = [movie1, movie2, movie3];
+const timeLineMockDataList: movieData[] = [movie1, movie2, movie3];
 
-export default timeLineMockDatas;
+export default timeLineMockDataList;

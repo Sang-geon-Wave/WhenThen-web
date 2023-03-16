@@ -1,15 +1,15 @@
 import React from 'react';
 import TimelineDateComponent from '../../components/TimelineDateComponent';
-import timeLineMockDatas from '../../assets/strings/TimeLinePage/testData';
+import timeLineMockDataList from '../../assets/strings/TimeLinePage/testData';
 
 const TimelinePage = () => {
   return (
     <div>
-      {timeLineMockDatas.map((timelineData) => (
+      {timeLineMockDataList.map((timelineData) => (
         <TimelineDateComponent
-          date={timelineData.date}
-          message={timelineData.message}
-          cards={timelineData.cards}
+          date={timelineData.Date}
+          message={timelineData.Message}
+          cards={timelineData.Cards}
         ></TimelineDateComponent>
       ))}
     </div>
