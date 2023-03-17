@@ -1,7 +1,7 @@
 import { PropsTimelineCardComponent } from '../../components/TimelineCardComponent';
 
-export interface movieData {
-  Date: string;
-  Message: string;
-  Cards: PropsTimelineCardComponent[];
+export interface MovieData {
+  date: string;
+  message: string;
+  cards: PropsTimelineCardComponent[];
 }

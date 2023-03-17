@@ -10,7 +10,7 @@ export interface PropsTimelineCardComponent {
 }
 
 enum DefaultEnum {
-  defaultText = '아직 정보가 없어요',
+  DefaultText = '아직 정보가 없어요',
 }
 
 const TimelineCardComponent: React.FunctionComponent<
@@ -22,12 +22,12 @@ const TimelineCardComponent: React.FunctionComponent<
   const isDesktop = screenClass === 'xl';
   const cardStyles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  sub = sub == null ? DefaultEnum.defaultText : sub;
-  content = content == null ? DefaultEnum.defaultText : content;
+  sub = sub == null ? DefaultEnum.DefaultText : sub;
+  content = content == null ? DefaultEnum.DefaultText : content;
 
   const [moreInfo, setMoreInfo] = useState(false);
   const switchMoreInfoState = () => {
-    if (content === DefaultEnum.defaultText) return;
+    if (content === DefaultEnum.DefaultText) return;
     setMoreInfo(!moreInfo);
   };
 

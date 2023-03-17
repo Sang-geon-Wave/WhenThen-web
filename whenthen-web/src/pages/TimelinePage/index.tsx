@@ -7,10 +7,10 @@ const TimelinePage = () => {
     <div>
       {timeLineMockDataList.map((timelineData) => (
         <TimelineDateComponent
-          date={timelineData.Date}
-          message={timelineData.Message}
-          cards={timelineData.Cards}
-        ></TimelineDateComponent>
+          date={timelineData.date}
+          message={timelineData.message}
+          cards={timelineData.cards}
+        />
       ))}
     </div>
   );
