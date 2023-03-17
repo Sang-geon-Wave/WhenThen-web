@@ -23,12 +23,8 @@ const LocationInputComponent: React.FunctionComponent = () => {
   };
 
   const handleComplete = (data: any) => {
-    // let fullAddress = data.address;
     setLocationAddress(data.address);
-    console.log(`
-                주소: ${data.address},
-                우편번호: ${data.zonecode}
-            `);
+    setIsSearchBtnClick(false);
   };
 
   return (
@@ -46,7 +42,10 @@ const LocationInputComponent: React.FunctionComponent = () => {
           주소검색
         </Button>
         {isSearchBtnClick && (
-          <DaumPostcode onComplete={handleComplete}></DaumPostcode>
+          <DaumPostcode
+            onComplete={handleComplete}
+            autoClose={false}
+          ></DaumPostcode>
         )}
       </InputGroup>
     </div>

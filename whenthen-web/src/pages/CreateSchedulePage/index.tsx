@@ -6,7 +6,7 @@ import ImageUploadComponent from '../../components/ImageUploadComponent';
 import { Button, Form } from 'react-bootstrap';
 import LocationInputComponent from '../../components/LocationInputComponent';
 
-const CreatePage = () => {
+const CreateSchedulePage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -58,4 +58,4 @@ const CreatePage = () => {
   );
 };
 
-export default CreatePage;
+export default CreateSchedulePage;
