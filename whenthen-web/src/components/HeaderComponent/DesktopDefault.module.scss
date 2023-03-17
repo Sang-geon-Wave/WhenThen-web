@@ -11,12 +11,12 @@ a {
   position: fixed;
   top: 0;
   right: 0;
-  left: 60px;
+  left: 0;
   display: flex;
   justify-content: space-between;
   height: 50px;
   background-color: beige;
-  overflow: hidden;
+  z-index: 100;
 }
 .logo {
   display: block;

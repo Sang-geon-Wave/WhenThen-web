@@ -1,64 +1,99 @@
 import React from 'react';
+import { Nav, Navbar, NavbarBrand, NavDropdown } from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import { observer } from 'mobx-react-lite';
-import { action, observe } from 'mobx';
 // import stylesMobileDefault from './MobileDefault.module.scss';
+import MyPageImg from '../../assets/images/person.svg';
+import HambergerImg from '../../assets/images/list.svg';
 
 const HeaderComponent = () => {
-  const { screenClass, isLogin, changeLoginState } = useRootData(
-    ({ appStore, loginStore }) => ({
-      screenClass: appStore.screenClass.get(),
-      isLogin: loginStore.isLogin.get(),
-      changeLoginState: loginStore.changeLoginState,
-    }),
-  );
+  const {
+    screenClass,
+    isLogin,
+    changeLoginState,
+    isSideBarVisible,
+    changeSideBarState,
+  } = useRootData(({ appStore, loginStore, sideBarStore }) => ({
+    screenClass: appStore.screenClass.get(),
+    isLogin: loginStore.isLogin.get(),
+    changeLoginState: loginStore.changeLoginState,
+    isSideBarVisible: sideBarStore.isVisible.get(),
+    changeSideBarState: sideBarStore.changeSideBarState,
+  }));
 
   const isDesktop = screenClass === 'xl';
 
-  let myPageSignInButtonClicked = () => {
-    !!isLogin ? alert('logout!') : alert('login!');
-    !!isLogin ? changeLoginState(false) : changeLoginState(true);
+  let logInButtonClicked = () => {
+    alert('login!');
+    changeLoginState(true);
     console.log(isLogin);
   };
-  let signUpLogoutButtonClicked = () => {
-    !!isLogin ? alert('logout!') : alert('sign up!');
-    !!isLogin ? changeLoginState(false) : changeLoginState(false); // 회원가입 페이지로 이동
+
+  let LogOutButtonClicked = () => {
+    alert('logout!');
+    changeLoginState(false);
+    console.log(isLogin);
+  };
+  let SideBarButtonClicked = () => {
+    changeSideBarState(!isSideBarVisible);
+    console.log(isSideBarVisible);
   };
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
     <div className={styles.header}>
-      <div className={styles.logo}>
-        <a href="#">
-          <span>WhenThen</span>
-        </a>
-      </div>
-      <div className={styles.nav}>
-        <div className={styles.topBarButton}>
-          <span>about</span>
-        </div>
-        <div
-          className={styles.topBarButton}
-          onClick={() => signUpLogoutButtonClicked()}
-        >
-          {!!isLogin ? <span>log out</span> : <span>sign up</span>}
-        </div>
-        <div
-          className={styles.topBarButton}
-          onClick={() => myPageSignInButtonClicked()}
-        >
-          {!!isLogin ? (
+      <Navbar>
+        {screenClass === 'xl' ? (
+          <></>
+        ) : (
+          <img
+            src={HambergerImg}
+            width="50px"
+            onClick={() => SideBarButtonClicked()}
+          ></img>
+        )}
+        <NavbarBrand>
+          <div className={styles.logo}>
             <a href="#">
               <img
-                className={styles.myPageImg}
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpaboC_OonRfowhuzgVIZ7BkLQYiWNeSQkfA&usqp=CAU"
+                className={styles.logoImg}
+                src="https://pbs.twimg.com/profile_images/1121985451907137536/2Uq0Ih-2_400x400.jpg"
               />
+              <span>WhenThen</span>
             </a>
-          ) : (
-            <span>sign in</span>
-          )}
-        </div>
+          </div>
+        </NavbarBrand>
+      </Navbar>
+      <div className={styles.nav}>
+        {isLogin ? (
+          <NavDropdown
+            title={<img src={MyPageImg} width="50px" />}
+            id="basic-nav-dropdown"
+          >
+            <NavDropdown.Item href="#">Profile</NavDropdown.Item>
+            <NavDropdown.Item href="#">Dash Board</NavDropdown.Item>
+            <NavDropdown.Item href="#">Something</NavDropdown.Item>
+            <NavDropdown.Divider />
+            <NavDropdown.Item href="#" onClick={() => LogOutButtonClicked()}>
+              Log Out
+            </NavDropdown.Item>
+          </NavDropdown>
+        ) : (
+          <>
+            <div className={styles.topBarButton}>
+              <span>about</span>
+            </div>
+            <div className={styles.topBarButton}>
+              <span>sign up</span>
+            </div>
+            <div
+              className={styles.topBarButton}
+              onClick={() => logInButtonClicked()}
+            >
+              <span>sign in</span>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
