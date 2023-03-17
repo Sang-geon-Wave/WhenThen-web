@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
+import { MovieIntro } from '../../types/movieData';
 
 export interface PropsTimelineCardComponent {
-  title: string;
-  sub?: string;
-  imgUrl?: string;
-  content?: string;
+  movieIntro: MovieIntro;
 }
 
 enum DefaultEnum {
@@ -15,15 +13,20 @@ enum DefaultEnum {
 
 const TimelineCardComponent: React.FunctionComponent<
   PropsTimelineCardComponent
-> = ({ title, sub, imgUrl, content }) => {
+> = ({ movieIntro }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
   const isDesktop = screenClass === 'xl';
   const cardStyles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  sub = sub == null ? DefaultEnum.DefaultText : sub;
-  content = content == null ? DefaultEnum.DefaultText : content;
+  const title: string = movieIntro.title;
+  const sub: string =
+    movieIntro.sub == null ? DefaultEnum.DefaultText : movieIntro.sub;
+  const imgUrl: string =
+    movieIntro.imgUrl == null ? DefaultEnum.DefaultText : movieIntro.imgUrl;
+  const content: string =
+    movieIntro.content == null ? DefaultEnum.DefaultText : movieIntro.content;
 
   const [moreInfo, setMoreInfo] = useState(false);
   const switchMoreInfoState = () => {
@@ -49,21 +52,20 @@ const TimelineCardComponent: React.FunctionComponent<
           {sub}
         </h2>
         <hr />
-        <textarea
+        <p
           onClick={switchMoreInfoState}
-          readOnly
           className={
             moreInfo ? cardStyles.contentClickBlock : cardStyles.contentBlock
           }
         >
           {content}
-        </textarea>
+        </p>
         <hr />
         {moreInfo && (
           <div className={cardStyles.moreInfoButtonBlock}>
-            <button className={cardStyles.moreInfoButton}>좋아요</button>
-            <button className={cardStyles.moreInfoButton}>구독</button>
-            <button className={cardStyles.moreInfoButton}>알림설정</button>
+            <button className={cardStyles.moreInfoButton}>추가</button>
+            <button className={cardStyles.moreInfoButton}>삭제</button>
+            <button className={cardStyles.moreInfoButton}>따봉</button>
           </div>
         )}
       </div>

@@ -1,5 +1,6 @@
 $baseColor: rgb(193, 193, 193);
-$baseFont: 14px;
+$baseFont: 15px;
+$baseContainerSize: $baseFont * 5;
 
 .mainBlock {
   margin: 1%;
@@ -37,8 +38,9 @@ $baseFont: 14px;
   width: 100%;
   resize: none;
   overflow: auto;
-  min-height: $baseFont * 16;
+  min-height: $baseContainerSize;
   font-size: $baseFont;
+  white-space: pre-wrap;
 }
 
 .contentBlock {
@@ -48,8 +50,9 @@ $baseFont: 14px;
   width: 100%;
   resize: none;
   overflow: hidden;
-  height: $baseFont * 6;
+  max-height: $baseContainerSize;
   font-size: $baseFont;
+  white-space: pre-wrap;
 }
 
 .moreInfoButtonBlock {

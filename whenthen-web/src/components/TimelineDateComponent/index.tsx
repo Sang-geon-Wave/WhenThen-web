@@ -4,16 +4,15 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import TimelineCardComponent, {
   PropsTimelineCardComponent,
 } from '../TimelineCardComponent';
+import { MovieIntro, MovieListByDate } from '../../types/movieData';
 
 export interface PropsTimelineDateComponent {
-  date: string;
-  message: string;
-  cards: PropsTimelineCardComponent[];
+  movieList: MovieListByDate;
 }
 
 const TimelineDateComponent: React.FunctionComponent<
   PropsTimelineDateComponent
-> = ({ date, message, cards }) => {
+> = ({ movieList }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -21,17 +20,16 @@ const TimelineDateComponent: React.FunctionComponent<
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
+  const date: string = movieList.date;
+  const message: string = movieList.message;
+  const movieItems: MovieIntro[] = movieList.movieItems;
+
   return (
     <div className={styles.timelineDateContainer}>
       <div className={styles.timelineDateCardTitle}>{date}</div>
       {message}
-      {cards.map((card) => (
-        <TimelineCardComponent
-          title={card.title}
-          sub={card.sub}
-          imgUrl={card.imgUrl}
-          content={card.content}
-        ></TimelineCardComponent>
+      {movieItems.map((movieItem) => (
+        <TimelineCardComponent movieIntro={movieItem}></TimelineCardComponent>
       ))}
     </div>
   );

@@ -1,9 +1,9 @@
-import { MovieData } from '../../../types/movieData';
+import { MovieListByDate } from '../../../types/movieData';
 
-const movie1: MovieData = {
+const movie1: MovieListByDate = {
   date: '2023-01-01',
   message: '1더덕',
-  cards: [
+  movieItems: [
     {
       title: '아바타1',
       sub: 'SF | 미국 | 166분 | 2009',
@@ -41,10 +41,10 @@ const movie1: MovieData = {
   ],
 };
 
-const movie2: MovieData = {
+const movie2: MovieListByDate = {
   date: '2023-01-02',
   message: '2더덕',
-  cards: [
+  movieItems: [
     {
       title: '아바타2',
       sub: '액션 | 미국 | 192분 | 2022',
@@ -63,16 +63,16 @@ const movie2: MovieData = {
   ],
 };
 
-const movie3: MovieData = {
+const movie3: MovieListByDate = {
   date: '2023-01-02',
   message: '3더덕',
-  cards: [
+  movieItems: [
     {
       title: '아바타3',
     },
   ],
 };
 
-const timeLineMockDataList: MovieData[] = [movie1, movie2, movie3];
+const timeLineMockDataList: MovieListByDate[] = [movie1, movie2, movie3];
 
 export default timeLineMockDataList;

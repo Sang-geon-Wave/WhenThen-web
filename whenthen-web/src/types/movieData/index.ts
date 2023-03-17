@@ -1,7 +1,12 @@
-import { PropsTimelineCardComponent } from '../../components/TimelineCardComponent';
+export interface MovieIntro {
+  title: string;
+  imgUrl?: string;
+  sub?: string;
+  content?: string;
+}
 
-export interface MovieData {
+export interface MovieListByDate {
   date: string;
   message: string;
-  cards: PropsTimelineCardComponent[];
+  movieItems: MovieIntro[];
 }
