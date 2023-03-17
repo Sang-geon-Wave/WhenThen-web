@@ -3,9 +3,9 @@
 .sideBar {
   margin-top: 50px;
   position: fixed;
-  width: 200px;
-  padding-left: 20px;
-  background: #0f2b0f;
+  width: 180px;
+  padding-left: 10px;
+  background: #c9c990;
   top: 0;
   left: 0;
   bottom: 0;
@@ -13,10 +13,11 @@
 }
 .sideBarLink {
   display: block;
-  margin: 0 calc(20px * -1);
-  padding: 8px 20px;
-  border-radius: 10px;
-  color: #cadbbd;
+  margin: 0px;
+  padding: 4px 0px;
+  border-radius: 0px;
+  font-weight: bold;
+  color: #000000;
   text-decoration: none;
 
   &:hover {
@@ -34,7 +35,7 @@
 }
 .sideBarLink > p {
   color: #a6ff4d;
-  background: #4e524c;
+  background: #83835d;
   font-weight: bold;
 }
 .sideBarItem {

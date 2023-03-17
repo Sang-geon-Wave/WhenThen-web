@@ -11,7 +11,7 @@ a {
   position: fixed;
   top: 0;
   right: 0;
-  left: 0;
+  left: 60px;
   display: flex;
   justify-content: space-between;
   height: 50px;
@@ -24,11 +24,11 @@ a {
   color: white;
 }
 .logoImg {
-  margin: 0, 0, 170, 36;
+  margin: 0, 0, 0, 0;
   fill: inherit;
   fill-rule: nonzero;
-  max-width: 50px;
-  max-height: 50px;
+  max-width: 46px;
+  max-height: 46px;
 }
 .nav {
   display: flex;

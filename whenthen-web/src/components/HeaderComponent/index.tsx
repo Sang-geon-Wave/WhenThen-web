@@ -31,10 +31,6 @@ const HeaderComponent = () => {
     <div className={styles.header}>
       <div className={styles.logo}>
         <a href="#">
-          <img
-            className={styles.logoImg}
-            src="https://pbs.twimg.com/profile_images/1121985451907137536/2Uq0Ih-2_400x400.jpg"
-          />
           <span>WhenThen</span>
         </a>
       </div>
