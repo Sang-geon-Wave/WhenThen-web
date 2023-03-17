@@ -1,20 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import FullCalendar from '@fullcalendar/react';
 import daygridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import './dateColor.scss';
+import dateList from '../../assets/strings/CalendarComponent/dateDummy';
 
-export interface Dates {
-  title: string;
-  date: string;
-}
-
-const CalendarComponent: React.FunctionComponent<Dates> = ({
-  title = 'test 3',
-  date = '2023-03-15',
-}) => {
+const CalendarComponent = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -34,11 +27,10 @@ const CalendarComponent: React.FunctionComponent<Dates> = ({
           eventClick={(arg) => {
             alert(arg.event.title + '\n' + arg.event.start);
           }}
-          events={[
-            { title: 'test 1', date: '2023-03-10' },
-            { title: 'test 2', date: '2023-03-20' },
-            { title: title, date: date },
-          ]}
+          events={dateList.map(({ title, date }) => ({
+            title: title,
+            date: date,
+          }))}
         />
       </div>
     </div>

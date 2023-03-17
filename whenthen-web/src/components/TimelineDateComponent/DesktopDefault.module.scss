@@ -1,0 +1,15 @@
+@import '../../assets/scsses/config';
+
+.timelineDateContainer {
+  display: block;
+  margin: 2%;
+  padding: 2%;
+  border: 1px solid black;
+  background-color: $blue-light-grey1;
+  border-radius: 20px;
+}
+
+.timelineDateCardTitle {
+  font-size: 30px;
+  font-weight: bold;
+}

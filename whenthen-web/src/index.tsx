@@ -6,6 +6,8 @@ import App from './App';
 import { StoreProvider } from './utils/context';
 import reportWebVitals from './reportWebVitals';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
