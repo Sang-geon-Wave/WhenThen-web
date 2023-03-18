@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import { MovieIntro } from '../../types/movieData';
+import { MovieIntro } from '../../types/MovieDataType';
 
 export interface PropsTimelineCardComponent {
   movieIntro: MovieIntro;
