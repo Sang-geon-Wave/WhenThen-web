@@ -4,7 +4,7 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import TimelineCardComponent, {
   PropsTimelineCardComponent,
 } from '../TimelineCardComponent';
-import { MovieIntro, MovieListByDate } from '../../types/movieData';
+import { MovieIntro, MovieListByDate } from '../../types/MovieDataType';
 
 export interface PropsTimelineDateComponent {
   movieList: MovieListByDate;
