@@ -4,7 +4,7 @@ import TimelineDateComponent from '../../components/TimelineDateComponent';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 
-import LayOutComponent from '../../components/LayOutComponent';
+import DefaultLayout from '../../layouts/DefaultLayout';
 
 const LayoutTestPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -17,21 +17,19 @@ const LayoutTestPage = () => {
   const dummyData = [{ text: 'A' }, { text: 'B' }, { text: 'C' }];
 
   return (
-    <LayOutComponent
-      mainContent={
-        <div>
-          {tmpDates.map((val, idx) => {
-            return (
-              <TimelineDateComponent
-                date={val}
-                message={idx + ' 더덕 메시지'}
-                cards={dummyData}
-              ></TimelineDateComponent>
-            );
-          })}
-        </div>
-      }
-    ></LayOutComponent>
+    <DefaultLayout>
+      <div>
+        {tmpDates.map((val, idx) => {
+          return (
+            <TimelineDateComponent
+              date={val}
+              message={idx + ' 더덕 메시지'}
+              cards={dummyData}
+            ></TimelineDateComponent>
+          );
+        })}
+      </div>
+    </DefaultLayout>
   );
 };
 

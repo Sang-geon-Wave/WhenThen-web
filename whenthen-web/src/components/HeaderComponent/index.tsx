@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, Navbar, NavbarBrand, NavDropdown } from 'react-bootstrap';
+import { Nav, NavbarBrand, NavDropdown } from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
@@ -13,81 +13,93 @@ const HeaderComponent = () => {
     changeLoginState,
     isSideBarVisible,
     changeSideBarState,
-  } = useRootData(({ appStore, loginStore, sideBarStore }) => ({
+  } = useRootData(({ appStore, loginStore }) => ({
     screenClass: appStore.screenClass.get(),
     isLogin: loginStore.isLogin.get(),
     changeLoginState: loginStore.changeLoginState,
-    isSideBarVisible: sideBarStore.isVisible.get(),
-    changeSideBarState: sideBarStore.changeSideBarState,
+    isSideBarVisible: appStore.isVisible.get(),
+    changeSideBarState: appStore.changeSideBarState,
   }));
 
   const isDesktop = screenClass === 'xl';
 
-  let logInButtonClicked = () => {
-    alert('login!');
-    changeLoginState(true);
-    console.log(isLogin);
-  };
-
-  let LogOutButtonClicked = () => {
+  const logOutButtonClicked = () => {
     alert('logout!');
     changeLoginState(false);
-    console.log(isLogin);
   };
-  let SideBarButtonClicked = () => {
+  const logInButtonClicked = () => {
+    alert('login!');
+    changeLoginState(true);
+  };
+  const sideBarButtonClicked = () => {
     changeSideBarState(!isSideBarVisible);
     console.log(isSideBarVisible);
+    console.log(screenClass);
   };
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
     <div className={styles.header}>
-      <Navbar>
-        {screenClass === 'xl' ? (
-          <></>
-        ) : (
+      {screenClass === 'xl' ? (
+        <></>
+      ) : (
+        <img
+          src={HambergerImg}
+          width="50px"
+          onClick={() => sideBarButtonClicked()}
+        />
+      )}
+
+      {screenClass === 'xl' ? <></> : <Nav className="me-auto" />}
+      <NavbarBrand href="#">
+        <div className={styles.logo}>
           <img
-            src={HambergerImg}
-            width="50px"
-            onClick={() => SideBarButtonClicked()}
-          ></img>
-        )}
-        <NavbarBrand>
-          <div className={styles.logo}>
-            <a href="#">
-              <img
-                className={styles.logoImg}
-                src="https://pbs.twimg.com/profile_images/1121985451907137536/2Uq0Ih-2_400x400.jpg"
-              />
-              <span>WhenThen</span>
-            </a>
-          </div>
-        </NavbarBrand>
-      </Navbar>
+            className={styles.logoImg}
+            src="https://pbs.twimg.com/profile_images/1121985451907137536/2Uq0Ih-2_400x400.jpg"
+          />
+          <span>WhenThen</span>
+        </div>
+      </NavbarBrand>
+      <Nav className="me-auto" />
       <div className={styles.nav}>
-        {isLogin ? (
+        {!!isLogin ? (
           <NavDropdown
             title={<img src={MyPageImg} width="50px" />}
-            id="basic-nav-dropdown"
+            id="basic-navbar-nav"
           >
-            <NavDropdown.Item href="#">Profile</NavDropdown.Item>
-            <NavDropdown.Item href="#">Dash Board</NavDropdown.Item>
-            <NavDropdown.Item href="#">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#" onClick={() => LogOutButtonClicked()}>
-              Log Out
-            </NavDropdown.Item>
+            <Nav className="me-auto">
+              <NavDropdown.Item href="#">My Page</NavDropdown.Item>
+              <NavDropdown.Item href="#">DashBoard</NavDropdown.Item>
+              <NavDropdown.Item href="#">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item onClick={() => logOutButtonClicked()}>
+                log Out
+              </NavDropdown.Item>
+            </Nav>
           </NavDropdown>
         ) : (
           <>
-            <div className={styles.topBarButton}>
-              <span>about</span>
-            </div>
-            <div className={styles.topBarButton}>
-              <span>sign up</span>
-            </div>
+            {screenClass === 'xl' ? (
+              <>
+                <div
+                  className={styles.topBarButton}
+                  onClick={() => (location.href = '#about')}
+                >
+                  <span>about</span>
+                </div>
+                <div
+                  className={styles.topBarButton}
+                  onClick={() => (location.href = '#signUp')}
+                >
+                  <span>sign up</span>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
             <div
               className={styles.topBarButton}
+              // onClick={() => (location.href = '#signIn')} 변경 예정
               onClick={() => logInButtonClicked()}
             >
               <span>sign in</span>

@@ -22,7 +22,6 @@
   left: 0;
   bottom: 0;
   z-index: 99;
-  visibility: hidden;
 }
 .sideBarAreaHide {
   position: absolute;
@@ -36,7 +35,6 @@
 .mainContentArea {
   position: absolute;
   vertical-align: middle;
-  // width: ;
   top: 50px;
   left: 0px;
   right: 0;
