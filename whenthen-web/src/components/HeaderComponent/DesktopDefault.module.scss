@@ -1,0 +1,48 @@
+@import '../../assets/scsses/config';
+
+.logo {
+  position: relative;
+  // background-color: white;
+  display: flex;
+  flex-direction: row;
+  margin-top: 2vh;
+  margin-left: 2vh;
+  margin-right: 2vh;
+  height: 4vh;
+  width: 60vh;
+  font-size: 4vh;
+}
+.logoImg {
+  position: relative;
+  width: 4vh;
+  height: 4vh;
+}
+.myPageImg {
+  width: 4vh;
+  height: 4vh;
+}
+.topBarBlank {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.topBarButton {
+  position: relative;
+  margin-right: 1vh;
+  height: 5vh;
+  width: 25vh;
+  text-align: center;
+  font-size: 2vh;
+  display: inline;
+  background-color: white;
+  border-radius: 25px;
+}
+.header {
+  align-items: center;
+  position: fixed;
+  display: flex;
+  height: 7vh;
+  width: 100%;
+  background-color: beige;
+  font-size: larger;
+}

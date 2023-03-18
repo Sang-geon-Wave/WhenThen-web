@@ -1,0 +1,10 @@
+.carousel {
+  overflow: hidden;
+  width: 500px;
+}
+
+.carouselInner {
+  white-space: nowrap;
+  transition: transform 0.1s ease;
+  will-change: transform;
+}
