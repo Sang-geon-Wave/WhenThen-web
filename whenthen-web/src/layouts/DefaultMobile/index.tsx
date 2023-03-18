@@ -5,24 +5,23 @@ import HeaderComponent from '../../components/HeaderComponent';
 import FooterComponent from '../../components/FooterComponent';
 import SidebarComponent from '../../components/SideBarComponent';
 import stylesMobileDefault from './MobileDefault.module.scss';
-type Props = {
+interface Props {
   children: React.ReactNode;
-};
+}
 const DefaultMobile = ({ children }: Props) => {
   const {
     screenClass,
     isLogin,
     changeLoginState,
-    isSideBarVisible,
-    changeSideBarState,
+    sideBarVisibility,
+    changeSideBarVisibility,
   } = useRootData(({ appStore, loginStore }) => ({
     screenClass: appStore.screenClass.get(),
     isLogin: loginStore.isLogin.get(),
     changeLoginState: loginStore.changeLoginState,
-    isSideBarVisible: appStore.isVisible.get(),
-    changeSideBarState: appStore.changeSideBarState,
+    sideBarVisibility: appStore.sideBarVisibility.get(),
+    changeSideBarVisibility: appStore.changeSideBarVisibility,
   }));
-  const isDesktop = screenClass === 'xl';
 
   const styles = stylesMobileDefault;
 
@@ -34,7 +33,7 @@ const DefaultMobile = ({ children }: Props) => {
         sideBarRef.current &&
         !sideBarRef.current.contains(event.target as Node)
       ) {
-        changeSideBarState(true);
+        changeSideBarVisibility(true);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -45,7 +44,7 @@ const DefaultMobile = ({ children }: Props) => {
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
-        {!isSideBarVisible && screenClass !== 'xl' ? (
+        {!sideBarVisibility && screenClass !== 'xl' ? (
           <div></div>
         ) : (
           <div className={styles.sideBarArea}>

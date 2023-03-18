@@ -2,9 +2,9 @@ import useRootData from '../../hooks/useRootData';
 import DefaultDesktop from '../DefaultDesktop';
 import DefaultMobile from '../DefaultMobile';
 
-type Props = {
+interface Props {
   children: React.ReactNode;
-};
+}
 
 const DefaultLayout = ({ children }: Props) => {
   const { screenClass } = useRootData(({ appStore }) => ({

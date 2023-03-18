@@ -5,20 +5,21 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 import MyPageImg from '../../assets/images/person.svg';
 import HambergerImg from '../../assets/images/list.svg';
+import logoImg from '../../assets/images/aeyung.jpg';
 
 const HeaderComponent = () => {
   const {
     screenClass,
     isLogin,
     changeLoginState,
-    isSideBarVisible,
-    changeSideBarState,
+    sideBarVisibility,
+    changeSideBarVisibility,
   } = useRootData(({ appStore, loginStore }) => ({
     screenClass: appStore.screenClass.get(),
     isLogin: loginStore.isLogin.get(),
     changeLoginState: loginStore.changeLoginState,
-    isSideBarVisible: appStore.isVisible.get(),
-    changeSideBarState: appStore.changeSideBarState,
+    sideBarVisibility: appStore.sideBarVisibility.get(),
+    changeSideBarVisibility: appStore.changeSideBarVisibility,
   }));
 
   const isDesktop = screenClass === 'xl';
@@ -32,9 +33,7 @@ const HeaderComponent = () => {
     changeLoginState(true);
   };
   const sideBarButtonClicked = () => {
-    changeSideBarState(!isSideBarVisible);
-    console.log(isSideBarVisible);
-    console.log(screenClass);
+    changeSideBarVisibility(!sideBarVisibility);
   };
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
@@ -43,20 +42,13 @@ const HeaderComponent = () => {
       {screenClass === 'xl' ? (
         <></>
       ) : (
-        <img
-          src={HambergerImg}
-          width="50px"
-          onClick={() => sideBarButtonClicked()}
-        />
+        <img src={HambergerImg} width="50px" onClick={sideBarButtonClicked} />
       )}
 
       {screenClass === 'xl' ? <></> : <Nav className="me-auto" />}
       <NavbarBrand href="#">
         <div className={styles.logo}>
-          <img
-            className={styles.logoImg}
-            src="https://pbs.twimg.com/profile_images/1121985451907137536/2Uq0Ih-2_400x400.jpg"
-          />
+          <img className={styles.logoImg} src={logoImg} />
           <span>WhenThen</span>
         </div>
       </NavbarBrand>
@@ -72,8 +64,8 @@ const HeaderComponent = () => {
               <NavDropdown.Item href="#">DashBoard</NavDropdown.Item>
               <NavDropdown.Item href="#">Something</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item onClick={() => logOutButtonClicked()}>
-                log Out
+              <NavDropdown.Item onClick={logOutButtonClicked}>
+                Log Out
               </NavDropdown.Item>
             </Nav>
           </NavDropdown>
@@ -100,7 +92,7 @@ const HeaderComponent = () => {
             <div
               className={styles.topBarButton}
               // onClick={() => (location.href = '#signIn')} 변경 예정
-              onClick={() => logInButtonClicked()}
+              onClick={logInButtonClicked}
             >
               <span>sign in</span>
             </div>
