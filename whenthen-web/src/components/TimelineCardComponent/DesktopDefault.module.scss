@@ -1,4 +1,6 @@
 $baseColor: rgb(193, 193, 193);
+$baseFont: 15px;
+$baseContainerSize: $baseFont * 5;
 
 .mainBlock {
   margin: 1%;
@@ -6,10 +8,10 @@ $baseColor: rgb(193, 193, 193);
   display: inline-block;
   border-color: $baseColor;
   border-style: solid;
-  border-top-width: thin;
-  border-bottom-width: thick;
+  border-top-width: 5px;
+  border-bottom-width: 10px;
   border-left-width: 20px;
-  border-right-width: medium;
+  border-right-width: 5px;
   background-color: white;
   text-align: left;
   width: 94%;
@@ -36,6 +38,9 @@ $baseColor: rgb(193, 193, 193);
   width: 100%;
   resize: none;
   overflow: auto;
+  min-height: $baseContainerSize;
+  font-size: $baseFont;
+  white-space: pre-wrap;
 }
 
 .contentBlock {
@@ -45,10 +50,17 @@ $baseColor: rgb(193, 193, 193);
   width: 100%;
   resize: none;
   overflow: hidden;
+  max-height: $baseContainerSize;
+  font-size: $baseFont;
+  white-space: pre-wrap;
 }
 
-.morePageButton {
+.moreInfoButtonBlock {
   display: inline-block;
   text-align: right;
   width: 100%;
+}
+
+.moreInfoButton {
+  margin-left: 5px;
 }

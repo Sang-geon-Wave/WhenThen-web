@@ -1,19 +1,18 @@
 import React from 'react';
 import useRootData from '../../hooks/useRootData';
-import TimelineDummyCardComponent, {
-  ProbsTimelineDummyCardComponent,
-} from '../TimelineDummyCardComponent';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
+import TimelineCardComponent, {
+  PropsTimelineCardComponent,
+} from '../TimelineCardComponent';
+import { MovieIntro, MovieListByDate } from '../../types/MovieDataType';
 
-export interface ProbsTimelineDateComponent {
-  date: string;
-  message: string;
-  cards: ProbsTimelineDummyCardComponent[];
+export interface PropsTimelineDateComponent {
+  movieList: MovieListByDate;
 }
 
 const TimelineDateComponent: React.FunctionComponent<
-  ProbsTimelineDateComponent
-> = ({ date, message, cards }) => {
+  PropsTimelineDateComponent
+> = ({ movieList }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -21,16 +20,16 @@ const TimelineDateComponent: React.FunctionComponent<
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
+  const date: string = movieList.date;
+  const message: string = movieList.message;
+  const movieItems: MovieIntro[] = movieList.movieItems;
+
   return (
     <div className={styles.timelineDateContainer}>
       <div className={styles.timelineDateCardTitle}>{date}</div>
-      <br></br>
       {message}
-      {cards.map((card, index) => (
-        <TimelineDummyCardComponent
-          key={index}
-          {...card}
-        ></TimelineDummyCardComponent>
+      {movieItems.map((movieItem) => (
+        <TimelineCardComponent movieIntro={movieItem}></TimelineCardComponent>
       ))}
     </div>
   );
