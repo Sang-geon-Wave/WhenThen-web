@@ -7,6 +7,7 @@ import MockPage from './pages/MockPage';
 import SidebarComponent from './components/SideBarComponent';
 import TimelineDatePage from './pages/TimelineDatePage';
 import CreateSchedulePage from './pages/CreateSchedulePage';
+import LoginPage from './pages/LoginPage';
 
 const App = () => {
   const componentRef = useRef(null);
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/timeline-date" element={<TimelineDatePage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/createSchedule" element={<CreateSchedulePage />} />
+        <Route path="login" element={<LoginPage />} />
       </Routes>
     </Router>
   );
