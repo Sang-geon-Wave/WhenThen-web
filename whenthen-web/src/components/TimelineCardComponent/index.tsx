@@ -1,28 +1,39 @@
 import React, { useState } from 'react';
+import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
+import { MovieIntro } from '../../types/MovieDataType';
 
-export interface TimelineCardComponent {
-  title: string;
-  sub?: string;
-  imgUrl?: string;
-  content?: string;
+export interface PropsTimelineCardComponent {
+  movieIntro: MovieIntro;
 }
 
-const Card: React.FunctionComponent<TimelineCardComponent> = ({
-  title,
-  sub = '아직 정보가 없어요',
-  imgUrl,
-  content = '아직 정보가 없어요',
-}) => {
-  const cardStyles = stylesDesktopDefault;
-  const contentLineNo: number = content.split('\n').length;
-  const FS: number = 14;
-  let [more, detail] = useState(false);
-  const set_detail = () => {
-    if (content === '아직 정보가 없어요') return;
-    if (more === false) detail(true);
-    else detail(false);
+enum DefaultEnum {
+  DefaultText = '아직 정보가 없어요',
+}
+
+const TimelineCardComponent: React.FunctionComponent<
+  PropsTimelineCardComponent
+> = ({ movieIntro }) => {
+  const { screenClass } = useRootData(({ appStore }) => ({
+    screenClass: appStore.screenClass.get(),
+  }));
+  const isDesktop = screenClass === 'xl';
+  const cardStyles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+
+  const title: string = movieIntro.title;
+  const sub: string =
+    movieIntro.sub == null ? DefaultEnum.DefaultText : movieIntro.sub;
+  const imgUrl: string =
+    movieIntro.imgUrl == null ? DefaultEnum.DefaultText : movieIntro.imgUrl;
+  const content: string =
+    movieIntro.content == null ? DefaultEnum.DefaultText : movieIntro.content;
+
+  const [moreInfo, setMoreInfo] = useState(false);
+  const switchMoreInfoState = () => {
+    if (content === DefaultEnum.DefaultText) return;
+    setMoreInfo(!moreInfo);
   };
+
   return (
     <div className={cardStyles.mainBlock}>
       <img
@@ -31,35 +42,30 @@ const Card: React.FunctionComponent<TimelineCardComponent> = ({
         className={cardStyles.imgBlock}
       />
       <div className={cardStyles.movieIntroduceBlock}>
-        <h1 style={{ fontSize: more ? '5vh' : '10vh' }}>Title: {title}</h1>
+        <h1 style={{ fontSize: moreInfo ? '5vh' : '10vh' }}>Title: {title}</h1>
         <h2
           style={{
-            fontSize: more ? '2.5vh' : '4vh',
+            fontSize: moreInfo ? '2.5vh' : '4vh',
             color: 'rgb(188, 188, 188)',
           }}
         >
           {sub}
         </h2>
         <hr />
-        <textarea
-          onClick={set_detail}
-          readOnly
+        <p
+          onClick={switchMoreInfoState}
           className={
-            more ? cardStyles.contentClickBlock : cardStyles.contentBlock
+            moreInfo ? cardStyles.contentClickBlock : cardStyles.contentBlock
           }
-          style={{
-            height: more ? `${FS * (contentLineNo + 1.5)}px` : `${6 * FS}px`,
-            fontSize: `${FS}px`,
-          }}
         >
           {content}
-        </textarea>
+        </p>
         <hr />
-        {more && (
-          <div className={cardStyles.morePageButton}>
-            <button>좋아요</button>
-            <button>구독</button>
-            <button>알림설정</button>
+        {moreInfo && (
+          <div className={cardStyles.moreInfoButtonBlock}>
+            <button className={cardStyles.moreInfoButton}>추가</button>
+            <button className={cardStyles.moreInfoButton}>삭제</button>
+            <button className={cardStyles.moreInfoButton}>따봉</button>
           </div>
         )}
       </div>
@@ -67,4 +73,4 @@ const Card: React.FunctionComponent<TimelineCardComponent> = ({
   );
 };
 
-export default Card;
+export default TimelineCardComponent;

@@ -3,7 +3,7 @@ import history from '../utils/history';
 
 const createStore = () => {
   const appStore = {
-    screenClass: observable.box(window.screen.width > 750 ? 'xl' : 'xs'),
+    screenClass: observable.box(window.innerWidth > 768 ? 'xl' : 'xs'),
     currentMainMenu: observable.box(''),
 
     alertModalVisibility: observable.box(false),
