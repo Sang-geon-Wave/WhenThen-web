@@ -13,14 +13,27 @@ $baseFontSize: 14px;
 }
 
 .formBlock {
-  width: 80%;
+  width: 90%;
   margin: 10px;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  padding-left: 5%;
+  padding-right: 5%;
   display: flex;
   flex-direction: column;
-  outline: solid;
-  padding: 10px;
+  border: 0.5px solid rgb(61, 139, 253);
+  border-radius:10px;
 }
 
-.inputBox {
-  margin-bottom: 5px;
+.formErrorBlock {
+  width: 90%;
+  margin: 10px;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  padding-left: 5%;
+  padding-right: 5%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(253, 139, 61);
+  border-radius:10px;
 }

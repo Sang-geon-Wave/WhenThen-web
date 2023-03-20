@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const LoginComponent = () => {
   const { screenClass, isLogin, changeLoginState } = useRootData(
@@ -20,19 +22,23 @@ const LoginComponent = () => {
   };
 
   const [id, setId] = useState('');
-  const inputID = (event: React.FormEvent<HTMLInputElement>) =>
+  const inputID = (event: React.ChangeEvent<HTMLInputElement>) => {
+    changeloginState(false);
     setId(event.currentTarget.value);
+  };
 
   const [pw, setPw] = useState('');
-  const inputPW = (event: React.FormEvent<HTMLInputElement>) =>
+  const inputPW = (event: React.ChangeEvent<HTMLInputElement>) => {
+    changeloginState(false);
     setPw(event.currentTarget.value);
+  };
 
   const [loginType, setLoginType] = useState('');
   const changeloginType = (co: string) => setLoginType(co);
   const [loginState, setLoginState] = useState(false);
   const changeloginState = (current: boolean) => setLoginState(current);
 
-  const submitInfo = (event: React.FormEvent<HTMLInputElement>) => {
+  const submitInfo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isLogin === true) return;
 
@@ -59,25 +65,38 @@ const LoginComponent = () => {
   return (
     <div className={styles.mainBlock}>
       <h1>WhenThen</h1>
-      <form className={styles.formBlock} onSubmit={submitInfo}>
-        <input
-          id="idInputBox"
-          type="text"
-          placeholder="아이디"
-          value={id}
-          onChange={inputID}
-          className={styles.inputBox}
-        ></input>
-        <input
-          type="password"
-          placeholder="비번"
-          value={pw}
-          onChange={inputPW}
-          className={styles.inputBox}
-        ></input>
-        {loginState && <label htmlFor="idInputBox">{loginType}</label>}
-        <button>로그인</button>
-      </form>
+      <Form
+        className={loginState ? styles.formErrorBlock : styles.formBlock}
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => submitInfo(e)}
+      >
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>아이디</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="아이디"
+            value={id}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => inputID(e)}
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>비밀번호</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="비밀번호"
+            value={pw}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => inputPW(e)}
+          />
+          {loginState && (
+            <Form.Text className="text-muted">{loginType}</Form.Text>
+          )}
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="로그인 상태 유지" />
+        </Form.Group>
+        <Button variant="outline-primary" type="submit">
+          로그인
+        </Button>
+      </Form>
     </div>
   );
 };
