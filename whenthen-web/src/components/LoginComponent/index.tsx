@@ -21,52 +21,52 @@ const LoginComponent = () => {
     return false;
   };
 
+  const [loginErrType, setLoginErrType] = useState('');
+  const changeLoginErrType = (errType: string) => setLoginErrType(errType);
+  const [loginErr, setLoginErr] = useState(false);
+  const changeLoginErr = (err: boolean) => setLoginErr(err);
+
   const [id, setId] = useState('');
   const inputID = (event: React.ChangeEvent<HTMLInputElement>) => {
-    changeloginState(false);
+    changeLoginErr(false);
     setId(event.currentTarget.value);
   };
 
   const [pw, setPw] = useState('');
   const inputPW = (event: React.ChangeEvent<HTMLInputElement>) => {
-    changeloginState(false);
+    changeLoginErr(false);
     setPw(event.currentTarget.value);
   };
-
-  const [loginType, setLoginType] = useState('');
-  const changeloginType = (co: string) => setLoginType(co);
-  const [loginState, setLoginState] = useState(false);
-  const changeloginState = (current: boolean) => setLoginState(current);
 
   const submitInfo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isLogin === true) return;
 
     if (id === '') {
-      changeloginType('아이디를 입력해주세요');
-      changeloginState(true);
+      changeLoginErrType('아이디를 입력해주세요');
+      changeLoginErr(true);
       return;
-    } else changeloginState(false);
+    } else changeLoginErr(false);
 
     if (pw === '') {
-      changeloginType('비밀번호를 입력해주세요');
-      changeloginState(true);
+      changeLoginErrType('비밀번호를 입력해주세요');
+      changeLoginErr(true);
       return;
-    } else changeloginState(false);
+    } else changeLoginErr(false);
 
     if (CurrentLogin(id, pw)) {
       alert(`환영합니다 ${id}님`);
       changeLoginState(true);
     } else {
-      changeloginState(true);
-      changeloginType('올바르지 않은 아이디 혹은 비밀번호');
+      changeLoginErr(true);
+      changeLoginErrType('올바르지 않은 아이디 혹은 비밀번호');
     }
   };
   return (
     <div className={styles.mainBlock}>
       <h1>WhenThen</h1>
       <Form
-        className={loginState ? styles.formErrorBlock : styles.formBlock}
+        className={loginErr ? styles.formErrorBlock : styles.formBlock}
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => submitInfo(e)}
       >
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -86,8 +86,8 @@ const LoginComponent = () => {
             value={pw}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => inputPW(e)}
           />
-          {loginState && (
-            <Form.Text className="text-muted">{loginType}</Form.Text>
+          {loginErr && (
+            <Form.Text className="text-muted">{loginErrType}</Form.Text>
           )}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
