@@ -16,10 +16,15 @@ const LoginComponent = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  const CurrentLogin = (ID: string, PW: string) => {
+  const currentLogin = (ID: string | null, PW: string | null) => {
     if (ID === 'usr' && PW === 'usr') return true;
     return false;
   };
+
+  if (localStorage.getItem('autoLogin') !== null) {
+    if (currentLogin(localStorage.getItem('ID'), localStorage.getItem('PW')))
+      changeLoginState(true);
+  }
 
   const [loginErrType, setLoginErrType] = useState('');
   const changeLoginErrType = (errType: string) => setLoginErrType(errType);
@@ -38,6 +43,9 @@ const LoginComponent = () => {
     setPw(event.currentTarget.value);
   };
 
+  const [autoLogin, setAutoLogin] = useState(false);
+  const changeAutoLogin = () => setAutoLogin(!autoLogin);
+
   const submitInfo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isLogin === true) return;
@@ -54,9 +62,14 @@ const LoginComponent = () => {
       return;
     } else changeLoginErr(false);
 
-    if (CurrentLogin(id, pw)) {
+    if (currentLogin(id, pw)) {
       alert(`환영합니다 ${id}님`);
       changeLoginState(true);
+      if (autoLogin) {
+        localStorage.setItem('ID', id);
+        localStorage.setItem('PW', pw);
+        localStorage.setItem('autoLogin', 'true');
+      } else localStorage.clear();
     } else {
       changeLoginErr(true);
       changeLoginErrType('올바르지 않은 아이디 혹은 비밀번호');
@@ -90,8 +103,16 @@ const LoginComponent = () => {
             <Form.Text className="text-muted">{loginErrType}</Form.Text>
           )}
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="로그인 상태 유지" />
+        <Form.Group
+          onChange={changeAutoLogin}
+          className="mb-3"
+          controlId="formBasicCheckbox"
+        >
+          <Form.Check
+            type="checkbox"
+            label="로그인 상태 유지"
+            checked={autoLogin}
+          />
         </Form.Group>
         <Button variant="outline-primary" type="submit">
           로그인
