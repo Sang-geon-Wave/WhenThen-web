@@ -25,21 +25,6 @@ const DefaultMobile = ({ children }: Props) => {
 
   const styles = stylesMobileDefault;
 
-  const sideBarRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sideBarRef.current &&
-        !sideBarRef.current.contains(event.target as Node)
-      ) {
-        changeSideBarVisibility(true);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [sideBarRef]);
-
   return (
     <div>
       <HeaderComponent />
