@@ -24,6 +24,8 @@ const DefaultMobile = ({ children }: Props) => {
   }));
 
   const styles = stylesMobileDefault;
+  const link = new Set(document.location.href.split('/'));
+  const isLanding = link.size <= 3;
 
   const sideBarRef = useRef<HTMLDivElement>(null);
 
@@ -44,7 +46,7 @@ const DefaultMobile = ({ children }: Props) => {
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
-        {!sideBarVisibility && screenClass !== 'xl' ? (
+        {(!sideBarVisibility && screenClass !== 'xl') || isLanding ? (
           <div></div>
         ) : (
           <div className={styles.sideBarArea}>

@@ -35,17 +35,19 @@ const HeaderComponent = () => {
   const sideBarButtonClicked = () => {
     changeSideBarVisibility(!sideBarVisibility);
   };
+  const link = new Set(document.location.href.split('/'));
+  const isLanding = link.size <= 3;
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
     <div className={styles.header}>
-      {screenClass === 'xl' ? (
+      {screenClass === 'xl' || isLanding ? (
         <></>
       ) : (
         <img src={HambergerImg} width="50px" onClick={sideBarButtonClicked} />
       )}
 
-      {screenClass === 'xl' ? <></> : <Nav className="me-auto" />}
+      {screenClass === 'xl' || isLanding ? <></> : <Nav className="me-auto" />}
       <NavbarBrand href="#">
         <div className={styles.logo}>
           <img className={styles.logoImg} src={logoImg} />

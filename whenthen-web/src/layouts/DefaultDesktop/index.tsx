@@ -24,27 +24,16 @@ const DefaultDesktop = ({ children }: Props) => {
   }));
 
   const styles = stylesDesktopDefault;
+  const link = new Set(document.location.href.split('/'));
+  const isLanding = link.size <= 3;
 
   const sideBarRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sideBarRef.current &&
-        !sideBarRef.current.contains(event.target as Node)
-      ) {
-        changeSideBarVisibility(true);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [sideBarRef]);
 
   return (
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
-        {!sideBarVisibility && screenClass !== 'xl' ? (
+        {(!sideBarVisibility && screenClass !== 'xl') || isLanding ? (
           <div></div>
         ) : (
           <div className={styles.sideBarArea}>
@@ -52,7 +41,16 @@ const DefaultDesktop = ({ children }: Props) => {
           </div>
         )}
 
-        <div className={styles.mainContentArea}>{children}</div>
+        <div
+          className={styles.mainContentArea}
+          style={
+            screenClass === 'xl' && isLanding
+              ? { left: '0' }
+              : { left: '180px' }
+          }
+        >
+          {children}
+        </div>
       </div>
 
       <FooterComponent />
