@@ -32,7 +32,7 @@ const App = () => {
         <Route path="/timeline-date" element={<TimelineDatePage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/createSchedule" element={<CreateSchedulePage />} />
-        <Route path="login" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Router>
   );

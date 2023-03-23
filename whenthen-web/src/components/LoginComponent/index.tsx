@@ -16,13 +16,18 @@ const LoginComponent = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  const currentLogin = (ID: string | null, PW: string | null) => {
+  const tmpCurrentLoginInfo = (ID: string | null, PW: string | null) => {
     if (ID === 'usr' && PW === 'usr') return true;
     return false;
   };
 
   if (localStorage.getItem('autoLogin') !== null) {
-    if (currentLogin(localStorage.getItem('ID'), localStorage.getItem('PW')))
+    if (
+      tmpCurrentLoginInfo(
+        localStorage.getItem('ID'),
+        localStorage.getItem('PW'),
+      )
+    )
       changeLoginState(true);
   }
 
@@ -62,7 +67,7 @@ const LoginComponent = () => {
       return;
     } else changeLoginErr(false);
 
-    if (currentLogin(id, pw)) {
+    if (tmpCurrentLoginInfo(id, pw)) {
       alert(`환영합니다 ${id}님`);
       changeLoginState(true);
       if (autoLogin) {
@@ -82,7 +87,7 @@ const LoginComponent = () => {
         className={loginErr ? styles.formErrorBlock : styles.formBlock}
         onSubmit={(e: React.FormEvent<HTMLFormElement>) => submitInfo(e)}
       >
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicId">
           <Form.Label>아이디</Form.Label>
           <Form.Control
             type="text"
@@ -103,12 +108,9 @@ const LoginComponent = () => {
             <Form.Text className="text-muted">{loginErrType}</Form.Text>
           )}
         </Form.Group>
-        <Form.Group
-          onChange={changeAutoLogin}
-          className="mb-3"
-          controlId="formBasicCheckbox"
-        >
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check
+            onChange={changeAutoLogin}
             type="checkbox"
             label="로그인 상태 유지"
             checked={autoLogin}

@@ -5,11 +5,10 @@ $baseFontSize: 14px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  position:absolute;
-  top:20%;
-  left:50%;
-  transform: translate(-50%, 0%);
-  width: 600px;
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  width: 50%;
 }
 
 .formBlock {
@@ -22,7 +21,7 @@ $baseFontSize: 14px;
   display: flex;
   flex-direction: column;
   border: 0.5px solid rgb(61, 139, 253);
-  border-radius:10px;
+  border-radius: 10px;
 }
 
 .formErrorBlock {
@@ -35,5 +34,5 @@ $baseFontSize: 14px;
   display: flex;
   flex-direction: column;
   border: 1px solid rgb(253, 139, 61);
-  border-radius:10px;
+  border-radius: 10px;
 }
