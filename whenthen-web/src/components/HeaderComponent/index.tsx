@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav, NavbarBrand, NavDropdown } from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 import MyPageImg from '../../assets/images/person.svg';
@@ -28,22 +28,18 @@ const HeaderComponent = () => {
   }));
 
   const isDesktop = screenClass === 'xl';
+  const nowLocation = useLocation();
   const navigate = useNavigate();
-
-  function redirec(data: any) {
-    changeMainMenu(data);
-    navigate(data);
-  }
 
   const logOutButtonClicked = () => {
     alert('logout!');
     changeLoginState(false);
-    redirec('/');
+    navigate('/');
   };
   const logInButtonClicked = () => {
     alert('login!');
     changeLoginState(true);
-    redirec('/logIn');
+    navigate('/login');
   };
   const sideBarButtonClicked = () => {
     changeSideBarVisibility(!sideBarVisibility);
@@ -52,19 +48,19 @@ const HeaderComponent = () => {
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
     <div className={styles.header}>
-      {screenClass === 'xl' || currentMainMenu === '/' ? (
+      {screenClass === 'xl' || nowLocation.pathname === '/' ? (
         <></>
       ) : (
         <img src={HambergerImg} width="50px" onClick={sideBarButtonClicked} />
       )}
 
-      {screenClass === 'xl' || currentMainMenu === '/' ? (
+      {screenClass === 'xl' || nowLocation.pathname === '/' ? (
         <></>
       ) : (
         <Nav className="me-auto" />
       )}
       <NavbarBrand>
-        <div className={styles.logo} onClick={() => redirec('/')}>
+        <div className={styles.logo} onClick={() => navigate('/')}>
           <img className={styles.logoImg} src={logoImg} />
           <span>WhenThen</span>
         </div>
@@ -77,13 +73,13 @@ const HeaderComponent = () => {
             id="basic-navbar-nav"
           >
             <Nav className="me-auto">
-              <NavDropdown.Item onClick={() => redirec('/myPage')}>
+              <NavDropdown.Item onClick={() => navigate('/myPage')}>
                 My Page
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => redirec('/dashBoard')}>
+              <NavDropdown.Item onClick={() => navigate('/timeline')}>
                 DashBoard
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => redirec('/')}>
+              <NavDropdown.Item onClick={() => navigate('/')}>
                 Something
               </NavDropdown.Item>
               <NavDropdown.Item onClick={logOutButtonClicked}>
@@ -97,13 +93,13 @@ const HeaderComponent = () => {
               <>
                 <div
                   className={styles.topBarButton}
-                  onClick={() => redirec('/layout')}
+                  onClick={() => navigate('/layout')}
                 >
                   <span>about</span>
                 </div>
                 <div
                   className={styles.topBarButton}
-                  onClick={() => redirec('/signUp')}
+                  onClick={() => navigate('/signUp')}
                 >
                   <span>sign up</span>
                 </div>

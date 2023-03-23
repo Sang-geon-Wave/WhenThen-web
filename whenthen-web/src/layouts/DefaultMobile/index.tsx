@@ -4,6 +4,7 @@ import HeaderComponent from '../../components/HeaderComponent';
 import FooterComponent from '../../components/FooterComponent';
 import SidebarComponent from '../../components/SideBarComponent';
 import stylesMobileDefault from './MobileDefault.module.scss';
+import { useLocation } from 'react-router-dom';
 interface Props {
   children: React.ReactNode;
 }
@@ -17,13 +18,14 @@ const DefaultMobile = ({ children }: Props) => {
   );
 
   const styles = stylesMobileDefault;
+  const nowLocation = useLocation();
 
   return (
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
         {(!sideBarVisibility && screenClass !== 'xl') ||
-        currentMainMenu === '/' ? (
+        nowLocation.pathname === '/' ? (
           <div></div>
         ) : (
           <div className={styles.sideBarArea}>

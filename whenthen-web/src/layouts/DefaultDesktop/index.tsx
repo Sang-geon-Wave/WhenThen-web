@@ -4,6 +4,7 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import HeaderComponent from '../../components/HeaderComponent';
 import FooterComponent from '../../components/FooterComponent';
 import SidebarComponent from '../../components/SideBarComponent';
+import { useLocation } from 'react-router-dom';
 
 interface Props {
   children: React.ReactNode;
@@ -18,13 +19,14 @@ const DefaultDesktop = ({ children }: Props) => {
   );
 
   const styles = stylesDesktopDefault;
+  const nowLocation = useLocation();
 
   return (
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
         {(!sideBarVisibility && screenClass !== 'xl') ||
-        currentMainMenu === '/' ? (
+        nowLocation.pathname === '/' ? (
           <div></div>
         ) : (
           <div className={styles.sideBarArea}>
@@ -34,7 +36,7 @@ const DefaultDesktop = ({ children }: Props) => {
         <div
           className={styles.mainContentArea}
           style={
-            screenClass === 'xl' && currentMainMenu === '/'
+            screenClass === 'xl' && nowLocation.pathname === '/'
               ? { left: '0' }
               : { left: '180px' }
           }

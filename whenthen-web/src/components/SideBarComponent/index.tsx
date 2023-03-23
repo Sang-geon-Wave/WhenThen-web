@@ -3,7 +3,7 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import icon from '../../assets/images/menu.png';
 
 const SidebarComponent = () => {
@@ -23,12 +23,8 @@ const SidebarComponent = () => {
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
+  const nowLocation = useLocation();
   const navigate = useNavigate();
-
-  function redirec(data: any) {
-    changeMainMenu(data);
-    navigate(data);
-  }
 
   return (
     <div className={styles.sideBarArea}>
@@ -45,7 +41,7 @@ const SidebarComponent = () => {
         <div className={styles.sideBarList}>
           <div
             className={styles.sideBarItem}
-            onClick={() => redirec('/dashBoard')}
+            onClick={() => navigate('/dashBoard')}
           >
             <div className={styles.sideBarLink}>
               <img src={icon} width="12" height="12" alt="testA" />
@@ -54,13 +50,13 @@ const SidebarComponent = () => {
           </div>
           <div
             className={styles.sideBarItem}
-            onClick={() => redirec('/timeLine')}
+            onClick={() => navigate('/timeLine')}
           >
             <div className={styles.sideBarLink}>타임라인</div>
           </div>
           <div
             className={styles.sideBarItem}
-            onClick={() => redirec('/createSchedule')}
+            onClick={() => navigate('/createSchedule')}
           >
             <div className={styles.sideBarLink}>생성하기</div>
           </div>
