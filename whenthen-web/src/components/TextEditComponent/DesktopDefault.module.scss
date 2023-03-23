@@ -1,0 +1,17 @@
+@import '../../assets/scsses/config';
+
+.buttonBox {
+  padding-left: 5%;
+}
+
+.mainBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.textBox {
+  width: 90%;
+  min-height: 200px;
+  height: 90%;
+}
