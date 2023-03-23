@@ -1,0 +1,96 @@
+@use 'sass:math';
+@import '../../assets/scsses/config';
+
+$width: 15.625em;
+$radius: $width * 0.16891;
+$font-size: $width * 0.056;
+
+.container {
+  font-size: 1rem;
+  font-family: sans-serif;
+  color: black;
+  position: absolute;
+  width: $width;
+  display: flex;
+  flex-direction: column;
+  z-index: 9001;
+  user-select: none;
+  border: 1px solid gray;
+  border-radius: 0.2em;
+  overflow: hidden;
+  background: white;
+  box-shadow: 0 ($width * 0.08) ($width * 0.08) ($width * -0.06)
+    rgba(0, 0, 0, 0.3);
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+.controller {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-grow: 1;
+  flex-shrink: 0;
+  background: lightgray;
+  filter: blur(0px);
+}
+
+.monthyear {
+  font-weight: bold;
+  transition: border 0.2s;
+  border-bottom: 1px solid transparent;
+}
+
+.month {
+  padding-right: 0.5ex;
+}
+
+.year {
+  padding-left: 0.5ex;
+}
+.arrowleft {
+  height: math.div($width, 10);
+  width: math.div($width, 10);
+  position: relative;
+  cursor: pointer;
+  border-radius: $radius;
+}
+
+.arrowright {
+  height: math.div($width, 10);
+  width: math.div($width, 10);
+  position: relative;
+  cursor: pointer;
+  border-radius: $radius;
+}
+
+.squares {
+  display: flex;
+  flex-wrap: wrap;
+  padding: $width * 0.02;
+  filter: blur(0px);
+}
+
+.square {
+  width: #{'calc(100% / 7)'};
+  height: math.div($width, 10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: $radius;
+}
+
+.day {
+  cursor: default;
+  font-weight: bold;
+  color: gray;
+}
+
+.empty {
+  cursor: default;
+  opacity: 0.2;
+}
