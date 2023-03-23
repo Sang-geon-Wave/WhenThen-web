@@ -16,13 +16,15 @@ const LoginComponent = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
+  // Todo: implement actual login feature
   const tmpCurrentLoginInfo = (ID: string | null, PW: string | null) => {
     if (ID === 'usr' && PW === 'usr') return true;
     return false;
   };
 
-  if (localStorage.getItem('autoLogin') !== null) {
+  if (localStorage.getItem('autoLogin') === 'true') {
     if (
+      // Todo: improve security by storing token values instead of ID/PW directly
       tmpCurrentLoginInfo(
         localStorage.getItem('ID'),
         localStorage.getItem('PW'),
@@ -32,68 +34,60 @@ const LoginComponent = () => {
   }
 
   const [loginErrType, setLoginErrType] = useState('');
-  const changeLoginErrType = (errType: string) => setLoginErrType(errType);
   const [loginErr, setLoginErr] = useState(false);
-  const changeLoginErr = (err: boolean) => setLoginErr(err);
 
-  const [id, setId] = useState('');
+  const [usrId, setUsrId] = useState('');
   const inputID = (event: React.ChangeEvent<HTMLInputElement>) => {
-    changeLoginErr(false);
-    setId(event.currentTarget.value);
+    setLoginErr(false);
+    setUsrId(event.currentTarget.value);
   };
 
-  const [pw, setPw] = useState('');
+  const [usrPw, setUsrPw] = useState('');
   const inputPW = (event: React.ChangeEvent<HTMLInputElement>) => {
-    changeLoginErr(false);
-    setPw(event.currentTarget.value);
+    setLoginErr(false);
+    setUsrPw(event.currentTarget.value);
   };
 
   const [autoLogin, setAutoLogin] = useState(false);
-  const changeAutoLogin = () => setAutoLogin(!autoLogin);
+  const toggleAutoLogin = () => setAutoLogin(!autoLogin);
 
   const submitInfo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isLogin === true) return;
 
-    if (id === '') {
-      changeLoginErrType('아이디를 입력해주세요');
-      changeLoginErr(true);
+    if (!usrId || !usrPw) {
+      setLoginErrType(`${!usrId ? '아이디' : '비밀번호'}를 입력해주세요`);
+      setLoginErr(true);
       return;
-    } else changeLoginErr(false);
+    } else setLoginErr(false);
 
-    if (pw === '') {
-      changeLoginErrType('비밀번호를 입력해주세요');
-      changeLoginErr(true);
-      return;
-    } else changeLoginErr(false);
-
-    if (tmpCurrentLoginInfo(id, pw)) {
-      alert(`환영합니다 ${id}님`);
+    if (tmpCurrentLoginInfo(usrId, usrPw)) {
+      alert(`환영합니다 ${usrId}님`);
       changeLoginState(true);
       if (autoLogin) {
-        localStorage.setItem('ID', id);
-        localStorage.setItem('PW', pw);
+        // 추후 서버에서 토큰이 날라오면 토큰 하나만 저장예정
+        localStorage.setItem('ID', usrId);
+        localStorage.setItem('PW', usrPw);
         localStorage.setItem('autoLogin', 'true');
-      } else localStorage.clear();
+      } else localStorage.setItem('autoLogin', 'false');
     } else {
-      changeLoginErr(true);
-      changeLoginErrType('올바르지 않은 아이디 혹은 비밀번호');
+      setLoginErr(true);
+      setLoginErrType('올바르지 않은 아이디 혹은 비밀번호');
     }
   };
   return (
     <div className={styles.mainBlock}>
-      <h1>WhenThen</h1>
       <Form
         className={loginErr ? styles.formErrorBlock : styles.formBlock}
-        onSubmit={(e: React.FormEvent<HTMLFormElement>) => submitInfo(e)}
+        onSubmit={submitInfo}
       >
         <Form.Group className="mb-3" controlId="formBasicId">
           <Form.Label>아이디</Form.Label>
           <Form.Control
             type="text"
             placeholder="아이디"
-            value={id}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => inputID(e)}
+            value={usrId}
+            onChange={inputID}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -101,16 +95,18 @@ const LoginComponent = () => {
           <Form.Control
             type="password"
             placeholder="비밀번호"
-            value={pw}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => inputPW(e)}
+            value={usrPw}
+            onChange={inputPW}
           />
           {loginErr && (
-            <Form.Text className="text-muted">{loginErrType}</Form.Text>
+            <Form.Text className={styles.errorMessageBlock}>
+              {loginErrType}
+            </Form.Text>
           )}
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check
-            onChange={changeAutoLogin}
+            onChange={toggleAutoLogin}
             type="checkbox"
             label="로그인 상태 유지"
             checked={autoLogin}
