@@ -1,7 +1,8 @@
 @import '../../assets/scsses/config';
 .mainBlock {
-  position: relative;
-  margin-top: 0px;
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
   min-height: 150vh;
 }
 .sideBarButton {
@@ -16,29 +17,11 @@
   max-height: 46px;
 }
 .sideBarArea {
-  position: absolute;
-  width: 0px;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 99;
+  width: 180px;
+  min-height: 10px;
+  z-index: 90;
 }
-.sideBarAreaHide {
-  position: absolute;
-  width: 0px;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 99;
-  visibility: hidden;
-}
-.mainContentArea {
-  position: absolute;
+.childrenArea {
   vertical-align: middle;
-  // width: ;
-  top: 50px;
-  left: 180px;
-  right: 0;
-  bottom: 0;
   z-index: -1;
 }

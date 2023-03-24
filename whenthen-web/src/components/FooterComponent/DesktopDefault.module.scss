@@ -3,10 +3,9 @@
   text-align: -webkit-match-parent;
 }
 .footer {
-  bottom: 0;
-  left: 0;
-  right: 0;
-  position: relative;
+  width: -webkit-fill-available;
+  min-height: 100px;
+  position: inherit;
   background-color: gray;
   z-index: 100;
 }

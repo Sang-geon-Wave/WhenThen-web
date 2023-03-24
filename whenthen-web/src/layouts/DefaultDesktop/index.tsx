@@ -25,21 +25,6 @@ const DefaultDesktop = ({ children }: Props) => {
 
   const styles = stylesDesktopDefault;
 
-  const sideBarRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sideBarRef.current &&
-        !sideBarRef.current.contains(event.target as Node)
-      ) {
-        changeSideBarVisibility(true);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [sideBarRef]);
-
   return (
     <div>
       <HeaderComponent />
@@ -52,9 +37,8 @@ const DefaultDesktop = ({ children }: Props) => {
           </div>
         )}
 
-        <div className={styles.mainContentArea}>{children}</div>
+        <div className={styles.childrenArea}>{children}</div>
       </div>
-
       <FooterComponent />
     </div>
   );

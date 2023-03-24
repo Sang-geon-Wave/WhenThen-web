@@ -19,11 +19,16 @@ const SidebarComponent = () => {
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
   return (
-    <div>
-      <div
-        className={styles.sideBarOutside}
-        onClick={() => changeSideBarVisibility(false)}
-      ></div>
+    <div className={styles.sideBarArea}>
+      {sideBarVisibility && screenClass !== 'xl' ? (
+        <div
+          className={styles.sideBarOutside}
+          onClick={() => changeSideBarVisibility(false)}
+        />
+      ) : (
+        <div />
+      )}
+
       <div className={styles.sideBar}>
         <div className={styles.sideBarList}>
           <div className={styles.sideBarItem}>

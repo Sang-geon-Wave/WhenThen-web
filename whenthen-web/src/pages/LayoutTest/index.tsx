@@ -3,9 +3,9 @@ import useRootData from '../../hooks/useRootData';
 import TimelineDateComponent from '../../components/TimelineDateComponent';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
+import timeLineMockDataList from '../../assets/strings/TimeLinePage/testData';
 
 import DefaultLayout from '../../layouts/DefaultLayout';
-import TimelinePage from '../TimelinePage';
 
 const LayoutTestPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -19,7 +19,11 @@ const LayoutTestPage = () => {
 
   return (
     <DefaultLayout>
-      <TimelinePage></TimelinePage>
+      <div>
+        {timeLineMockDataList.map((movieList) => (
+          <TimelineDateComponent movieList={movieList}></TimelineDateComponent>
+        ))}
+      </div>
     </DefaultLayout>
   );
 };
