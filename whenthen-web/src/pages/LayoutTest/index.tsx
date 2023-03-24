@@ -5,6 +5,7 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 
 import DefaultLayout from '../../layouts/DefaultLayout';
+import TimelinePage from '../TimelinePage';
 
 const LayoutTestPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -18,17 +19,7 @@ const LayoutTestPage = () => {
 
   return (
     <DefaultLayout>
-      <div>
-        {tmpDates.map((val, idx) => {
-          return (
-            <TimelineDateComponent
-              date={val}
-              message={idx + ' 더덕 메시지'}
-              cards={dummyData}
-            ></TimelineDateComponent>
-          );
-        })}
-      </div>
+      <TimelinePage></TimelinePage>
     </DefaultLayout>
   );
 };

@@ -7,7 +7,7 @@ import LayoutTestPage from './pages/LayoutTest';
 import MockPage from './pages/MockPage';
 import CalendarPage from './pages/CalendarPage';
 import SidebarComponent from './components/SideBarComponent';
-import TimelineDatePage from './pages/TimelineDatePage';
+import TimelinePage from './pages/TimelinePage';
 import CreateSchedulePage from './pages/CreateSchedulePage';
 
 const App = () => {
@@ -30,7 +30,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/mock" element={<MockPage />} />
-        <Route path="/timeline-date" element={<TimelineDatePage />} />
+        <Route path="/timeline" element={<TimelinePage />} />
         <Route path="/layout" element={<LayoutTestPage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/createSchedule" element={<CreateSchedulePage />} />
