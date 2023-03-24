@@ -5,8 +5,11 @@ import timeLineMockDataList from '../../assets/strings/TimeLinePage/testData';
 const TimelinePage = () => {
   return (
     <div>
-      {timeLineMockDataList.map((movieList) => (
-        <TimelineDateComponent movieList={movieList}></TimelineDateComponent>
+      {timeLineMockDataList.map((movieList, idx) => (
+        <TimelineDateComponent
+          movieList={movieList}
+          key={`dateKey${idx}`}
+        ></TimelineDateComponent>
       ))}
     </div>
   );

@@ -28,8 +28,11 @@ const TimelineDateComponent: React.FunctionComponent<
     <div className={styles.timelineDateContainer}>
       <div className={styles.timelineDateCardTitle}>{date}</div>
       {message}
-      {movieItems.map((movieItem) => (
-        <TimelineCardComponent movieIntro={movieItem}></TimelineCardComponent>
+      {movieItems.map((movieItem, idx) => (
+        <TimelineCardComponent
+          movieIntro={movieItem}
+          key={`dataKey${idx}`}
+        ></TimelineCardComponent>
       ))}
     </div>
   );
