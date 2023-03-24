@@ -1,11 +1,9 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 
 import icon from '../../assets/images/menu.png';
-
-export interface SidebarComponentProps {}
 
 const SidebarComponent = () => {
   const { screenClass, sideBarVisibility, changeSideBarVisibility } =
