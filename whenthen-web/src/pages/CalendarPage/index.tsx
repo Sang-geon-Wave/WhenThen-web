@@ -4,8 +4,14 @@ import CalendarComponent from '../../components/CalendarComponent';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 
+import DefaultLayout from '../../layouts/DefaultLayout';
+
 const CalendarPage = () => {
-  return <CalendarComponent />;
+  return (
+    <DefaultLayout>
+      <CalendarComponent />
+    </DefaultLayout>
+  );
 };
 
 export default CalendarPage;
