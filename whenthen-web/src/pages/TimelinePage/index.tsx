@@ -6,10 +6,7 @@ const TimelinePage = () => {
   return (
     <div>
       {timeLineMockDataList.map((movieList, idx) => (
-        <TimelineDateComponent
-          movieList={movieList}
-          key={`dateKey${idx}`}
-        ></TimelineDateComponent>
+        <TimelineDateComponent movieList={movieList} key={`dateKey${idx}`} />
       ))}
     </div>
   );
