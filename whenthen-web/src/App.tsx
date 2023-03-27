@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import useRootData from './hooks/useRootData';
 import LandingPage from './pages/Landing';
 import MockPage from './pages/MockPage';
+import CalendarPage from './pages/CalendarPage';
 import SidebarComponent from './components/SideBarComponent';
 import TimelineDatePage from './pages/TimelineDatePage';
 import CreateSchedulePage from './pages/CreateSchedulePage';
@@ -32,7 +33,11 @@ const App = () => {
         <Route path="/timeline-date" element={<TimelineDatePage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/createSchedule" element={<CreateSchedulePage />} />
+<<<<<<< HEAD
         <Route path="/login" element={<LoginPage />} />
+=======
+        <Route path="/calendar" element={<CalendarPage />} />
+>>>>>>> develop
       </Routes>
     </Router>
   );
