@@ -1,12 +1,23 @@
 @import '../../assets/scsses/config';
-
+* {
+  text-align: -webkit-match-parent;
+}
+span {
+  text-decoration: none;
+  color: black;
+}
+.footer {
+  width: -webkit-fill-available;
+  min-height: 100px;
+  position: inherit;
+  background-color: gray;
+  z-index: 100;
+}
 .linkButtonSet {
-  /* background-color: purple; */
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* min-width: ; */
 }
 .linkButton {
   background-color: white;
@@ -14,12 +25,4 @@
   height: 5vh;
   width: 10vh;
   color: black;
-}
-.footer {
-  position: relative;
-  min-height: 20vh;
-  width: 100%;
-  background-color: gray;
-  font-size: 12;
-  color: white;
 }
