@@ -33,11 +33,8 @@ const App = () => {
         <Route path="/timeline-date" element={<TimelineDatePage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/createSchedule" element={<CreateSchedulePage />} />
-<<<<<<< HEAD
-        <Route path="/login" element={<LoginPage />} />
-=======
         <Route path="/calendar" element={<CalendarPage />} />
->>>>>>> develop
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Router>
   );
