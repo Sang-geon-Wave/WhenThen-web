@@ -1,6 +1,7 @@
 import React from 'react';
 import { Nav, NavbarBrand, NavDropdown } from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
+import { useLocation, Link } from 'react-router-dom';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 import MyPageImg from '../../assets/images/person.svg';
@@ -23,6 +24,7 @@ const HeaderComponent = () => {
   }));
 
   const isDesktop = screenClass === 'xl';
+  const nowLocation = useLocation();
 
   const logOutButtonClicked = () => {
     alert('logout!');
@@ -35,24 +37,28 @@ const HeaderComponent = () => {
   const sideBarButtonClicked = () => {
     changeSideBarVisibility(!sideBarVisibility);
   };
-  const link = new Set(document.location.href.split('/'));
-  const isLanding = link.size <= 3;
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
     <div className={styles.header}>
-      {screenClass === 'xl' || isLanding ? (
+      {screenClass === 'xl' || nowLocation.pathname === '/' ? (
         <></>
       ) : (
         <img src={HambergerImg} width="50px" onClick={sideBarButtonClicked} />
       )}
 
-      {screenClass === 'xl' || isLanding ? <></> : <Nav className="me-auto" />}
-      <NavbarBrand href="#">
-        <div className={styles.logo}>
-          <img className={styles.logoImg} src={logoImg} />
-          <span>WhenThen</span>
-        </div>
+      {screenClass === 'xl' || nowLocation.pathname === '/' ? (
+        <></>
+      ) : (
+        <Nav className="me-auto" />
+      )}
+      <NavbarBrand>
+        <Link to={'/'}>
+          <div className={styles.logo}>
+            <img className={styles.logoImg} src={logoImg} />
+            <span>WhenThen</span>
+          </div>
+        </Link>
       </NavbarBrand>
       <Nav className="me-auto" />
       <div className={styles.nav}>
@@ -62,12 +68,17 @@ const HeaderComponent = () => {
             id="basic-navbar-nav"
           >
             <Nav className="me-auto">
-              <NavDropdown.Item href="#">My Page</NavDropdown.Item>
-              <NavDropdown.Item href="#">DashBoard</NavDropdown.Item>
-              <NavDropdown.Item href="#">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
+              <NavDropdown.Item href="#">
+                <Link to={'/'}>My Page</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#">
+                <Link to={'/'}>DashBoard</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#">
+                <Link to={'/'}>Something</Link>
+              </NavDropdown.Item>
               <NavDropdown.Item onClick={logOutButtonClicked}>
-                Log Out
+                <Link to={'/'}>Log Out</Link>
               </NavDropdown.Item>
             </Nav>
           </NavDropdown>
@@ -75,29 +86,25 @@ const HeaderComponent = () => {
           <>
             {screenClass === 'xl' ? (
               <>
-                <div
-                  className={styles.topBarButton}
-                  onClick={() => (location.href = '#about')}
-                >
-                  <span>about</span>
-                </div>
-                <div
-                  className={styles.topBarButton}
-                  onClick={() => (location.href = '#signUp')}
-                >
-                  <span>sign up</span>
-                </div>
+                <Link to={'/'}>
+                  <div className={styles.topBarButton}>
+                    <span>about</span>
+                  </div>
+                </Link>
+                <Link to={'/'}>
+                  <div className={styles.topBarButton}>
+                    <span>sign up</span>
+                  </div>
+                </Link>
               </>
             ) : (
               <></>
             )}
-            <div
-              className={styles.topBarButton}
-              // onClick={() => (location.href = '#signIn')} 변경 예정
-              onClick={logInButtonClicked}
-            >
+            {/* <Link to={'/'}> */}
+            <div className={styles.topBarButton} onClick={logInButtonClicked}>
               <span>sign in</span>
             </div>
+            {/* </Link> */}
           </>
         )}
       </div>

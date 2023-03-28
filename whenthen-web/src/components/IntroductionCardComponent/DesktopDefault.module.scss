@@ -1,13 +1,14 @@
 @import '../../assets/scsses/config';
 
 .card {
+  display: block;
   background: $blue-light-grey1;
-  overflow: hidden;
   transition: 0.3s;
   border-radius: 5px;
   width: 300px;
   padding: 10px 10px;
-  margin: 5px 5px 5px 5px;
+  margin: 5px 15px 15px 5px;
+  float: left;
 }
 
 .container {
@@ -15,7 +16,8 @@
 }
 
 .image {
-  width: 100%;
+  width: 250px;
+  height: 200px;
   border-radius: 5px 5px 0 0;
 }
 

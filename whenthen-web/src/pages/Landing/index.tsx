@@ -11,30 +11,41 @@ import logoImg from '../../assets/images/aeyung.jpg';
 import logo from '../../assets/images/logo.svg';
 
 const LandingPage = () => {
-  const { screenClass, sideBarVisibility, changeSideBarVisibility } =
-    useRootData(({ appStore }) => ({
-      screenClass: appStore.screenClass.get(),
-      sideBarVisibility: appStore.sideBarVisibility.get(),
-      changeSideBarVisibility: appStore.changeSideBarVisibility,
-    }));
+  const { screenClass } = useRootData(({ appStore }) => ({
+    screenClass: appStore.screenClass.get(),
+  }));
   const isDesktop = screenClass === 'xl';
-
+  const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
   return (
     <DefaultLayout>
       <div>
         <CarouselComponent />
-        <IntroductionCardComponent
-          imgUrl={logoImg}
-          title="string"
-          subtitle="string"
-          content="string"
-        />
-        <IntroductionCardComponent
-          imgUrl={logo}
-          title="string"
-          subtitle="string"
-          content="string"
-        />
+        <div className={styles.introductionCardBlock}>
+          <IntroductionCardComponent
+            imgUrl={logoImg}
+            title="string"
+            subtitle="string"
+            content="string"
+          />
+          <IntroductionCardComponent
+            imgUrl={logo}
+            title="string"
+            subtitle="string"
+            content="string"
+          />
+          <IntroductionCardComponent
+            imgUrl={logoImg}
+            title="string"
+            subtitle="string"
+            content="string"
+          />
+          <IntroductionCardComponent
+            imgUrl={logo}
+            title="string"
+            subtitle="string"
+            content="string"
+          />
+        </div>
       </div>
     </DefaultLayout>
   );

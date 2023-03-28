@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useRootData from '../../hooks/useRootData';
-import stylesDesktopDefault from './DesktopDefault.module.scss';
+import { useLocation, Link } from 'react-router-dom';
 import HeaderComponent from '../../components/HeaderComponent';
 import FooterComponent from '../../components/FooterComponent';
 import SidebarComponent from '../../components/SideBarComponent';
@@ -24,36 +24,21 @@ const DefaultMobile = ({ children }: Props) => {
   }));
 
   const styles = stylesMobileDefault;
-  const link = new Set(document.location.href.split('/'));
-  const isLanding = link.size <= 3;
-
-  const sideBarRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        sideBarRef.current &&
-        !sideBarRef.current.contains(event.target as Node)
-      ) {
-        changeSideBarVisibility(true);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [sideBarRef]);
+  const nowLocation = useLocation();
 
   return (
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
-        {(!sideBarVisibility && screenClass !== 'xl') || isLanding ? (
+        {(!sideBarVisibility && screenClass !== 'xl') ||
+        nowLocation.pathname === '/' ? (
           <div></div>
         ) : (
           <div className={styles.sideBarArea}>
             <SidebarComponent />
           </div>
         )}
-
+        {nowLocation.pathname};
         <div className={styles.mainContentArea}>{children}</div>
       </div>
 

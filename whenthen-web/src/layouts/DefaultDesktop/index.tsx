@@ -1,4 +1,5 @@
 import React, { ReactNode, useEffect, useRef } from 'react';
+import { useLocation, Link } from 'react-router-dom';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import HeaderComponent from '../../components/HeaderComponent';
@@ -24,27 +25,25 @@ const DefaultDesktop = ({ children }: Props) => {
   }));
 
   const styles = stylesDesktopDefault;
-  const link = new Set(document.location.href.split('/'));
-  const isLanding = link.size <= 3;
-
-  const sideBarRef = useRef<HTMLDivElement>(null);
+  const nowLocation = useLocation();
 
   return (
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
-        {(!sideBarVisibility && screenClass !== 'xl') || isLanding ? (
+        {(!sideBarVisibility && screenClass !== 'xl') ||
+        nowLocation.pathname === '/' ? (
           <div></div>
         ) : (
           <div className={styles.sideBarArea}>
             <SidebarComponent />
           </div>
         )}
-
+        {nowLocation.pathname};
         <div
           className={styles.mainContentArea}
           style={
-            screenClass === 'xl' && isLanding
+            screenClass === 'xl' && nowLocation.pathname === '/'
               ? { left: '0' }
               : { left: '180px' }
           }
