@@ -27,7 +27,7 @@ const DefaultMobile = ({ children }: Props) => {
           </div>
         )}
 
-        <div className={styles.mainContentArea}>{children}</div>
+        <div className={styles.childrenArea}>{children}</div>
       </div>
 
       <FooterComponent />
