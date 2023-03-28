@@ -1,28 +1,11 @@
 import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 
 interface PropsDatepickerComponent {}
 
-const DateInformation = (now: Date, addMonth?: number) => {
-  if (addMonth) now.setMonth(now.getMonth() + addMonth);
-  let copy = new Date(now);
-
-  copy.setDate(1);
-  let first = new Date(copy);
-  copy.setMonth(copy.getMonth() + 1);
-  copy.setDate(0);
-  let last = new Date(copy);
-
-  return {
-    date: now,
-    month: now.getMonth() + 1,
-    year: now.getFullYear(),
-    offset: first.getDay(),
-    daysInMonth: last.getDate(),
-    totalSquares: first.getDay() - 1 + last.getDate() + (6 - last.getDay()),
-  };
-};
 const DatepickerComponent: React.FunctionComponent<
   PropsDatepickerComponent
 > = ({}) => {
@@ -33,41 +16,45 @@ const DatepickerComponent: React.FunctionComponent<
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
+  const dateInformation = (nowDate: Date, additionalMonth?: number) => {
+    if (additionalMonth) nowDate.setMonth(nowDate.getMonth() + additionalMonth);
+    const copiedNow = new Date(nowDate);
+
+    copiedNow.setDate(1);
+    const firstDate = new Date(copiedNow);
+    copiedNow.setMonth(copiedNow.getMonth() + 1);
+    copiedNow.setDate(0);
+    const lastDate = new Date(copiedNow);
+
+    return {
+      date: nowDate,
+      month: nowDate.getMonth() + 1,
+      year: nowDate.getFullYear(),
+      offset: firstDate.getDay(),
+      daysInMonth: lastDate.getDate(),
+      totalSquares:
+        firstDate.getDay() - 1 + lastDate.getDate() + (6 - lastDate.getDay()),
+    };
+  };
   const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const months = [
-    '',
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
 
   const [hidden, setHidden] = useState(true);
-  const [selectedDate, setSelectedDate] = useState('');
-  const [date, setDate] = useState(DateInformation(new Date()));
-  let squares = [];
-  for (let i = 0; i < date.offset; i++) {
+  const [formattedDate, setFormattedDate] = useState('');
+  const [nowDate, setNowDate] = useState(dateInformation(new Date()));
+  const squares = [];
+  for (let i = 0; i < nowDate.offset; i++) {
     squares.push(<div className={`${styles.square} ${styles.empty}`}> </div>);
   }
-  for (let i = 1; i <= date.daysInMonth; i++) {
-    let copy = new Date(date.date);
-    copy.setDate(i);
+  for (let i = 1; i <= nowDate.daysInMonth; i++) {
+    let calendarDate = new Date(nowDate.date);
+    calendarDate.setDate(i);
     squares.push(
       <div
         className={styles.square}
-        onClick={() =>
-          document
-            .getElementById('datepicker-text')
-            ?.setAttribute('value', copy.toLocaleDateString())
-        }
+        onClick={() => {
+          setFormattedDate(calendarDate.toLocaleDateString());
+          setHidden(!hidden);
+        }}
       >
         {i}
       </div>,
@@ -76,31 +63,28 @@ const DatepickerComponent: React.FunctionComponent<
 
   return (
     <div className={styles.datepicker}>
-      <input
-        type="text"
-        id="datepicker-text"
-        onClick={() => setHidden(!hidden)}
-        readOnly
-      />
+      <InputGroup size="sm" id="datepicker" onClick={() => setHidden(!hidden)}>
+        <Form.Control id="datepicker-date" value={formattedDate} readOnly />
+      </InputGroup>
       {!hidden && (
         <div className={styles.container}>
           <div className={styles.controller}>
             <div
               className={styles.arrowleft}
               onClick={() => {
-                setDate(DateInformation(date.date, -1));
+                setNowDate(dateInformation(nowDate.date, -1));
               }}
             >
               ≪
             </div>
             <div className={styles.monthyear}>
-              <span className={styles.month}>{months[date.month]}</span>
-              <span className={styles.year}>{date.year}</span>
+              <span className={styles.year}>{nowDate.year}년 </span>
+              <span className={styles.month}>{nowDate.month}월</span>
             </div>
             <div
               className={styles.arrowright}
               onClick={() => {
-                setDate(DateInformation(date.date, 1));
+                setNowDate(dateInformation(nowDate.date, 1));
               }}
             >
               ≫
