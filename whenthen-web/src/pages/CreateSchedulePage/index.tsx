@@ -15,32 +15,82 @@ const CreateSchedulePage = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
-  const [file, setFile] = useState<File>();
+  const [createScFormValue, setCreateScFormValue] = useState({
+    title: '',
+    startDate: '',
+    endDate: '',
+    placeAddr: '',
+    eventUrl: '',
+    contents: '',
+    img1: undefined as File | undefined, // img1 프로퍼티 추가
+  });
 
   const handleFileChange = (file: File) => {
-    setFile(file);
+    setCreateScFormValue({
+      ...createScFormValue,
+      img1: file,
+    });
+  };
+
+  const handleLocationInputChange = (address: string) => {
+    setCreateScFormValue({
+      ...createScFormValue,
+      placeAddr: address,
+    });
+  };
+
+  const handleInputTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCreateScFormValue({
+      ...createScFormValue,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    alert(JSON.stringify(createScFormValue, null, 2));
   };
 
   return (
     <DefaultLayout>
       <div>
         <h1>이벤트 생성</h1>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
             <Form.Label>타이틀</Form.Label>
-            <Form.Control size="lg" placeholder="타이틀을 작성해주세요." />
+            <Form.Control
+              size="lg"
+              placeholder="타이틀을 작성해주세요."
+              name="title"
+              onChange={handleInputTextChange}
+            />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>기간</Form.Label>
-            <Form.Control placeholder="임시" />
+            <Form.Control
+              placeholder="시작일"
+              name="startDate"
+              onChange={handleInputTextChange}
+            />
+            <Form.Control
+              placeholder="종료일"
+              name="endDate"
+              onChange={handleInputTextChange}
+            />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>장소</Form.Label>
-            <LocationInputComponent></LocationInputComponent>
+            <LocationInputComponent
+              onAddressChange={handleLocationInputChange}
+            ></LocationInputComponent>
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>관련 URL</Form.Label>
-            <Form.Control placeholder="임시" />
+            <Form.Control
+              placeholder="임시"
+              name="eventUrl"
+              onChange={handleInputTextChange}
+            />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>이미지</Form.Label>
@@ -50,7 +100,12 @@ const CreateSchedulePage = () => {
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>내용</Form.Label>
-            <Form.Control as="textarea" placeholder="글을 쓰세요!" />
+            <Form.Control
+              as="textarea"
+              placeholder="글을 쓰세요!"
+              name="contents"
+              onChange={handleInputTextChange}
+            />
           </Form.Group>
           <Button type="submit" variant="primary" size="lg" className="w-100">
             추가하기
