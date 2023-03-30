@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+import InputGroup, { InputGroupProps } from 'react-bootstrap/InputGroup';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 
@@ -42,6 +42,8 @@ const DatepickerComponent: React.FunctionComponent<
   const [formattedDate, setFormattedDate] = useState('');
   const [nowDate, setNowDate] = useState(dateInformation(new Date()));
   const squares = [];
+  const datepickerRef = useRef<HTMLDivElement>(null);
+
   for (let i = 0; i < nowDate.offset; i++) {
     squares.push(<div className={`${styles.square} ${styles.empty}`}> </div>);
   }
@@ -61,8 +63,27 @@ const DatepickerComponent: React.FunctionComponent<
     );
   }
 
+  useEffect(() => {
+    const onClickEvent = (event: MouseEvent) => {
+      const target = event.target as HTMLDivElement;
+      if (
+        target?.contains(datepickerRef.current) &&
+        target !== datepickerRef.current &&
+        !hidden
+      ) {
+        setHidden(true);
+      }
+    };
+
+    document.addEventListener('click', onClickEvent);
+
+    return () => {
+      document.removeEventListener('click', onClickEvent);
+    };
+  });
+
   return (
-    <div className={styles.datepicker}>
+    <div ref={datepickerRef} className={styles.datepicker}>
       <InputGroup size="sm" id="datepicker" onClick={() => setHidden(!hidden)}>
         <Form.Control id="datepicker-date" value={formattedDate} readOnly />
       </InputGroup>
