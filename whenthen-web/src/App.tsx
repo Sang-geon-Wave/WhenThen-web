@@ -7,6 +7,8 @@ import MockPage from './pages/MockPage';
 import CalendarPage from './pages/CalendarPage';
 import TimelinePage from './pages/TimelinePage';
 import CreateSchedulePage from './pages/CreateSchedulePage';
+
+import TimelinePage from './pages/TimelinePage';
 import LoginPage from './pages/LoginPage';
 
 const App = () => {

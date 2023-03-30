@@ -8,7 +8,7 @@ const TimelinePage = () => {
     <DefaultLayout>
       <div>
         {timeLineMockDataList.map((movieList) => (
-          <TimelineDateComponent movieList={movieList}></TimelineDateComponent>
+          <TimelineDateComponent movieList={movieList} key={`dateKey${idx}`} />
         ))}
       </div>
     </DefaultLayout>
