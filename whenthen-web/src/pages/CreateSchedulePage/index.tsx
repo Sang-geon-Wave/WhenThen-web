@@ -3,10 +3,11 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 import ImageUploadComponent from '../../components/ImageUploadComponent';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Form, Row, Col } from 'react-bootstrap';
 import LocationInputComponent from '../../components/LocationInputComponent';
 
 import DefaultLayout from '../../layouts/DefaultLayout';
+import DatepickerComponent from '../../components/DatepickerComponent';
 const CreateSchedulePage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
@@ -67,16 +68,18 @@ const CreateSchedulePage = () => {
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>기간</Form.Label>
-            <Form.Control
-              placeholder="시작일"
-              name="startDate"
-              onChange={handleInputTextChange}
-            />
-            <Form.Control
-              placeholder="종료일"
-              name="endDate"
-              onChange={handleInputTextChange}
-            />
+            <div>
+              <Row>
+                <Col>
+                  시작일
+                  <DatepickerComponent></DatepickerComponent>
+                </Col>
+                <Col>
+                  종료일
+                  <DatepickerComponent></DatepickerComponent>
+                </Col>
+              </Row>
+            </div>
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>장소</Form.Label>
