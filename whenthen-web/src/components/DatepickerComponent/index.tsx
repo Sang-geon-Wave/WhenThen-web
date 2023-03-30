@@ -16,7 +16,7 @@ const DatepickerComponent: React.FunctionComponent<
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  const dateInformation = (nowDate: Date, additionalMonth?: number) => {
+  const dateManager = (nowDate: Date, additionalMonth?: number) => {
     if (additionalMonth) nowDate.setMonth(nowDate.getMonth() + additionalMonth);
     const copiedNow = new Date(nowDate);
 
@@ -40,7 +40,7 @@ const DatepickerComponent: React.FunctionComponent<
 
   const [hidden, setHidden] = useState(true);
   const [formattedDate, setFormattedDate] = useState('');
-  const [nowDate, setNowDate] = useState(dateInformation(new Date()));
+  const [nowDate, setNowDate] = useState(dateManager(new Date()));
   const squares = [];
   const datepickerRef = useRef<HTMLDivElement>(null);
 
@@ -48,13 +48,13 @@ const DatepickerComponent: React.FunctionComponent<
     squares.push(<div className={`${styles.square} ${styles.empty}`}> </div>);
   }
   for (let i = 1; i <= nowDate.daysInMonth; i++) {
-    let calendarDate = new Date(nowDate.date);
-    calendarDate.setDate(i);
+    let tempDate = new Date(nowDate.date);
+    tempDate.setDate(i);
     squares.push(
       <div
         className={styles.square}
         onClick={() => {
-          setFormattedDate(calendarDate.toLocaleDateString());
+          setFormattedDate(tempDate.toLocaleDateString());
           setHidden(!hidden);
         }}
       >
@@ -93,11 +93,9 @@ const DatepickerComponent: React.FunctionComponent<
             <div
               className={styles.arrowleft}
               onClick={() => {
-                setNowDate(dateInformation(nowDate.date, -1));
+                setNowDate(dateManager(nowDate.date, -1));
               }}
-            >
-              ≪
-            </div>
+            ></div>
             <div className={styles.monthyear}>
               <span className={styles.year}>{nowDate.year}년 </span>
               <span className={styles.month}>{nowDate.month}월</span>
@@ -105,11 +103,9 @@ const DatepickerComponent: React.FunctionComponent<
             <div
               className={styles.arrowright}
               onClick={() => {
-                setNowDate(dateInformation(nowDate.date, 1));
+                setNowDate(dateManager(nowDate.date, 1));
               }}
-            >
-              ≫
-            </div>
+            ></div>
           </div>
           <div className={styles.squares}>
             {days.map((day) => (
