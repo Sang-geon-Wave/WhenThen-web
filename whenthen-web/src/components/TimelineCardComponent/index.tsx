@@ -42,15 +42,12 @@ const TimelineCardComponent: React.FunctionComponent<
         className={cardStyles.imgBlock}
       />
       <div className={cardStyles.movieIntroduceBlock}>
-        <h1
-          className={
-            moreInfo ? cardStyles.titleClickBlock : cardStyles.titleBlock
-          }
-        >
-          Title: {title}
-        </h1>
+        <h1 style={{ fontSize: moreInfo ? '5vh' : '10vh' }}>Title: {title}</h1>
         <h2
-          className={moreInfo ? cardStyles.subClickBlock : cardStyles.subBlock}
+          style={{
+            fontSize: moreInfo ? '2.5vh' : '4vh',
+            color: 'rgb(188, 188, 188)',
+          }}
         >
           {sub}
         </h2>
