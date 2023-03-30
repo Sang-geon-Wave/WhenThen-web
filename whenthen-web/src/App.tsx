@@ -3,10 +3,11 @@ import { useScreenClass } from 'react-grid-system';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import useRootData from './hooks/useRootData';
 import LandingPage from './pages/Landing';
-import LayoutTestPage from './pages/LayoutTest';
 import MockPage from './pages/MockPage';
-import TimelineDatePage from './pages/TimelineDatePage';
+import CalendarPage from './pages/CalendarPage';
+import TimelinePage from './pages/TimelinePage';
 import CreateSchedulePage from './pages/CreateSchedulePage';
+import LoginPage from './pages/LoginPage';
 
 const App = () => {
   const componentRef = useRef(null);
@@ -28,10 +29,11 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/mock" element={<MockPage />} />
-        <Route path="/timeline-date" element={<TimelineDatePage />} />
-        <Route path="/layout" element={<LayoutTestPage />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/timeline" element={<TimelinePage />} />
         <Route path="/createSchedule" element={<CreateSchedulePage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </Router>
   );

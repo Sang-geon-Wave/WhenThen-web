@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import useRootData from '../../hooks/useRootData';
 import { useLocation, Link } from 'react-router-dom';
 import HeaderComponent from '../../components/HeaderComponent';
@@ -9,18 +9,9 @@ interface Props {
   children: React.ReactNode;
 }
 const DefaultMobile = ({ children }: Props) => {
-  const {
-    screenClass,
-    isLogin,
-    changeLoginState,
-    sideBarVisibility,
-    changeSideBarVisibility,
-  } = useRootData(({ appStore, loginStore }) => ({
+  const { screenClass, sideBarVisibility } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
-    isLogin: loginStore.isLogin.get(),
-    changeLoginState: loginStore.changeLoginState,
     sideBarVisibility: appStore.sideBarVisibility.get(),
-    changeSideBarVisibility: appStore.changeSideBarVisibility,
   }));
 
   const styles = stylesMobileDefault;
