@@ -84,8 +84,8 @@ const DatepickerComponent: React.FunctionComponent<
 
   return (
     <div ref={datepickerRef} className={styles.datepicker}>
-      <InputGroup size="sm" id="datepicker" onClick={() => setHidden(!hidden)}>
-        <Form.Control id="datepicker-date" value={formattedDate} readOnly />
+      <InputGroup size="sm" onClick={() => setHidden(!hidden)}>
+        <Form.Control value={formattedDate} readOnly />
       </InputGroup>
       {!hidden && (
         <div className={styles.container}>
