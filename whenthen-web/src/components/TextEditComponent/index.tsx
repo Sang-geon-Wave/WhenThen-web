@@ -1,11 +1,9 @@
-import { setSelectionRange } from '@testing-library/user-event/dist/utils';
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-// import stylesMobileDefault from './MobileDefault.module.scss';
+import Button from 'react-bootstrap/Button';
 
-const TextEditomponent = () => {
+const TextEditorComponent = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -13,52 +11,64 @@ const TextEditomponent = () => {
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   const [text, setText] = useState('');
-  const [bold, setBold] = useState(false);
-  // const [selectionStart, setSelectionStart] = useState(0);
-  // const [selectionEnd, setSelectionEnd] = useState(0);
 
   const handleSetValue = (event) => {
     setText(event.target.value);
   };
-  const handleSetSpecialkey = (event) => {
-    console.log(event.keyCode);
-    if (event.keyCode === 9) {
-      event.preventDefault();
-      let val = event.target.value;
-      let start = event.target.selectionStart;
-      let end = event.target.selectionEnd;
-      event.target.value = val.substring(0, start) + '\t' + val.substring(end);
-      event.target.selectionStart = event.target.selectionEnd = start + 1;
-      handleSetValue(event);
-      return false;
-    }
-  };
+
   const handleBoldClick = () => {
-    setBold(!bold);
+    document.execCommand('bold', false, null);
   };
+  const handleItalicClick = () => {
+    document.execCommand('italic', false, null);
+  };
+  const handleUnderlineClick = () => {
+    document.execCommand('underline', false, null);
+  };
+
   const handleFocus = (event) => {
-    console.log(event.target.value);
+    console.log(event.target.innerHTML);
   };
 
   return (
     <div>
       <div className={styles.buttonBox}>
-        <button onClick={handleBoldClick}>Bo</button>
-        <button onClick={handleBoldClick}>UL</button>
+        <Button
+          id="boldBtn"
+          className={styles.button}
+          variant="light"
+          onClick={handleBoldClick}
+        >
+          <b>B</b>
+        </Button>
+        <Button
+          id="italicBtn"
+          className={styles.button}
+          variant="light"
+          onClick={handleItalicClick}
+        >
+          <i>I</i>
+        </Button>
+        <Button
+          id="underlineBtn"
+          className={styles.button}
+          variant="light"
+          onClick={handleUnderlineClick}
+        >
+          <u>U</u>
+        </Button>
       </div>
       <div className={styles.mainBox}>
-        <textarea
-          id="textbox"
+        <div
+          id="textEdit"
           className={styles.textBox}
-          placeholder="텍스트를 입력해 주세요. "
-          value={text}
-          onChange={(event) => handleSetValue(event)}
-          onKeyDown={(event) => handleSetSpecialkey(event)}
-          onFocus={(event) => handleFocus(event)}
-        />
+          contentEditable="true"
+          onInput={handleSetValue}
+          onFocus={handleFocus}
+        ></div>
       </div>
     </div>
   );
 };
 
-export default TextEditomponent;
+export default TextEditorComponent;

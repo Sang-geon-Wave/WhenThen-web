@@ -4,6 +4,13 @@
   padding-left: 5%;
 }
 
+.button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #d6d6d6;
+  border-radius: 4px;
+}
+
 .mainBox {
   display: flex;
   justify-content: center;
@@ -14,4 +21,6 @@
   width: 90%;
   min-height: 200px;
   height: 90%;
+  border: 1px solid #d6d6d6;
+  border-radius: 4px;
 }
