@@ -7,8 +7,6 @@ import MockPage from './pages/MockPage';
 import CalendarPage from './pages/CalendarPage';
 import TimelinePage from './pages/TimelinePage';
 import CreateSchedulePage from './pages/CreateSchedulePage';
-
-import TimelinePage from './pages/TimelinePage';
 import LoginPage from './pages/LoginPage';
 
 const App = () => {
@@ -31,8 +29,8 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/mock" element={<MockPage />} />
-        <Route path="/timeline" element={<TimelinePage />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/timeline" element={<TimelinePage />} />
         <Route path="/createSchedule" element={<CreateSchedulePage />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/login" element={<LoginPage />} />
