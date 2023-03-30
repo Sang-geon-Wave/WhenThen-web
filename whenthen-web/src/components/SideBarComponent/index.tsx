@@ -1,47 +1,49 @@
-import React, { useRef, useEffect } from 'react';
+import React from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
+import stylesMobileDefault from './MobileDefault.module.scss';
 
 import icon from '../../assets/images/menu.png';
 
-import { isActive } from '../../utils/sidebarUtils';
-import Sidebar from './SidebarItems/Sidebar';
-import SidebarList from './SidebarItems/SidebarList';
-import SidebarItem from './SidebarItems/SidebarItem';
-import SidebarLink from './SidebarItems/SidebarLink';
-
-export interface SidebarComponentProps {}
-
 const SidebarComponent = () => {
-  const { screenClass } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-  }));
+  const { screenClass, sideBarVisibility, changeSideBarVisibility } =
+    useRootData(({ appStore }) => ({
+      screenClass: appStore.screenClass.get(),
+      sideBarVisibility: appStore.sideBarVisibility.get(),
+      changeSideBarVisibility: appStore.changeSideBarVisibility,
+    }));
   const isDesktop = screenClass === 'xl';
 
-  const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+  const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
   return (
-    <Sidebar>
-      <SidebarList>
-        <SidebarItem>
-          <SidebarLink to="/" active={isActive('/')}>
-            <img src={icon} width="12" height="12" alt="testA" />
-            대시보드
-          </SidebarLink>
-        </SidebarItem>
-        {/* <SidebarSeparator /> */}
-        <SidebarItem>
-          <SidebarLink to="/" active={isActive('/')}>
-            타임라인
-          </SidebarLink>
-        </SidebarItem>
-        <SidebarItem>
-          <SidebarLink to="/" active={isActive('/nowhere')}>
-            생성하기
-          </SidebarLink>
-        </SidebarItem>
-      </SidebarList>
-    </Sidebar>
+    <div className={styles.sideBarArea}>
+      {sideBarVisibility && screenClass !== 'xl' ? (
+        <div
+          className={styles.sideBarOutside}
+          onClick={() => changeSideBarVisibility(false)}
+        />
+      ) : (
+        <div />
+      )}
+
+      <div className={styles.sideBar}>
+        <div className={styles.sideBarList}>
+          <div className={styles.sideBarItem}>
+            <div className={styles.sideBarLink}>
+              <img src={icon} width="12" height="12" alt="testA" />
+              대시보드
+            </div>
+          </div>
+          <div className={styles.sideBarItem}>
+            <div className={styles.sideBarLink}>타임라인</div>
+          </div>
+          <div className={styles.sideBarItem}>
+            <div className={styles.sideBarLink}>생성하기</div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
