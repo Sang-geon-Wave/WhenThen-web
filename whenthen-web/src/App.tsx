@@ -29,8 +29,8 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/mock" element={<MockPage />} />
-        <Route path="/timeline" element={<TimelinePage />} />
         <Route path="/" element={<LandingPage />} />
+        <Route path="/timeline" element={<TimelinePage />} />
         <Route path="/createSchedule" element={<CreateSchedulePage />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/login" element={<LoginPage />} />
