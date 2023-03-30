@@ -9,6 +9,12 @@ const createStore = () => {
     alertModalVisibility: observable.box(false),
     alertModalContent: observable.box(''),
 
+    sideBarVisibility: observable.box(false),
+
+    changeSideBarVisibility(data: boolean) {
+      appStore.sideBarVisibility.set(data);
+    },
+
     // Set screen class
     changeScreenClass(data: any) {
       appStore.screenClass.set(data);

@@ -1,0 +1,28 @@
+@import '../../assets/scsses/config';
+.mainBlock {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  min-height: 150vh;
+}
+.sideBarButton {
+  position: absolute;
+  border: fade-out($color: #000000, $amount: 0);
+  z-index: 10;
+}
+.logoImg {
+  position: fixed;
+  margin: 0, 0, 0, 0;
+  max-width: 46px;
+  max-height: 46px;
+}
+.sideBarArea {
+  width: 180px;
+  min-height: 10px;
+  z-index: 90;
+}
+.childrenArea {
+  vertical-align: middle;
+  width: 100%;
+  padding: 2%;
+}
