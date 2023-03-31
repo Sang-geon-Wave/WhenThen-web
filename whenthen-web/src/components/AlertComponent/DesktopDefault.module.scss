@@ -1,0 +1,25 @@
+.mainBlock {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: rgba(128, 128, 128, 0.5);
+  z-index: 300;
+}
+
+.alertBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -60%);
+  height: 300px;
+  width: 500px;
+  background-color: white;
+  border-radius: 10px;
+}

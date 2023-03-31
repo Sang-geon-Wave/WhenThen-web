@@ -8,6 +8,7 @@ import CalendarPage from './pages/CalendarPage';
 import TimelinePage from './pages/TimelinePage';
 import CreateSchedulePage from './pages/CreateSchedulePage';
 import LoginPage from './pages/LoginPage';
+import AlertComponent from './components/AlertComponent';
 
 const App = () => {
   const componentRef = useRef(null);
@@ -27,6 +28,7 @@ const App = () => {
 
   return (
     <Router>
+      <AlertComponent />
       <Routes>
         <Route path="/mock" element={<MockPage />} />
         <Route path="/" element={<LandingPage />} />

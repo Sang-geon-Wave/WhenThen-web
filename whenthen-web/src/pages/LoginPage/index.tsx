@@ -3,6 +3,7 @@ import LoginComponent from '../../components/LoginComponent';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Link } from 'react-router-dom';
+import DefaultLayout from '../../layouts/DefaultLayout';
 
 const LoginPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -12,14 +13,16 @@ const LoginPage = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
-    <div>
-      <h1 className={styles.mainBlock}>
-        <Link to="/createSchedule" className={styles.titleText}>
-          When Then
-        </Link>
-      </h1>
-      <LoginComponent />
-    </div>
+    <DefaultLayout>
+      <div>
+        <h1 className={styles.mainBlock}>
+          <Link to="/createSchedule" className={styles.titleText}>
+            When Then
+          </Link>
+        </h1>
+        <LoginComponent />
+      </div>
+    </DefaultLayout>
   );
 };
 

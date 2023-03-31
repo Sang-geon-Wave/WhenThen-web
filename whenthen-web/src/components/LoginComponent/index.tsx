@@ -5,13 +5,13 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const LoginComponent = () => {
-  const { screenClass, isLogin, changeLoginState } = useRootData(
-    ({ appStore, loginStore }) => ({
+  const { screenClass, isLogin, changeLoginState, changeAlertState } =
+    useRootData(({ appStore, loginStore, alertStore }) => ({
       screenClass: appStore.screenClass.get(),
       isLogin: loginStore.isLogin.get(),
       changeLoginState: loginStore.changeLoginState,
-    }),
-  );
+      changeAlertState: alertStore.changeAlertState,
+    }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
@@ -62,7 +62,7 @@ const LoginComponent = () => {
     } else setLoginErr(false);
 
     if (tmpCurrentLoginInfo(usrId, usrPw)) {
-      alert(`환영합니다 ${usrId}님`);
+      changeAlertState(true, `환영합니다 ${usrId}님`);
       changeLoginState(true);
       if (autoLogin) {
         // 추후 서버에서 토큰이 날라오면 토큰 하나만 저장예정
