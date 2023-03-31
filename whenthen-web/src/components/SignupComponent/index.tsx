@@ -22,63 +22,70 @@ const SignupComponent = () => {
     return false;
   };
 
-  if (localStorage.getItem('autoLogin') === 'true') {
-    if (
-      // Todo: improve security by storing token values instead of ID/PW directly
-      tmpCurrentLoginInfo(
-        localStorage.getItem('ID'),
-        localStorage.getItem('PW'),
-      )
-    )
-      changeLoginState(true);
-  }
-
-  const [loginErrType, setLoginErrType] = useState('');
-  const [loginErr, setLoginErr] = useState(false);
+  const [signupErrType, setSignupErrType] = useState('');
+  const [signupErr, setSignupErr] = useState(false);
 
   const [usrId, setUsrId] = useState('');
   const inputID = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginErr(false);
+    setSignupErr(false);
     setUsrId(event.currentTarget.value);
   };
 
   const [usrPw, setUsrPw] = useState('');
   const inputPW = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginErr(false);
+    setSignupErr(false);
     setUsrPw(event.currentTarget.value);
   };
 
-  const [autoLogin, setAutoLogin] = useState(false);
-  const toggleAutoLogin = () => setAutoLogin(!autoLogin);
+  const [usrPwRe, setUsrPwRe] = useState('');
+  const inputPWRe = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSignupErr(false);
+    setUsrPwRe(event.currentTarget.value);
+  };
 
   const submitInfo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (isLogin === true) return;
+    setSignupErr(false);
 
-    if (!usrId || !usrPw) {
-      setLoginErrType(`${!usrId ? '아이디' : '비밀번호'}를 입력해주세요`);
-      setLoginErr(true);
+    if (!usrId) {
+      setSignupErrType(`아이디를 입력해주세요`);
+      setSignupErr(true);
       return;
-    } else setLoginErr(false);
-
-    if (tmpCurrentLoginInfo(usrId, usrPw)) {
-      alert(`환영합니다 ${usrId}님`);
-      changeLoginState(true);
-      if (autoLogin) {
-        // 추후 서버에서 토큰이 날라오면 토큰 하나만 저장예정
-        localStorage.setItem('ID', usrId);
-        localStorage.setItem('PW', usrPw);
-        localStorage.setItem('autoLogin', 'true');
-      } else localStorage.setItem('autoLogin', 'false');
-    } else {
-      setLoginErr(true);
-      setLoginErrType('올바르지 않은 아이디 혹은 비밀번호');
+    } else if (!usrPw) {
+      setSignupErrType(`비밀번호를 입력해주세요`);
+      setSignupErr(true);
+      return;
+    } else if (!usrPwRe) {
+      setSignupErrType(`비밀번호 확인을 입력해주세요`);
+      setSignupErr(true);
+      return;
     }
+
+    // id가 이미 있는지 검증 (수정 예정)
+    if (usrId === 'usr') {
+      setSignupErrType(`이미 존재하는 ID 입니다`);
+      setSignupErr(true);
+      return;
+    }
+
+    const reg = /^[A-Za-z0-9]{6,12}$/;
+    if (!reg.test(usrPw)) {
+      setSignupErrType('비밀번호 조건이 일치하지 않습니다');
+      setSignupErr(true);
+      return;
+    } else if (usrPw !== usrPwRe) {
+      setSignupErrType('비밀번호가 일치하지 않습니다');
+      setSignupErr(true);
+      return;
+    }
+
+    alert(`회원가입 완료하였습니다 ${usrId}님`);
   };
+
   return (
     <div className={styles.mainBlock}>
       <Form
-        className={loginErr ? styles.formErrorBlock : styles.formBlock}
+        className={signupErr ? styles.formErrorBlock : styles.formBlock}
         onSubmit={submitInfo}
       >
         <Form.Group className="mb-3" controlId="formBasicId">
@@ -90,30 +97,33 @@ const SignupComponent = () => {
             onChange={inputID}
           />
         </Form.Group>
+
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>비밀번호</Form.Label>
           <Form.Control
-            type="password"
+            type="text"
             placeholder="비밀번호"
             value={usrPw}
             onChange={inputPW}
           />
-          {loginErr && (
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+          <Form.Label>비밀번호 확인</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="비밀번호 확인"
+            value={usrPwRe}
+            onChange={inputPWRe}
+          />
+          {signupErr && (
             <Form.Text className={styles.errorMessageBlock}>
-              {loginErrType}
+              {signupErrType}
             </Form.Text>
           )}
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check
-            onChange={toggleAutoLogin}
-            type="checkbox"
-            label="로그인 상태 유지"
-            checked={autoLogin}
-          />
-        </Form.Group>
         <Button variant="outline-primary" type="submit">
-          로그인
+          회원가입
         </Button>
       </Form>
     </div>
