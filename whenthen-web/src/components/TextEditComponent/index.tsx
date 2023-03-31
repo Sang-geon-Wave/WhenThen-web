@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Button from 'react-bootstrap/Button';
+import { Dropdown } from 'react-bootstrap';
+import DropdownButton from 'react-bootstrap';
 
 const TextEditorComponent = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -12,7 +14,6 @@ const TextEditorComponent = () => {
 
   const [text, setText] = useState('');
   const [fontFamily, setFontFamily] = useState('NanumGothic');
-  const [fontSize, setFontSize] = useState(4);
 
   const handleSetValue = (event) => {
     setText(event.target.value);
@@ -35,10 +36,6 @@ const TextEditorComponent = () => {
     setFontFamily(event.target.value);
     document.execCommand('fontName', false, event.target.value);
   };
-  const handleFontSize = (event) => {
-    setFontSize(event.target.value);
-    document.execCommand('fontSize', false, event.target.value);
-  };
 
   const handleFocus = (event) => {
     console.log(event.target.innerHTML);
@@ -47,24 +44,40 @@ const TextEditorComponent = () => {
   return (
     <div>
       <div className={styles.buttonBox}>
-        <select id="fontSelector" value={fontFamily} onChange={handleFont}>
-          <option value={'NanumGothic'}>나눔고딕</option>
-          <option value={'Gulim01'}>굴림1</option>
-          <option value={'Gulim02'}>굴림2</option>
-          <option value={'NanumSquareRoundR'}>스퀘어라운드R</option>
-          <option value={'NanumSquareRoundB'}>스퀘어라운드B</option>
-        </select>
-        <select
-          id="fontSizeSelector"
-          value={fontSize}
-          onChange={handleFontSize}
-        >
-          <option value={3}>3</option>
-          <option value={4}>4</option>
-          <option value={5}>5</option>
-          <option value={6}>6</option>
-          <option value={7}>7</option>
-        </select>
+        <Dropdown>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            {fontFamily}
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item
+              as="button"
+              value={'NanumGothic'}
+              onClick={handleFont}
+            >
+              나눔고딕
+            </Dropdown.Item>
+            <Dropdown.Item as="button" value={'Gulim01'} onClick={handleFont}>
+              굴림1
+            </Dropdown.Item>
+            <Dropdown.Item as="button" value={'Gulim02'} onClick={handleFont}>
+              굴림2
+            </Dropdown.Item>
+            <Dropdown.Item
+              as="button"
+              value={'NanumSquareRoundR'}
+              onClick={handleFont}
+            >
+              스퀘어라운드R
+            </Dropdown.Item>
+            <Dropdown.Item
+              as="button"
+              value={'NanumSquareRoundB'}
+              onClick={handleFont}
+            >
+              스퀘어라운드B
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
         <Button
           id="boldBtn"
           className={styles.button}
