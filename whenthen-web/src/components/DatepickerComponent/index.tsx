@@ -47,13 +47,18 @@ const DatepickerComponent: React.FunctionComponent<
   const datepickerRef = useRef<HTMLDivElement>(null);
 
   for (let i = 0; i < nowDate.offset; i++) {
-    squares.push(<div className={`${styles.square} ${styles.empty}`}> </div>);
+    squares.push(
+      <div key={'offset ' + i} className={`${styles.square} ${styles.empty}`}>
+        {' '}
+      </div>,
+    );
   }
   for (let i = 1; i <= nowDate.daysInMonth; i++) {
     let tempDate = new Date(nowDate.date);
     tempDate.setDate(i);
     squares.push(
       <div
+        key={tempDate.toLocaleDateString()}
         className={styles.square}
         onClick={() => {
           setFormattedDate(tempDate.toLocaleDateString());
@@ -112,7 +117,9 @@ const DatepickerComponent: React.FunctionComponent<
           </div>
           <div className={styles.squares}>
             {days.map((day) => (
-              <div className={`${styles.square} ${styles.day}`}>{day}</div>
+              <div key={day} className={`${styles.square} ${styles.day}`}>
+                {day}
+              </div>
             ))}
             {squares.map((square) => square)}
           </div>
