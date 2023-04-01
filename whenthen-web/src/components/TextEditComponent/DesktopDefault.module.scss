@@ -27,27 +27,31 @@
   border-radius: 4px;
 }
 
+.dropdown {
+  width: 200px;
+}
+
 @font-face {
-  font-family: 'Gulim01';
+  font-family: '굴림1';
   src: url('../../assets/fonts/Gulim01.ttf');
 }
 
 @font-face {
-  font-family: 'Gulim02';
+  font-family: '굴림2';
   src: url('../../assets/fonts/Gulim02.ttf');
 }
 
 @font-face {
-  font-family: 'NanumGothic';
+  font-family: '나눔고딕딕';
   src: url('../../assets/fonts/NanumGothic.ttf');
 }
 
 @font-face {
-  font-family: 'NanumSquareRoundB';
+  font-family: '스퀘어라운드B';
   src: url('../../assets/fonts/NanumSquareRoundB.ttf');
 }
 
 @font-face {
-  font-family: 'NanumSquareRoundR';
+  font-family: '스퀘어라운드R';
   src: url('../../assets/fonts/NanumSquareRoundR.ttf');
 }

@@ -13,7 +13,7 @@ const TextEditorComponent = () => {
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   const [text, setText] = useState('');
-  const [fontFamily, setFontFamily] = useState('NanumGothic');
+  const [fontFamily, setFontFamily] = useState('나눔고딕');
 
   const handleSetValue = (event) => {
     setText(event.target.value);
@@ -49,29 +49,25 @@ const TextEditorComponent = () => {
             {fontFamily}
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <Dropdown.Item
-              as="button"
-              value={'NanumGothic'}
-              onClick={handleFont}
-            >
+            <Dropdown.Item as="button" value={'나눔고딕'} onClick={handleFont}>
               나눔고딕
             </Dropdown.Item>
-            <Dropdown.Item as="button" value={'Gulim01'} onClick={handleFont}>
+            <Dropdown.Item as="button" value={'굴림1'} onClick={handleFont}>
               굴림1
             </Dropdown.Item>
-            <Dropdown.Item as="button" value={'Gulim02'} onClick={handleFont}>
+            <Dropdown.Item as="button" value={'굴림2'} onClick={handleFont}>
               굴림2
             </Dropdown.Item>
             <Dropdown.Item
               as="button"
-              value={'NanumSquareRoundR'}
+              value={'스퀘어라운드R'}
               onClick={handleFont}
             >
               스퀘어라운드R
             </Dropdown.Item>
             <Dropdown.Item
               as="button"
-              value={'NanumSquareRoundB'}
+              value={'스퀘어라운드B'}
               onClick={handleFont}
             >
               스퀘어라운드B
@@ -118,6 +114,7 @@ const TextEditorComponent = () => {
           contentEditable="true"
           onInput={handleSetValue}
           onFocus={handleFocus}
+          style={{ fontFamily }}
         ></div>
       </div>
     </div>
