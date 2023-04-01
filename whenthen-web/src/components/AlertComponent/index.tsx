@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Overlay, Button } from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
@@ -15,16 +15,32 @@ const AlertComponent = () => {
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
-  const target = useRef(null);
+  const alertRef = useRef<HTMLDivElement>(null);
+  const overlayTarget = useRef(null);
+
+  useEffect(() => {
+    const onClickEvent = (event: MouseEvent) => {
+      const target = event.target as HTMLDivElement;
+      if (target === alertRef.current && alertVisibility) {
+        changeAlertState(false, null);
+      }
+    };
+
+    document.addEventListener('click', onClickEvent);
+
+    return () => {
+      document.removeEventListener('click', onClickEvent);
+    };
+  });
 
   return (
     <Overlay
-      target={target.current}
+      target={overlayTarget.current}
       show={alertVisibility}
       //placement="bottom"
     >
       {() => (
-        <div className={styles.mainBlock}>
+        <div ref={alertRef} className={styles.mainBlock}>
           <div className={styles.alertBlock}>
             {alertMessage}
             <Button onClick={() => changeAlertState(false, null)}>asd</Button>
