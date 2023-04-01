@@ -13,26 +13,32 @@ const HeaderComponent = () => {
     screenClass,
     isLogin,
     changeLoginState,
+    currentMainMenu,
+    changeMainMenu,
     sideBarVisibility,
     changeSideBarVisibility,
   } = useRootData(({ appStore, loginStore }) => ({
     screenClass: appStore.screenClass.get(),
     isLogin: loginStore.isLogin.get(),
     changeLoginState: loginStore.changeLoginState,
+    currentMainMenu: appStore.currentMainMenu.get(),
+    changeMainMenu: appStore.changeMainMenu,
     sideBarVisibility: appStore.sideBarVisibility.get(),
     changeSideBarVisibility: appStore.changeSideBarVisibility,
   }));
 
   const isDesktop = screenClass === 'xl';
-  const nowLocation = useLocation();
+  console.log(currentMainMenu);
 
   const logOutButtonClicked = () => {
     alert('logout!');
     changeLoginState(false);
+    // changeMainMenu('/');
   };
   const logInButtonClicked = () => {
     alert('login!');
     changeLoginState(true);
+    // changeMainMenu('/logIn');
   };
   const sideBarButtonClicked = () => {
     changeSideBarVisibility(!sideBarVisibility);
@@ -41,24 +47,22 @@ const HeaderComponent = () => {
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
     <div className={styles.header}>
-      {screenClass === 'xl' || nowLocation.pathname === '/' ? (
+      {screenClass === 'xl' || currentMainMenu === '' ? (
         <></>
       ) : (
         <img src={HambergerImg} width="50px" onClick={sideBarButtonClicked} />
       )}
 
-      {screenClass === 'xl' || nowLocation.pathname === '/' ? (
+      {screenClass === 'xl' || currentMainMenu === '' ? (
         <></>
       ) : (
         <Nav className="me-auto" />
       )}
       <NavbarBrand>
-        <Link to={'/'}>
-          <div className={styles.logo}>
-            <img className={styles.logoImg} src={logoImg} />
-            <span>WhenThen</span>
-          </div>
-        </Link>
+        <div className={styles.logo} onClick={() => changeMainMenu('/')}>
+          <img className={styles.logoImg} src={logoImg} />
+          <span>WhenThen</span>
+        </div>
       </NavbarBrand>
       <Nav className="me-auto" />
       <div className={styles.nav}>
@@ -68,17 +72,17 @@ const HeaderComponent = () => {
             id="basic-navbar-nav"
           >
             <Nav className="me-auto">
-              <NavDropdown.Item href="#">
-                <Link to={'/'}>My Page</Link>
+              <NavDropdown.Item onClick={() => changeMainMenu('/myPage')}>
+                My Page
               </NavDropdown.Item>
-              <NavDropdown.Item href="#">
-                <Link to={'/'}>DashBoard</Link>
+              <NavDropdown.Item onClick={() => changeMainMenu('/dashBoard')}>
+                DashBoard
               </NavDropdown.Item>
-              <NavDropdown.Item href="#">
-                <Link to={'/'}>Something</Link>
+              <NavDropdown.Item onClick={() => changeMainMenu('/')}>
+                Something
               </NavDropdown.Item>
               <NavDropdown.Item onClick={logOutButtonClicked}>
-                <Link to={'/'}>Log Out</Link>
+                Log Out
               </NavDropdown.Item>
             </Nav>
           </NavDropdown>
@@ -86,25 +90,25 @@ const HeaderComponent = () => {
           <>
             {screenClass === 'xl' ? (
               <>
-                <Link to={'/'}>
-                  <div className={styles.topBarButton}>
-                    <span>about</span>
-                  </div>
-                </Link>
-                <Link to={'/'}>
-                  <div className={styles.topBarButton}>
-                    <span>sign up</span>
-                  </div>
-                </Link>
+                <div
+                  className={styles.topBarButton}
+                  onClick={() => changeMainMenu('/layout')}
+                >
+                  <span>about</span>
+                </div>
+                <div
+                  className={styles.topBarButton}
+                  onClick={() => changeMainMenu('/signUp')}
+                >
+                  <span>sign up</span>
+                </div>
               </>
             ) : (
               <></>
             )}
-            {/* <Link to={'/'}> */}
             <div className={styles.topBarButton} onClick={logInButtonClicked}>
               <span>sign in</span>
             </div>
-            {/* </Link> */}
           </>
         )}
       </div>
