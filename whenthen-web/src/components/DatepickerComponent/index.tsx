@@ -4,11 +4,13 @@ import InputGroup, { InputGroupProps } from 'react-bootstrap/InputGroup';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 
-interface PropsDatepickerComponent {}
+interface PropsDatepickerComponent {
+  onDateSelected: (formattedDate: string) => void;
+}
 
 const DatepickerComponent: React.FunctionComponent<
   PropsDatepickerComponent
-> = ({}) => {
+> = ({ onDateSelected }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -55,6 +57,7 @@ const DatepickerComponent: React.FunctionComponent<
         className={styles.square}
         onClick={() => {
           setFormattedDate(tempDate.toLocaleDateString());
+          onDateSelected(tempDate.toLocaleDateString());
           setHidden(!hidden);
         }}
       >

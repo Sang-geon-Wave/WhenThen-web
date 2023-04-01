@@ -47,6 +47,20 @@ const CreateSchedulePage = () => {
     });
   };
 
+  const handleStartDateSelected = (formattedDate: string) => {
+    setCreateScFormValue({
+      ...createScFormValue,
+      startDate: formattedDate,
+    });
+  };
+
+  const handleEndDateSelected = (formattedDate: string) => {
+    setCreateScFormValue({
+      ...createScFormValue,
+      endDate: formattedDate,
+    });
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     alert(JSON.stringify(createScFormValue, null, 2));
@@ -72,11 +86,15 @@ const CreateSchedulePage = () => {
               <Row>
                 <Col>
                   시작일
-                  <DatepickerComponent></DatepickerComponent>
+                  <DatepickerComponent
+                    onDateSelected={handleStartDateSelected}
+                  ></DatepickerComponent>
                 </Col>
                 <Col>
                   종료일
-                  <DatepickerComponent></DatepickerComponent>
+                  <DatepickerComponent
+                    onDateSelected={handleEndDateSelected}
+                  ></DatepickerComponent>
                 </Col>
               </Row>
             </div>
