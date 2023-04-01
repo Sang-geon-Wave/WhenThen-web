@@ -10,8 +10,6 @@ import CarouselComponent from '../../components/CarouselComponent';
 import logoImg from '../../assets/images/aeyung.jpg';
 import logo from '../../assets/images/logo.svg';
 
-import DefaultLayout from '../../layouts/DefaultLayout';
-
 const LandingPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),

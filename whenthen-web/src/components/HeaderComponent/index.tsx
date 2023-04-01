@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav, NavbarBrand, NavDropdown } from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 import MyPageImg from '../../assets/images/person.svg';
@@ -28,17 +28,17 @@ const HeaderComponent = () => {
   }));
 
   const isDesktop = screenClass === 'xl';
-  console.log(currentMainMenu);
+  const navigate = useNavigate();
 
   const logOutButtonClicked = () => {
     alert('logout!');
     changeLoginState(false);
-    // changeMainMenu('/');
+    navigate('/');
   };
   const logInButtonClicked = () => {
     alert('login!');
     changeLoginState(true);
-    // changeMainMenu('/logIn');
+    navigate('/logIn');
   };
   const sideBarButtonClicked = () => {
     changeSideBarVisibility(!sideBarVisibility);
@@ -59,7 +59,7 @@ const HeaderComponent = () => {
         <Nav className="me-auto" />
       )}
       <NavbarBrand>
-        <div className={styles.logo} onClick={() => changeMainMenu('/')}>
+        <div className={styles.logo} onClick={() => navigate('/')}>
           <img className={styles.logoImg} src={logoImg} />
           <span>WhenThen</span>
         </div>
@@ -72,13 +72,13 @@ const HeaderComponent = () => {
             id="basic-navbar-nav"
           >
             <Nav className="me-auto">
-              <NavDropdown.Item onClick={() => changeMainMenu('/myPage')}>
+              <NavDropdown.Item onClick={() => navigate('/myPage')}>
                 My Page
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => changeMainMenu('/dashBoard')}>
+              <NavDropdown.Item onClick={() => navigate('/dashBoard')}>
                 DashBoard
               </NavDropdown.Item>
-              <NavDropdown.Item onClick={() => changeMainMenu('/')}>
+              <NavDropdown.Item onClick={() => navigate('/')}>
                 Something
               </NavDropdown.Item>
               <NavDropdown.Item onClick={logOutButtonClicked}>
@@ -92,13 +92,13 @@ const HeaderComponent = () => {
               <>
                 <div
                   className={styles.topBarButton}
-                  onClick={() => changeMainMenu('/layout')}
+                  onClick={() => navigate('/layout')}
                 >
                   <span>about</span>
                 </div>
                 <div
                   className={styles.topBarButton}
-                  onClick={() => changeMainMenu('/signUp')}
+                  onClick={() => navigate('/signUp')}
                 >
                   <span>sign up</span>
                 </div>
