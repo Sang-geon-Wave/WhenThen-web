@@ -47,17 +47,10 @@ const CreateSchedulePage = () => {
     });
   };
 
-  const handleStartDateSelected = (formattedDate: string) => {
+  const handleDateSelected = (name: string, formattedDate: string) => {
     setCreateScFormValue({
       ...createScFormValue,
-      startDate: formattedDate,
-    });
-  };
-
-  const handleEndDateSelected = (formattedDate: string) => {
-    setCreateScFormValue({
-      ...createScFormValue,
-      endDate: formattedDate,
+      [name]: formattedDate,
     });
   };
 
@@ -81,19 +74,22 @@ const CreateSchedulePage = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label>기간</Form.Label>
             <div>
               <Row>
                 <Col>
                   시작일
                   <DatepickerComponent
-                    onDateSelected={handleStartDateSelected}
+                    onDateSelected={(formattedDate) =>
+                      handleDateSelected('startDate', formattedDate)
+                    }
                   ></DatepickerComponent>
                 </Col>
                 <Col>
                   종료일
                   <DatepickerComponent
-                    onDateSelected={handleEndDateSelected}
+                    onDateSelected={(formattedDate) =>
+                      handleDateSelected('endDate', formattedDate)
+                    }
                   ></DatepickerComponent>
                 </Col>
               </Row>

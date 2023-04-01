@@ -38,7 +38,7 @@ const DatepickerComponent: React.FunctionComponent<
         firstDate.getDay() - 1 + lastDate.getDate() + (6 - lastDate.getDay()),
     };
   };
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
 
   const [hidden, setHidden] = useState(true);
   const [formattedDate, setFormattedDate] = useState('');
@@ -87,7 +87,7 @@ const DatepickerComponent: React.FunctionComponent<
 
   return (
     <div ref={datepickerRef} className={styles.datepicker}>
-      <InputGroup size="sm" onClick={() => setHidden(!hidden)}>
+      <InputGroup onClick={() => setHidden(!hidden)}>
         <Form.Control value={formattedDate} readOnly />
       </InputGroup>
       {!hidden && (
