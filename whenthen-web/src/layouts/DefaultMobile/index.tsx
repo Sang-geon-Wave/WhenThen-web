@@ -1,6 +1,5 @@
 import React from 'react';
 import useRootData from '../../hooks/useRootData';
-import { useLocation, Link } from 'react-router-dom';
 import HeaderComponent from '../../components/HeaderComponent';
 import FooterComponent from '../../components/FooterComponent';
 import SidebarComponent from '../../components/SideBarComponent';
@@ -9,27 +8,28 @@ interface Props {
   children: React.ReactNode;
 }
 const DefaultMobile = ({ children }: Props) => {
-  const { screenClass, sideBarVisibility } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-    sideBarVisibility: appStore.sideBarVisibility.get(),
-  }));
+  const { screenClass, sideBarVisibility, currentMainMenu } = useRootData(
+    ({ appStore }) => ({
+      screenClass: appStore.screenClass.get(),
+      sideBarVisibility: appStore.sideBarVisibility.get(),
+      currentMainMenu: appStore.currentMainMenu.get(),
+    }),
+  );
 
   const styles = stylesMobileDefault;
-  const nowLocation = useLocation();
 
   return (
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
         {(!sideBarVisibility && screenClass !== 'xl') ||
-        nowLocation.pathname === '/' ? (
+        currentMainMenu === '/' ? (
           <div></div>
         ) : (
           <div className={styles.sideBarArea}>
             <SidebarComponent />
           </div>
         )}
-        {nowLocation.pathname};
         <div className={styles.mainContentArea}>{children}</div>
       </div>
 
