@@ -108,7 +108,7 @@ const SignupComponent = () => {
           />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Group className="mb-3" controlId="formBasicPasswordRe">
           <Form.Label>비밀번호 확인</Form.Label>
           <Form.Control
             type="password"
