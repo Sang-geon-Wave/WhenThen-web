@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Overlay, Button } from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
+import Card from 'react-bootstrap/Card';
 
 const AlertComponent = () => {
   const { screenClass, alertVisibility, alertMessage, changeAlertState } =
@@ -22,7 +23,7 @@ const AlertComponent = () => {
     const onClickEvent = (event: MouseEvent) => {
       const target = event.target as HTMLDivElement;
       if (target === alertRef.current && alertVisibility) {
-        changeAlertState(false, null);
+        changeAlertState(null, false);
       }
     };
 
@@ -34,16 +35,27 @@ const AlertComponent = () => {
   });
 
   return (
-    <Overlay
-      target={overlayTarget.current}
-      show={alertVisibility}
-      //placement="bottom"
-    >
+    <Overlay target={overlayTarget.current} show={alertVisibility}>
       {() => (
         <div ref={alertRef} className={styles.mainBlock}>
           <div className={styles.alertBlock}>
-            {alertMessage}
-            <Button onClick={() => changeAlertState(false, null)}>asd</Button>
+            <h4>{alertMessage}</h4>
+            <div className={styles.buttonBlock}>
+              <Button
+                variant="primary"
+                className={styles.buttonClick}
+                onClick={() => changeAlertState(null, false)}
+              >
+                확인
+              </Button>
+              <Button
+                variant="outline-danger"
+                className={styles.buttonClick}
+                onClick={() => changeAlertState(null, false)}
+              >
+                취소
+              </Button>
+            </div>
           </div>
         </div>
       )}

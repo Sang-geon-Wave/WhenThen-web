@@ -6,7 +6,7 @@ const createStore = () => {
     alertVisibility: observable.box(false),
     alertMessage: observable.box('message'),
 
-    changeAlertState(data: boolean, message: string | null) {
+    changeAlertState(message: string | null, data: boolean = true) {
       alertStore.alertVisibility.set(data);
       if (message != null) alertStore.alertMessage.set(message);
     },
