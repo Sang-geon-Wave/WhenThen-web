@@ -8,6 +8,8 @@ import LocationInputComponent from '../../components/LocationInputComponent';
 
 import DefaultLayout from '../../layouts/DefaultLayout';
 import DatepickerComponent from '../../components/DatepickerComponent';
+import { ScheduleData } from '../../types/ScheduleDataType';
+
 const CreateSchedulePage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
@@ -16,14 +18,14 @@ const CreateSchedulePage = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
-  const [createScFormValue, setCreateScFormValue] = useState({
+  const [createScFormValue, setCreateScFormValue] = useState<ScheduleData>({
     title: '',
     startDate: '',
     endDate: '',
     placeAddr: '',
     eventUrl: '',
     contents: '',
-    img1: undefined as File | undefined, // img1 프로퍼티 추가
+    img1: undefined,
   });
 
   const handleFileChange = (file: File) => {
@@ -56,7 +58,6 @@ const CreateSchedulePage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    alert(JSON.stringify(createScFormValue, null, 2));
   };
 
   return (
