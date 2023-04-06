@@ -15,8 +15,7 @@ const CalendarComponent = () => {
   const style = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   return (
-    <div>
-      <div className={style.test}>headline</div>
+    <div className={style.calendarBox}>
       <div className={style.calendar} style={{ margin: '50px' }}>
         <FullCalendar
           initialView="dayGridMonth"

@@ -7,9 +7,17 @@ import stylesMobileDefault from './MobileDefault.module.scss';
 import DefaultLayout from '../../layouts/DefaultLayout';
 
 const CalendarPage = () => {
+  const { screenClass } = useRootData(({ appStore }) => ({
+    screenClass: appStore.screenClass.get(),
+  }));
+  const isDesktop = screenClass === 'xl';
+  const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
+
   return (
     <DefaultLayout>
-      <CalendarComponent />
+      <div className={styles.calendarBlock}>
+        <CalendarComponent />
+      </div>
     </DefaultLayout>
   );
 };

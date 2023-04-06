@@ -13,8 +13,9 @@ const FooterComponent = () => {
   return (
     <div className={styles.footer}>
       <div>
+        {' '}
         <span>© 2023 TGIF</span>
-        <br />
+        <br />{' '}
         <span>본 활동은 SW중심대학사업의 지원을 받아 수행하였습니다.</span>
         <br />
         <span>more:</span>
