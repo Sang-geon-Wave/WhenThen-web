@@ -1,4 +1,4 @@
-export interface ScheduleData {
+export interface ScheduleDataType {
   title: string;
   startDate: string;
   endDate: string;

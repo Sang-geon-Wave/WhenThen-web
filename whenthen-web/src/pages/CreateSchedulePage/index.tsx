@@ -8,7 +8,7 @@ import LocationInputComponent from '../../components/LocationInputComponent';
 
 import DefaultLayout from '../../layouts/DefaultLayout';
 import DatepickerComponent from '../../components/DatepickerComponent';
-import { ScheduleData } from '../../types/ScheduleDataType';
+import { ScheduleDataType } from '../../types/ScheduleDataType';
 
 const CreateSchedulePage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -18,7 +18,7 @@ const CreateSchedulePage = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
-  const [ScheduleFormValue, setScheduleFormValue] = useState<ScheduleData>({
+  const [ScheduleFormValue, setScheduleFormValue] = useState<ScheduleDataType>({
     title: '',
     startDate: '',
     endDate: '',
@@ -49,7 +49,10 @@ const CreateSchedulePage = () => {
     });
   };
 
-  const handleDateSelected = (name: string, formattedDate: string) => {
+  const handleDateSelected = (
+    name: keyof ScheduleDataType,
+    formattedDate: string,
+  ) => {
     setScheduleFormValue({
       ...ScheduleFormValue,
       [name]: formattedDate,
@@ -105,7 +108,7 @@ const CreateSchedulePage = () => {
           <Form.Group className="mb-3">
             <Form.Label>관련 URL</Form.Label>
             <Form.Control
-              placeholder="임시"
+              placeholder="이벤트 관련 URL을 입력해보세요."
               name="eventUrl"
               onChange={handleInputTextChange}
             />
