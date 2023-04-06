@@ -18,33 +18,33 @@ const CreateSchedulePage = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
 
-  const [ScheduleFormValue, setScheduleFormValue] = useState<ScheduleDataType>({
+  const [scheduleData, setscheduleData] = useState<ScheduleDataType>({
     title: '',
     startDate: '',
     endDate: '',
     placeAddr: '',
     eventUrl: '',
     contents: '',
-    img1: undefined,
+    image: undefined,
   });
 
   const handleFileChange = (file: File) => {
-    setScheduleFormValue({
-      ...ScheduleFormValue,
-      img1: file,
+    setscheduleData({
+      ...scheduleData,
+      image: file,
     });
   };
 
   const handleLocationInputChange = (address: string) => {
-    setScheduleFormValue({
-      ...ScheduleFormValue,
+    setscheduleData({
+      ...scheduleData,
       placeAddr: address,
     });
   };
 
   const handleInputTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setScheduleFormValue({
-      ...ScheduleFormValue,
+    setscheduleData({
+      ...scheduleData,
       [e.target.name]: e.target.value,
     });
   };
@@ -53,8 +53,8 @@ const CreateSchedulePage = () => {
     name: keyof ScheduleDataType,
     formattedDate: string,
   ) => {
-    setScheduleFormValue({
-      ...ScheduleFormValue,
+    setscheduleData({
+      ...scheduleData,
       [name]: formattedDate,
     });
   };

@@ -5,5 +5,5 @@ export interface ScheduleDataType {
   placeAddr: string;
   eventUrl: string;
   contents: string;
-  img1?: File;
+  image?: File;
 }
