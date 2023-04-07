@@ -13,7 +13,7 @@ const TextEditorComponent = () => {
   enum fontSytleName {
     NanumGothic = '나눔고딕',
     Gulim01 = '굴림1',
-    Gulim02 = '굴림1',
+    Gulim02 = '굴림2',
     NanumSquareRoundR = '스퀘어라운드R',
     NanumSquareRoundB = '스퀘어라운드B',
   }
@@ -25,8 +25,7 @@ const TextEditorComponent = () => {
     setTextContent(event.target.value);
   };
 
-  const handleBold = (e) => {
-    console.log(e.target.id);
+  const handleBold = () => {
     document.execCommand('bold', false);
   };
   const handleItalic = () => {
@@ -110,9 +109,7 @@ const TextEditorComponent = () => {
           className={styles.textBox}
           contentEditable="true"
           onInput={handleSetValue}
-        >
-          {textContent}
-        </div>
+        />
       </div>
     </div>
   );
