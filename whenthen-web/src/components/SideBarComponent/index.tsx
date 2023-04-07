@@ -41,7 +41,7 @@ const SidebarComponent = () => {
         <div className={styles.sideBarList}>
           <div
             className={styles.sideBarItem}
-            onClick={() => navigate('/dashBoard')}
+            onClick={() => navigate('/calendar')}
           >
             <div className={styles.sideBarLink}>
               <img src={icon} width="12" height="12" alt="testA" />

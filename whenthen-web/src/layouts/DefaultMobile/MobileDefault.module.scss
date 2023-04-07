@@ -10,6 +10,7 @@ body {
   height: auto;
   min-height: 100%;
   overscroll-behavior: contain;
+  margin-top: 50px;
   padding-bottom: 150px;
 }
 .sideBarButton {
@@ -42,10 +43,8 @@ body {
 }
 .mainContentArea {
   position: relative;
-  display: flex;
   vertical-align: middle;
-  width: -webkit-fill-available;
+  // width: 100%;
   margin-right: 0;
-  padding-top: 50px;
-  width: fit-content;
+  padding: 2%;
 }

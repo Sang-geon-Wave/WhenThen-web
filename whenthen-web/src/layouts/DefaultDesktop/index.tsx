@@ -5,6 +5,7 @@ import HeaderComponent from '../../components/HeaderComponent';
 import FooterComponent from '../../components/FooterComponent';
 import SidebarComponent from '../../components/SideBarComponent';
 import { useLocation } from 'react-router-dom';
+import { Container } from 'react-bootstrap';
 
 interface Props {
   children: React.ReactNode;
@@ -37,8 +38,8 @@ const DefaultDesktop = ({ children }: Props) => {
           className={styles.mainContentArea}
           style={
             screenClass === 'xl' && nowLocation.pathname === '/'
-              ? { left: '0' }
-              : { left: '180px' }
+              ? { marginLeft: '0' }
+              : { marginLeft: '180px' }
           }
         >
           {children}

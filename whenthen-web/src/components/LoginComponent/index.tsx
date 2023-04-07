@@ -3,6 +3,7 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
 
 const LoginComponent = () => {
   const { screenClass, isLogin, changeLoginState } = useRootData(
@@ -15,7 +16,7 @@ const LoginComponent = () => {
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
-
+  const navigate = useNavigate();
   // Todo: implement actual login feature
   const tmpCurrentLoginInfo = (ID: string | null, PW: string | null) => {
     if (ID === 'usr' && PW === 'usr') return true;
@@ -53,6 +54,7 @@ const LoginComponent = () => {
 
   const submitInfo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log('!!');
     if (isLogin === true) return;
 
     if (!usrId || !usrPw) {
@@ -62,6 +64,7 @@ const LoginComponent = () => {
     } else setLoginErr(false);
 
     if (tmpCurrentLoginInfo(usrId, usrPw)) {
+      navigate('/calendar');
       alert(`환영합니다 ${usrId}님`);
       changeLoginState(true);
       if (autoLogin) {

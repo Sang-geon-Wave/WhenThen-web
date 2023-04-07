@@ -1,12 +1,12 @@
 import React from 'react';
-import { Nav, NavbarBrand, NavDropdown } from 'react-bootstrap';
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
 import { useLocation, useNavigate } from 'react-router-dom';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 import MyPageImg from '../../assets/images/person.svg';
 import HambergerImg from '../../assets/images/list.svg';
-import logoImg from '../../assets/images/aeyung.jpg';
+import logoImg from '../../assets/images/logo_header.svg';
 
 const HeaderComponent = () => {
   const {
@@ -59,12 +59,9 @@ const HeaderComponent = () => {
       ) : (
         <Nav className="me-auto" />
       )}
-      <NavbarBrand>
-        <div className={styles.logo} onClick={() => navigate('/')}>
-          <img className={styles.logoImg} src={logoImg} />
-          <span>WhenThen</span>
-        </div>
-      </NavbarBrand>
+      <Navbar.Brand onClick={() => navigate('/')}>
+        <img className={styles.logoImg} src={logoImg} />
+      </Navbar.Brand>
       <Nav className="me-auto" />
       <div className={styles.nav}>
         {!!isLogin ? (
@@ -95,20 +92,20 @@ const HeaderComponent = () => {
                   className={styles.topBarButton}
                   onClick={() => navigate('/layout')}
                 >
-                  <span>about</span>
+                  <div className="px-2">ABOUT</div>
                 </div>
                 <div
                   className={styles.topBarButton}
                   onClick={() => navigate('/signUp')}
                 >
-                  <span>sign up</span>
+                  <div className="px-2">SIGN UP</div>
                 </div>
               </>
             ) : (
               <></>
             )}
             <div className={styles.topBarButton} onClick={logInButtonClicked}>
-              <span>sign in</span>
+              <div className="px-2">SIGN IN</div>
             </div>
           </>
         )}

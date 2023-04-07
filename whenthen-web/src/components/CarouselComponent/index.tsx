@@ -7,9 +7,10 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import useRootData from '../../hooks/useRootData';
 
 const imgSrc = [
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLpZ3AmUlI_h9TNBB-lEnxyFDIplBHlYyL1A&usqp=CAU',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSthULQX_46UhK1K35yNXHrcdfrL7zmHCWXDA&usqp=CAU',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4zRpZR__dX85rRE56oziBQHW9SmLNHK4AOw&usqp=CAU',
+  'https://software.kookmin.ac.kr/_res/kookmin/software/img/main/img-main-vi02.jpg',
+  'https://software.kookmin.ac.kr/_res/kookmin/software/img/main/img-main-vi03.jpg',
+  'https://software.kookmin.ac.kr/_res/kookmin/software/img/main/img-main-vi04.jpg',
+  'https://software.kookmin.ac.kr/_res/kookmin/software/img/main/img-main-vi05.jpg',
 ];
 
 const CarouselComponent = () => {
