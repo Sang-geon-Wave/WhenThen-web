@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import Button from 'react-bootstrap/Button';
-import { Dropdown } from 'react-bootstrap';
-import DropdownButton from 'react-bootstrap';
+import { Dropdown, ButtonGroup, Button } from 'react-bootstrap';
 
 const TextEditorComponent = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -12,14 +10,23 @@ const TextEditorComponent = () => {
   const isDesktop = screenClass === 'xl';
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  const [text, setText] = useState('');
-  const [fontFamily, setFontFamily] = useState('NanumGothic');
+  enum fontSytleName {
+    NanumGothic = 'NanumGothic',
+    Gulim01 = 'Gulim01',
+    Gulim02 = 'Gulim02',
+    NanumSquareRoundR = 'NanumSquareRoundR',
+    NanumSquareRoundB = 'NanumSquareRoundR',
+  }
 
-  const handleSetValue = (event) => {
-    setText(event.target.value);
+  const [textContent, setTextContent] = useState('');
+  const [fontFamily, setFontFamily] = useState(fontSytleName.NanumGothic);
+
+  const handleSetValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTextContent(event.target.value);
   };
 
-  const handleBold = () => {
+  const handleBold = (e) => {
+    console.log(e.target.id);
     document.execCommand('bold', false);
   };
   const handleItalic = () => {
@@ -37,45 +44,31 @@ const TextEditorComponent = () => {
     document.execCommand('fontName', false, event.target.value);
   };
 
-  const handleFocus = (event) => {
-    console.log(event.target.innerHTML);
-  };
-
   return (
     <div>
       <div className={styles.buttonBox}>
-        <Dropdown>
-          <Dropdown.Toggle variant="success" id="dropdown-basic">
+        <Dropdown as={ButtonGroup}>
+          <Button
+            variant="success"
+            id="fontSytleText"
+            className={styles.dropdownBox}
+          >
             {fontFamily}
-          </Dropdown.Toggle>
+          </Button>
+          <Dropdown.Toggle split variant="success" id="dropdownSplit" />
           <Dropdown.Menu>
-            <Dropdown.Item
-              as="button"
-              value={'NanumGothic'}
-              onClick={handleFont}
-            >
-              나눔고딕
-            </Dropdown.Item>
-            <Dropdown.Item as="button" value={'Gulim01'} onClick={handleFont}>
-              굴림1
-            </Dropdown.Item>
-            <Dropdown.Item as="button" value={'Gulim02'} onClick={handleFont}>
-              굴림2
-            </Dropdown.Item>
-            <Dropdown.Item
-              as="button"
-              value={'NanumSquareRoundR'}
-              onClick={handleFont}
-            >
-              스퀘어라운드R
-            </Dropdown.Item>
-            <Dropdown.Item
-              as="button"
-              value={'NanumSquareRoundB'}
-              onClick={handleFont}
-            >
-              스퀘어라운드B
-            </Dropdown.Item>
+            {Object.values(fontSytleName).map((font) => {
+              return (
+                <Dropdown.Item
+                  as="button"
+                  value={font}
+                  onClick={handleFont}
+                  key={font}
+                >
+                  {font}
+                </Dropdown.Item>
+              );
+            })}
           </Dropdown.Menu>
         </Dropdown>
         <Button
@@ -103,7 +96,7 @@ const TextEditorComponent = () => {
           <u>U</u>
         </Button>
         <Button
-          id="underlineBtn"
+          id="strikeThroughBtn"
           className={styles.button}
           variant="light"
           onClick={handleStrike}
@@ -117,8 +110,9 @@ const TextEditorComponent = () => {
           className={styles.textBox}
           contentEditable="true"
           onInput={handleSetValue}
-          onFocus={handleFocus}
-        ></div>
+        >
+          {textContent}
+        </div>
       </div>
     </div>
   );
