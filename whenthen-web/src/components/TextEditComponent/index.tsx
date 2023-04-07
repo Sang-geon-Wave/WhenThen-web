@@ -11,11 +11,11 @@ const TextEditorComponent = () => {
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   enum fontSytleName {
-    NanumGothic = 'NanumGothic',
-    Gulim01 = 'Gulim01',
-    Gulim02 = 'Gulim02',
-    NanumSquareRoundR = 'NanumSquareRoundR',
-    NanumSquareRoundB = 'NanumSquareRoundR',
+    NanumGothic = '나눔고딕',
+    Gulim01 = '굴림1',
+    Gulim02 = '굴림1',
+    NanumSquareRoundR = '스퀘어라운드R',
+    NanumSquareRoundB = '스퀘어라운드B',
   }
 
   const [textContent, setTextContent] = useState('');
