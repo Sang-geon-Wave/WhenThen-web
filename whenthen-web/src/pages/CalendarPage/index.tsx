@@ -15,9 +15,7 @@ const CalendarPage = () => {
 
   return (
     <DefaultLayout>
-      <div className={styles.calendarBlock}>
-        <CalendarComponent />
-      </div>
+      <CalendarComponent />
     </DefaultLayout>
   );
 };

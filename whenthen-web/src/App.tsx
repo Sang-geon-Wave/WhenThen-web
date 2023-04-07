@@ -8,7 +8,6 @@ import CalendarPage from './pages/CalendarPage';
 import TimelinePage from './pages/TimelinePage';
 import CreateSchedulePage from './pages/CreateSchedulePage';
 import LoginPage from './pages/LoginPage';
-import CalendarComponent from './components/CalendarComponent';
 
 const App = () => {
   const componentRef = useRef(null);
@@ -35,7 +34,6 @@ const App = () => {
         <Route path="/createSchedule" element={<CreateSchedulePage />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/test" element={<CalendarComponent />} />
       </Routes>
     </Router>
   );
