@@ -2,16 +2,21 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Overlay, Button } from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import Card from 'react-bootstrap/Card';
 
 const AlertComponent = () => {
-  const { screenClass, alertVisibility, alertMessage, changeAlertState } =
-    useRootData(({ appStore, alertStore }) => ({
-      screenClass: appStore.screenClass.get(),
-      alertVisibility: alertStore.alertVisibility.get(),
-      alertMessage: alertStore.alertMessage.get(),
-      changeAlertState: alertStore.changeAlertState,
-    }));
+  const {
+    screenClass,
+    alertModalVisibility,
+    alertModalContent,
+    setAlert,
+    removeAlert,
+  } = useRootData(({ appStore }) => ({
+    screenClass: appStore.screenClass.get(),
+    alertModalVisibility: appStore.alertModalVisibility.get(),
+    alertModalContent: appStore.alertModalContent.get(),
+    setAlert: appStore.setAlert,
+    removeAlert: appStore.removeAlert,
+  }));
 
   const isDesktop = screenClass === 'xl';
 
@@ -22,8 +27,8 @@ const AlertComponent = () => {
   useEffect(() => {
     const onClickEvent = (event: MouseEvent) => {
       const target = event.target as HTMLDivElement;
-      if (target === alertRef.current && alertVisibility) {
-        changeAlertState(null, false);
+      if (target === alertRef.current && alertModalVisibility) {
+        removeAlert();
       }
     };
 
@@ -35,23 +40,23 @@ const AlertComponent = () => {
   });
 
   return (
-    <Overlay target={overlayTarget.current} show={alertVisibility}>
+    <Overlay target={overlayTarget.current} show={alertModalVisibility}>
       {() => (
         <div ref={alertRef} className={styles.mainBlock}>
           <div className={styles.alertBlock}>
-            <h4>{alertMessage}</h4>
+            <h4>{alertModalContent}</h4>
             <div className={styles.buttonBlock}>
               <Button
                 variant="primary"
                 className={styles.buttonClick}
-                onClick={() => changeAlertState(null, false)}
+                onClick={() => removeAlert()}
               >
                 확인
               </Button>
               <Button
                 variant="outline-danger"
                 className={styles.buttonClick}
-                onClick={() => changeAlertState(null, false)}
+                onClick={() => removeAlert()}
               >
                 취소
               </Button>

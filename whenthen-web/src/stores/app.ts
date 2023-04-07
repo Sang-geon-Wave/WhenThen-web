@@ -25,12 +25,12 @@ const createStore = () => {
       history.push(data);
     },
 
-    changeAlertModalVisibility(data: any) {
-      appStore.alertModalVisibility.set(data);
+    setAlert(content: any) {
+      appStore.alertModalVisibility.set(true);
+      appStore.alertModalContent.set(content);
     },
-    changeAlertModalContent(data: any) {
-      appStore.alertModalContent.set(data);
-      appStore.alertModalVisibility.set(!!data);
+    removeAlert() {
+      appStore.alertModalVisibility.set(false);
     },
   };
 
