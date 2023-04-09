@@ -4,13 +4,14 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const enum errMsgTypes {
-  noID = '아이디를 입력해주세요',
-  noPW = '비밀번호를 입력해주세요',
-  noPWRe = '비밀번호 확인을 입력해주세요',
-  existID = '이미 존재하는 ID 입니다',
-  illegalPW = '비밀번호 조건을 만족하지 않습니다',
-  illegalPWRe = '비밀번호 확인이 일치하지 않습니다',
+const enum SignupErrorMessages {
+  Normal = '',
+  NoID = '아이디를 입력해주세요',
+  NoPW = '비밀번호를 입력해주세요',
+  NoPWRe = '비밀번호 확인을 입력해주세요',
+  ExistID = '이미 존재하는 ID 입니다',
+  IllegalPW = '비밀번호 조건을 만족하지 않습니다',
+  IllegalPWRe = '비밀번호 확인이 일치하지 않습니다',
 }
 
 const SignupComponent = () => {
@@ -25,7 +26,9 @@ const SignupComponent = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  const [signupErrMsg, setSignupErrMsg] = useState('');
+  const [signupErrMsg, setSignupErrMsg] = useState<SignupErrorMessages>(
+    SignupErrorMessages.Normal,
+  );
 
   const [user, setUser] = useState({
     ID: '',
@@ -59,31 +62,31 @@ const SignupComponent = () => {
 
   const submitInfo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSignupErrMsg('');
+    setSignupErrMsg(SignupErrorMessages.Normal);
 
     if (!user.ID) {
-      setSignupErrMsg(errMsgTypes.noID);
+      setSignupErrMsg(SignupErrorMessages.NoID);
       return;
     } else if (!user.PW) {
-      setSignupErrMsg(errMsgTypes.noPW);
+      setSignupErrMsg(SignupErrorMessages.NoPW);
       return;
     } else if (!user.PWRe) {
-      setSignupErrMsg(errMsgTypes.noPWRe);
+      setSignupErrMsg(SignupErrorMessages.NoPWRe);
       return;
     }
 
     // id가 이미 있는지 검증 (수정 예정)
     if (user.ID === 'usr') {
-      setSignupErrMsg(errMsgTypes.existID);
+      setSignupErrMsg(SignupErrorMessages.ExistID);
       return;
     }
 
     const reg = /^[A-Za-z0-9]{6,12}$/;
     if (!reg.test(user.PW)) {
-      setSignupErrMsg(errMsgTypes.illegalPW);
+      setSignupErrMsg(SignupErrorMessages.IllegalPW);
       return;
     } else if (user.PW !== user.PWRe) {
-      setSignupErrMsg(errMsgTypes.illegalPWRe);
+      setSignupErrMsg(SignupErrorMessages.IllegalPWRe);
       return;
     }
 
@@ -124,7 +127,7 @@ const SignupComponent = () => {
             value={user.PWRe}
             onChange={onChangePWRe}
           />
-          {signupErrMsg !== '' && (
+          {signupErrMsg && (
             <Form.Text className={styles.errorMessageBlock}>
               {signupErrMsg}
             </Form.Text>
