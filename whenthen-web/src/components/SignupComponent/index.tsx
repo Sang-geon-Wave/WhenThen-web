@@ -6,7 +6,6 @@ import Form from 'react-bootstrap/Form';
 import { UserSignupType } from '../../types/UserType';
 
 const enum SignupErrorMessages {
-  Normal = '',
   NoID = '아이디를 입력해주세요',
   NoPW = '비밀번호를 입력해주세요',
   NoPWRe = '비밀번호 확인을 입력해주세요',
@@ -27,8 +26,8 @@ const SignupComponent = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  const [signupErrMsg, setSignupErrMsg] = useState<SignupErrorMessages>(
-    SignupErrorMessages.Normal,
+  const [signupErrMsg, setSignupErrMsg] = useState<null | SignupErrorMessages>(
+    null,
   );
 
   const [user, setUser] = useState<UserSignupType>({
@@ -39,31 +38,31 @@ const SignupComponent = () => {
 
   const onChangeID = (event: React.ChangeEvent<HTMLInputElement>) => {
     const updatedUser = { ID: event.currentTarget.value };
-    setUser((user) => ({
+    setUser({
       ...user,
       ...updatedUser,
-    }));
+    });
   };
 
   const onChangePW = (event: React.ChangeEvent<HTMLInputElement>) => {
     const updatedUser = { PW: event.currentTarget.value };
-    setUser((user) => ({
+    setUser({
       ...user,
       ...updatedUser,
-    }));
+    });
   };
 
   const onChangePWRe = (event: React.ChangeEvent<HTMLInputElement>) => {
     const updatedUser = { PWRe: event.currentTarget.value };
-    setUser((user) => ({
+    setUser({
       ...user,
       ...updatedUser,
-    }));
+    });
   };
 
   const submitInfo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSignupErrMsg(SignupErrorMessages.Normal);
+    setSignupErrMsg(null);
 
     if (!user.ID) {
       setSignupErrMsg(SignupErrorMessages.NoID);
