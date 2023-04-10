@@ -3,6 +3,7 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { UserSignupType } from '../../types/UserType';
 
 const enum SignupErrorMessages {
   Normal = '',
@@ -30,7 +31,7 @@ const SignupComponent = () => {
     SignupErrorMessages.Normal,
   );
 
-  const [user, setUser] = useState({
+  const [user, setUser] = useState<UserSignupType>({
     ID: '',
     PW: '',
     PWRe: '',
