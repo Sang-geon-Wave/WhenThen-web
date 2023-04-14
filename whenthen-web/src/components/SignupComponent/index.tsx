@@ -15,13 +15,9 @@ const enum SignupErrorMessages {
 }
 
 const SignupComponent = () => {
-  const { screenClass, isLogin, changeLoginState } = useRootData(
-    ({ appStore, loginStore }) => ({
-      screenClass: appStore.screenClass.get(),
-      isLogin: loginStore.isLogin.get(),
-      changeLoginState: loginStore.changeLoginState,
-    }),
-  );
+  const { screenClass } = useRootData(({ appStore }) => ({
+    screenClass: appStore.screenClass.get(),
+  }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
@@ -36,27 +32,10 @@ const SignupComponent = () => {
     PWRe: '',
   });
 
-  const onChangeID = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const updatedUser = { ID: event.currentTarget.value };
+  const updateSignupInfo = (key: keyof UserSignupType, value: string) => {
     setUser({
       ...user,
-      ...updatedUser,
-    });
-  };
-
-  const onChangePW = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const updatedUser = { PW: event.currentTarget.value };
-    setUser({
-      ...user,
-      ...updatedUser,
-    });
-  };
-
-  const onChangePWRe = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const updatedUser = { PWRe: event.currentTarget.value };
-    setUser({
-      ...user,
-      ...updatedUser,
+      [key]: value,
     });
   };
 
@@ -105,7 +84,9 @@ const SignupComponent = () => {
             type="text"
             placeholder="아이디"
             value={user.ID}
-            onChange={onChangeID}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              updateSignupInfo('ID', e.target.value)
+            }
           />
         </Form.Group>
 
@@ -115,7 +96,9 @@ const SignupComponent = () => {
             type="text"
             placeholder="비밀번호"
             value={user.PW}
-            onChange={onChangePW}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              updateSignupInfo('PW', e.target.value)
+            }
           />
         </Form.Group>
 
@@ -125,7 +108,9 @@ const SignupComponent = () => {
             type="password"
             placeholder="비밀번호 확인"
             value={user.PWRe}
-            onChange={onChangePWRe}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              updateSignupInfo('PWRe', e.target.value)
+            }
           />
           {signupErrMsg && (
             <Form.Text className={styles.errorMessageBlock}>
