@@ -28,21 +28,16 @@ const MockPage = () => {
         console.log('mock/auth', result2);
       } catch (e) {}
       // Authentication API call test
-      try {
-        const result3 = await api.get('/auth/login');
-        console.log('auth/login', result3);
-      } catch (e) {}
+      const login = await authStore.login('usr', 'usr');
+      console.log('login', login);
       // Protected API call test
       try {
         const result4 = await api.get('/mock/auth');
         console.log('mock/auth', result4);
       } catch (e) {}
       // Deauthentication API call test
-      try {
-        const result5 = await api.get('/auth/logout');
-        authStore.changeAccessToken('');
-        console.log('auth/logout', result5);
-      } catch (e) {}
+      const logout = await authStore.logout();
+      console.log('logout', logout);
     })();
   }, []);
 

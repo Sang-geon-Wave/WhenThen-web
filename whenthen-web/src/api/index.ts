@@ -36,18 +36,7 @@ instance.interceptors.response.use(
         if (error.response.data.message === 'access token expired') {
           const originalRequest = error.config;
 
-          console.log('request refresh');
-
-          const { data } = await axios.get(
-            `http://localhost:8080/auth/refresh`,
-            { withCredentials: true },
-          );
-
-          console.log(data);
-
-          const { access_token: accessToken } = data;
-
-          store.changeAccessToken(accessToken);
+          const accessToken = await store.refresh();
 
           originalRequest.headers.authorization = `${accessToken}`;
 
