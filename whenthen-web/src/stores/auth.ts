@@ -47,17 +47,22 @@ const createStore = () => {
       } catch (err) {}
       authStore.changeAccessToken(null);
     },
-    async signup(userId: string, userPw: string) {
+    async signup(
+      userId: string,
+      userPw: string,
+      nickname: string = '',
+      email: string = '',
+    ) {
       try {
         const { data } = await api.post('/auth/signup', {
           user_id: userId,
           user_pw: userPw,
+          nickname: nickname,
+          email: email,
         });
         return data.status;
       } catch (err) {
-        console.log(err);
         if (axios.isAxiosError(err)) {
-          console.log(err.response?.data.status);
           return err.response?.data.status;
         }
         return false;

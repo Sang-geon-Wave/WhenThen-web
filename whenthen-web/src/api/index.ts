@@ -1,4 +1,5 @@
 import axios from 'axios';
+import HttpStatus from 'http-status-codes';
 import store from '../stores/auth';
 
 const instance = axios.create({
@@ -32,7 +33,7 @@ instance.interceptors.response.use(
   },
   async (error) => {
     if (error.response) {
-      if (error.response.status === 401) {
+      if (error.response.status === HttpStatus.UNAUTHORIZED) {
         if (error.response.data.message === 'access token expired') {
           const originalRequest = error.config;
 
