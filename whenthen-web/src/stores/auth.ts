@@ -1,4 +1,5 @@
 import { observable } from 'mobx';
+import axios from 'axios';
 import api from '../api';
 
 const createStore = () => {
@@ -45,6 +46,22 @@ const createStore = () => {
         const { data } = await api.post('/auth/logout');
       } catch (err) {}
       authStore.changeAccessToken(null);
+    },
+    async signup(userId: string, userPw: string) {
+      try {
+        const { data } = await api.post('/auth/signup', {
+          user_id: userId,
+          user_pw: userPw,
+        });
+        return data.status;
+      } catch (err) {
+        console.log(err);
+        if (axios.isAxiosError(err)) {
+          console.log(err.response?.data.status);
+          return err.response?.data.status;
+        }
+        return false;
+      }
     },
   };
 

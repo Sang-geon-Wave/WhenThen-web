@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Button from 'react-bootstrap/Button';
@@ -15,12 +16,15 @@ const enum SignupErrorMessages {
 }
 
 const SignupComponent = () => {
-  const { screenClass } = useRootData(({ appStore }) => ({
+  const { screenClass, signup } = useRootData(({ appStore, authStore }) => ({
     screenClass: appStore.screenClass.get(),
+    signup: authStore.signup,
   }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+
+  const navigate = useNavigate();
 
   const [signupErrMsg, setSignupErrMsg] = useState<null | SignupErrorMessages>(
     null,
@@ -39,7 +43,7 @@ const SignupComponent = () => {
     });
   };
 
-  const submitInfo = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitInfo = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSignupErrMsg(null);
 
@@ -54,12 +58,6 @@ const SignupComponent = () => {
       return;
     }
 
-    // id가 이미 있는지 검증 (수정 예정)
-    if (user.ID === 'usr') {
-      setSignupErrMsg(SignupErrorMessages.ExistID);
-      return;
-    }
-
     const reg = /^[A-Za-z0-9]{6,12}$/;
     if (!reg.test(user.PW)) {
       setSignupErrMsg(SignupErrorMessages.IllegalPW);
@@ -69,8 +67,16 @@ const SignupComponent = () => {
       return;
     }
 
-    alert(`회원가입 완료하였습니다 ${user.ID}님`);
+    const res = await signup(user.ID, user.PW);
+    if (res === 200) {
+      alert(`회원가입 완료하였습니다 ${user.ID}님`);
+      navigate('/login');
+    } else if (res === 409) {
+      setSignupErrMsg(SignupErrorMessages.ExistID);
+    }
   };
+
+  // Todo: Get more info such as email address, name, nickname, ...
 
   return (
     <div className={styles.mainBlock}>
@@ -93,13 +99,16 @@ const SignupComponent = () => {
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>비밀번호</Form.Label>
           <Form.Control
-            type="text"
+            type="password"
             placeholder="비밀번호"
             value={user.PW}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               updateSignupInfo('PW', e.target.value)
             }
           />
+          <Form.Text>
+            영어 소문자, 대문자, 숫자로 이루어진 6자에서 12자리 비밀번호
+          </Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPasswordRe">
