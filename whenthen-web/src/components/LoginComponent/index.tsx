@@ -21,7 +21,6 @@ const LoginComponent = () => {
   const navigate = useNavigate();
 
   // Try refresh token
-  // Todo: auto login on App.tsx
   useEffect(() => {
     refresh();
   }, []);
