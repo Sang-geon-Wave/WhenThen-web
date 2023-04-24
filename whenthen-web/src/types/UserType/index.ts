@@ -1,5 +1,7 @@
 export interface UserSignupType {
-  ID: string;
-  PW: string;
-  PWRe: string;
+  id: string;
+  pw: string;
+  pwRe: string;
+  email: string;
+  nickname: string;
 }

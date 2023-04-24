@@ -14,7 +14,7 @@ const SignupPage = () => {
   return (
     <div>
       <h1 className={styles.mainBlock}>
-        <Link to="/createSchedule" className={styles.titleText}>
+        <Link to="/" className={styles.titleText}>
           When Then
         </Link>
       </h1>

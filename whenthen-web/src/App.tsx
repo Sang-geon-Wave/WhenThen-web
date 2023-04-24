@@ -8,14 +8,23 @@ import CalendarPage from './pages/CalendarPage';
 import TimelinePage from './pages/TimelinePage';
 import CreateSchedulePage from './pages/CreateSchedulePage';
 import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 
 const App = () => {
   const componentRef = useRef(null);
   const currentScreenClass = useScreenClass(componentRef);
 
-  const { changeScreenClass } = useRootData(({ appStore }) => ({
-    changeScreenClass: appStore.changeScreenClass,
-  }));
+  const { changeScreenClass, refresh } = useRootData(
+    ({ appStore, authStore }) => ({
+      changeScreenClass: appStore.changeScreenClass,
+      refresh: authStore.refresh,
+    }),
+  );
+
+  useEffect(() => {
+    // Autologin
+    refresh();
+  }, []);
 
   useEffect(() => {
     changeScreenClass(
@@ -31,9 +40,10 @@ const App = () => {
         <Route path="/mock" element={<MockPage />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/timeline" element={<TimelinePage />} />
-        <Route path="/createSchedule" element={<CreateSchedulePage />} />
+        <Route path="/create-schedule" element={<CreateSchedulePage />} />
         <Route path="/calendar" element={<CalendarPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/sign-up" element={<SignupPage />} />
       </Routes>
     </Router>
   );

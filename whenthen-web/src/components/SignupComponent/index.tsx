@@ -1,35 +1,44 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { UserSignupType } from '../../types/UserType';
+import HttpStatus from 'http-status-codes';
 
 const enum SignupErrorMessages {
-  NoID = '아이디를 입력해주세요',
+  IllegalID = '아이디는 5~16자의 영문 소문자와 숫자로 이루어져야 합니다',
   NoPW = '비밀번호를 입력해주세요',
   NoPWRe = '비밀번호 확인을 입력해주세요',
   ExistID = '이미 존재하는 ID 입니다',
-  IllegalPW = '비밀번호 조건을 만족하지 않습니다',
+  IllegalPW = '비밀번호가 조건을 만족하지 않습니다',
   IllegalPWRe = '비밀번호 확인이 일치하지 않습니다',
+  IllegalNickname = '닉네임은 최대 30자 이하여야 합니다',
+  IllegalEmail = '올바른 이메일 주소가 아닙니다',
 }
 
 const SignupComponent = () => {
-  const { screenClass } = useRootData(({ appStore }) => ({
+  const { screenClass, signup } = useRootData(({ appStore, authStore }) => ({
     screenClass: appStore.screenClass.get(),
+    signup: authStore.signup,
   }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
+
+  const navigate = useNavigate();
 
   const [signupErrMsg, setSignupErrMsg] = useState<null | SignupErrorMessages>(
     null,
   );
 
   const [user, setUser] = useState<UserSignupType>({
-    ID: '',
-    PW: '',
-    PWRe: '',
+    id: '',
+    pw: '',
+    pwRe: '',
+    email: '',
+    nickname: '',
   });
 
   const updateSignupInfo = (key: keyof UserSignupType, value: string) => {
@@ -39,37 +48,49 @@ const SignupComponent = () => {
     });
   };
 
-  const submitInfo = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitInfo = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSignupErrMsg(null);
 
-    if (!user.ID) {
-      setSignupErrMsg(SignupErrorMessages.NoID);
+    const idReg = /^[a-z\d]{5,16}$/;
+    const passwordReg = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$]{8,16}$/;
+    const nicknameReg = /^.{1,30}$/;
+    const emailReg = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+    if (!user.id || !idReg.test(user.id)) {
+      setSignupErrMsg(SignupErrorMessages.IllegalID);
       return;
-    } else if (!user.PW) {
+    } else if (!user.pw) {
       setSignupErrMsg(SignupErrorMessages.NoPW);
       return;
-    } else if (!user.PWRe) {
+    } else if (!user.pwRe) {
       setSignupErrMsg(SignupErrorMessages.NoPWRe);
       return;
-    }
-
-    // id가 이미 있는지 검증 (수정 예정)
-    if (user.ID === 'usr') {
-      setSignupErrMsg(SignupErrorMessages.ExistID);
+    } else if (user.nickname.length && !nicknameReg.test(user.nickname)) {
+      // Optional
+      setSignupErrMsg(SignupErrorMessages.IllegalNickname);
+      return;
+    } else if (user.email.length && !emailReg.test(user.email)) {
+      // Optional
+      setSignupErrMsg(SignupErrorMessages.IllegalEmail);
       return;
     }
 
-    const reg = /^[A-Za-z0-9]{6,12}$/;
-    if (!reg.test(user.PW)) {
+    if (!passwordReg.test(user.pw)) {
       setSignupErrMsg(SignupErrorMessages.IllegalPW);
       return;
-    } else if (user.PW !== user.PWRe) {
+    } else if (user.pw !== user.pwRe) {
       setSignupErrMsg(SignupErrorMessages.IllegalPWRe);
       return;
     }
 
-    alert(`회원가입 완료하였습니다 ${user.ID}님`);
+    const res = await signup(user.id, user.pw, user.nickname, user.email);
+    if (res === HttpStatus.OK) {
+      alert(`회원가입 완료하였습니다 ${user.id}님`);
+      navigate('/login');
+    } else if (res === HttpStatus.CONFLICT) {
+      setSignupErrMsg(SignupErrorMessages.ExistID);
+    }
   };
 
   return (
@@ -83,9 +104,9 @@ const SignupComponent = () => {
           <Form.Control
             type="text"
             placeholder="아이디"
-            value={user.ID}
+            value={user.id}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              updateSignupInfo('ID', e.target.value)
+              updateSignupInfo('id', e.target.value)
             }
           />
         </Form.Group>
@@ -93,13 +114,17 @@ const SignupComponent = () => {
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>비밀번호</Form.Label>
           <Form.Control
-            type="text"
+            type="password"
             placeholder="비밀번호"
-            value={user.PW}
+            value={user.pw}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              updateSignupInfo('PW', e.target.value)
+              updateSignupInfo('pw', e.target.value)
             }
           />
+          <Form.Text>
+            영어 소문자 + 대문자 + 숫자 + 특수문자 (!@#$) 조합의 8자리 이상
+            16자리 이하 비밀번호
+          </Form.Text>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPasswordRe">
@@ -107,17 +132,43 @@ const SignupComponent = () => {
           <Form.Control
             type="password"
             placeholder="비밀번호 확인"
-            value={user.PWRe}
+            value={user.pwRe}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              updateSignupInfo('PWRe', e.target.value)
+              updateSignupInfo('pwRe', e.target.value)
             }
           />
-          {signupErrMsg && (
-            <Form.Text className={styles.errorMessageBlock}>
-              {signupErrMsg}
-            </Form.Text>
-          )}
         </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicNickname">
+          <Form.Label>닉네임</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="닉네임"
+            value={user.nickname}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              updateSignupInfo('nickname', e.target.value)
+            }
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Label>이메일</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="이메일"
+            value={user.email}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              updateSignupInfo('email', e.target.value)
+            }
+          />
+        </Form.Group>
+
+        {signupErrMsg && (
+          <Form.Text className={styles.errorMessageBlock}>
+            {signupErrMsg}
+          </Form.Text>
+        )}
+
         <Button variant="outline-primary" type="submit">
           회원가입
         </Button>
