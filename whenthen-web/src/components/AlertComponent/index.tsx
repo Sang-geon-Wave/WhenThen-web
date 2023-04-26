@@ -4,19 +4,13 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 
 const AlertComponent = () => {
-  const {
-    screenClass,
-    alertModalVisibility,
-    alertModalContent,
-    setAlert,
-    removeAlert,
-  } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-    alertModalVisibility: appStore.alertModalVisibility.get(),
-    alertModalContent: appStore.alertModalContent.get(),
-    setAlert: appStore.setAlert,
-    removeAlert: appStore.removeAlert,
-  }));
+  const { screenClass, alertModalVisibility, alertModalContent, removeAlert } =
+    useRootData(({ appStore }) => ({
+      screenClass: appStore.screenClass.get(),
+      alertModalVisibility: appStore.alertModalVisibility.get(),
+      alertModalContent: appStore.alertModalContent.get(),
+      removeAlert: appStore.removeAlert,
+    }));
 
   const isDesktop = screenClass === 'xl';
 
@@ -49,14 +43,14 @@ const AlertComponent = () => {
               <Button
                 variant="primary"
                 className={styles.buttonClick}
-                onClick={() => removeAlert()}
+                onClick={removeAlert}
               >
                 확인
               </Button>
               <Button
                 variant="outline-danger"
                 className={styles.buttonClick}
-                onClick={() => removeAlert()}
+                onClick={removeAlert}
               >
                 취소
               </Button>

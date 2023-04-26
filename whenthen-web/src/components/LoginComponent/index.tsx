@@ -5,14 +5,14 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const LoginComponent = () => {
-  const { screenClass, setAlert, removeAlert, isLogin, changeLoginState } =
-    useRootData(({ appStore, loginStore }) => ({
+  const { screenClass, setAlert, isLogin, changeLoginState } = useRootData(
+    ({ appStore, loginStore }) => ({
       screenClass: appStore.screenClass.get(),
       setAlert: appStore.setAlert,
-      removeAlert: appStore.removeAlert,
       isLogin: loginStore.isLogin.get(),
       changeLoginState: loginStore.changeLoginState,
-    }));
+    }),
+  );
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
