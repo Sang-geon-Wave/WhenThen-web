@@ -1,9 +1,16 @@
 @import '../../assets/scsses/config';
+
+html,
+body {
+  height: 100%;
+}
 .mainBlock {
-  display: flex;
-  flex-direction: row;
-  margin-top: 50px;
-  min-height: 150vh;
+  position: relative;
+  vertical-align: middle;
+  height: auto;
+  min-height: 100%;
+  overscroll-behavior: contain;
+  padding-bottom: 150px;
 }
 .sideBarButton {
   position: absolute;
@@ -17,12 +24,28 @@
   max-height: 46px;
 }
 .sideBarArea {
-  width: 180px;
-  min-height: 10px;
-  z-index: 90;
+  position: absolute;
+  width: 200px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 99;
 }
-.childrenArea {
+.sideBarAreaHide {
+  position: absolute;
+  width: 0px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 99;
+  visibility: hidden;
+}
+.mainContentArea {
+  position: relative;
+  display: flex;
   vertical-align: middle;
-  width: 100%;
-  padding: 2%;
+  width: -webkit-fill-available;
+  margin-right: 0;
+  padding-top: 50px;
+  width: fit-content;
 }

@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const LoginComponent = () => {
-  const { screenClass, setAlert, isLogin, changeLoginState } = useRootData(
-    ({ appStore, loginStore }) => ({
+  const { screenClass, setAlert, isLogin, changeLoginState, login, refresh } =
+    useRootData(({ appStore, authStore }) => ({
       screenClass: appStore.screenClass.get(),
       setAlert: appStore.setAlert,
-      isLogin: loginStore.isLogin.get(),
-      changeLoginState: loginStore.changeLoginState,
-    }),
-  );
+      isLogin: authStore.isLogin.get(),
+      changeLoginState: authStore.changeLoginState,
+      login: authStore.login,
+      refresh: authStore.refresh,
+    }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
@@ -23,16 +25,18 @@ const LoginComponent = () => {
     return false;
   };
 
-  if (localStorage.getItem('autoLogin') === 'true') {
-    if (
-      // Todo: improve security by storing token values instead of ID/PW directly
-      tmpCurrentLoginInfo(
-        localStorage.getItem('ID'),
-        localStorage.getItem('PW'),
-      )
-    )
-      changeLoginState(true);
-  }
+  const navigate = useNavigate();
+
+  // Try refresh token
+  useEffect(() => {
+    refresh();
+  }, []);
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate('/');
+    }
+  }, [isLogin]);
 
   const [loginErrType, setLoginErrType] = useState('');
   const [loginErr, setLoginErr] = useState(false);
@@ -52,7 +56,7 @@ const LoginComponent = () => {
   const [autoLogin, setAutoLogin] = useState(false);
   const toggleAutoLogin = () => setAutoLogin(!autoLogin);
 
-  const submitInfo = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitInfo = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isLogin === true) return;
 
