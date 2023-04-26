@@ -44,7 +44,7 @@ const AlertComponent = () => {
       {() => (
         <div ref={alertRef} className={styles.mainBlock}>
           <div className={styles.alertBlock}>
-            <h4>{alertModalContent}</h4>
+            <div className={styles.alertContent}>{alertModalContent}</div>
             <div className={styles.buttonBlock}>
               <Button
                 variant="primary"
