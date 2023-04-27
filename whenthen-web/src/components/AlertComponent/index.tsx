@@ -3,20 +3,28 @@ import { Overlay, Button } from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 
+export enum AlertType {
+  Information = 'Information',
+  Confirmation = 'Confirmation',
+  Warning = 'Warning',
+  Danger = 'Danger',
+}
+
+export interface AlertProps {
+  alertContent: string;
+  alertType?: AlertType;
+  handleConfirm?: Function;
+  handleCancel?: Function;
+}
+
 const AlertComponent = () => {
-  const {
-    screenClass,
-    alertModalVisibility,
-    alertModalContent,
-    confirmModal,
-    removeAlert,
-  } = useRootData(({ appStore }) => ({
-    screenClass: appStore.screenClass.get(),
-    alertModalVisibility: appStore.alertModalVisibility.get(),
-    alertModalContent: appStore.alertModalContent.get(),
-    confirmModal: appStore.confirmModal.get(),
-    removeAlert: appStore.removeAlert,
-  }));
+  const { screenClass, alertModalVisibility, alertModalProps, removeAlert } =
+    useRootData(({ appStore }) => ({
+      screenClass: appStore.screenClass.get(),
+      alertModalVisibility: appStore.alertModalVisibility.get(),
+      alertModalProps: appStore.alertModalProps.get(),
+      removeAlert: appStore.removeAlert,
+    }));
 
   const isDesktop = screenClass === 'xl';
 
@@ -24,11 +32,14 @@ const AlertComponent = () => {
   const alertRef = useRef<HTMLDivElement>(null);
   const overlayTarget = useRef(null);
 
-  const clickYes = (fnc: any = null) => {
+  const clickConfirm = () => {
     removeAlert();
-    return fnc;
+    if (alertModalProps!.handleConfirm) alertModalProps?.handleConfirm();
   };
-
+  const clickCancel = () => {
+    removeAlert();
+    if (alertModalProps!.handleCancel) alertModalProps?.handleCancel();
+  };
   useEffect(() => {
     const onClickEvent = (event: MouseEvent) => {
       const target = event.target as HTMLDivElement;
@@ -49,20 +60,31 @@ const AlertComponent = () => {
       {() => (
         <div ref={alertRef} className={styles.mainBlock}>
           <div className={styles.alertBlock}>
-            <div className={styles.alertContent}>{alertModalContent}</div>
+            <div className={styles.alertContent}>
+              {alertModalProps?.alertContent}
+            </div>
             <div className={styles.buttonBlock}>
               <Button
-                variant="primary"
+                variant={
+                  alertModalProps?.alertType == AlertType.Warning
+                    ? 'warning'
+                    : 'primary'
+                }
                 className={styles.buttonClick}
-                onClick={clickYes}
+                onClick={clickConfirm}
               >
                 확인
               </Button>
-              {confirmModal && (
+              {(alertModalProps?.alertType == AlertType.Confirmation ||
+                alertModalProps?.alertType == AlertType.Danger) && (
                 <Button
-                  variant="outline-danger"
+                  variant={
+                    alertModalProps?.alertType == AlertType.Confirmation
+                      ? 'outline-secondary'
+                      : 'outline-danger'
+                  }
                   className={styles.buttonClick}
-                  onClick={removeAlert}
+                  onClick={clickCancel}
                 >
                   취소
                 </Button>

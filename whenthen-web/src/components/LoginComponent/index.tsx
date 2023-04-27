@@ -4,6 +4,7 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { AlertType } from '../AlertComponent';
 
 const LoginComponent = () => {
   const { screenClass, setAlert, isLogin, changeLoginState, login, refresh } =
@@ -67,7 +68,13 @@ const LoginComponent = () => {
     } else setLoginErr(false);
 
     if (tmpCurrentLoginInfo(usrId, usrPw)) {
-      setAlert(`환영합니다 ${usrId}님`);
+      setAlert({
+        alertType: AlertType.Confirmation,
+        alertContent: `환영합니다 ${usrId}님`,
+        handleConfirm: () => {
+          console.log('login success');
+        },
+      });
       changeLoginState(true);
       if (autoLogin) {
         // 추후 서버에서 토큰이 날라오면 토큰 하나만 저장예정
