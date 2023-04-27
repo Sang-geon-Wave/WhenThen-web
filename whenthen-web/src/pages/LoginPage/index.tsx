@@ -13,7 +13,7 @@ const LoginPage = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
-    <DefaultLayout hideSideBar={false}>
+    <DefaultLayout hideSideBar={true}>
       <div>
         <h1 className={styles.mainBlock}>
           <Link to="/createSchedule" className={styles.titleText}>
