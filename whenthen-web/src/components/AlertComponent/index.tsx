@@ -8,13 +8,13 @@ const AlertComponent = () => {
     screenClass,
     alertModalVisibility,
     alertModalContent,
-    comfirmModal,
+    confirmModal,
     removeAlert,
   } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
     alertModalVisibility: appStore.alertModalVisibility.get(),
     alertModalContent: appStore.alertModalContent.get(),
-    comfirmModal: appStore.confirmModal.get(),
+    confirmModal: appStore.confirmModal.get(),
     removeAlert: appStore.removeAlert,
   }));
 
@@ -58,7 +58,7 @@ const AlertComponent = () => {
               >
                 확인
               </Button>
-              {comfirmModal && (
+              {confirmModal && (
                 <Button
                   variant="outline-danger"
                   className={styles.buttonClick}
