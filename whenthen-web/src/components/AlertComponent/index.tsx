@@ -4,19 +4,30 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 
 const AlertComponent = () => {
-  const { screenClass, alertModalVisibility, alertModalContent, removeAlert } =
-    useRootData(({ appStore }) => ({
-      screenClass: appStore.screenClass.get(),
-      alertModalVisibility: appStore.alertModalVisibility.get(),
-      alertModalContent: appStore.alertModalContent.get(),
-      removeAlert: appStore.removeAlert,
-    }));
+  const {
+    screenClass,
+    alertModalVisibility,
+    alertModalContent,
+    comfirmModal,
+    removeAlert,
+  } = useRootData(({ appStore }) => ({
+    screenClass: appStore.screenClass.get(),
+    alertModalVisibility: appStore.alertModalVisibility.get(),
+    alertModalContent: appStore.alertModalContent.get(),
+    comfirmModal: appStore.confirmModal.get(),
+    removeAlert: appStore.removeAlert,
+  }));
 
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   const alertRef = useRef<HTMLDivElement>(null);
   const overlayTarget = useRef(null);
+
+  const clickYes = (fnc: any = null) => {
+    removeAlert();
+    return fnc;
+  };
 
   useEffect(() => {
     const onClickEvent = (event: MouseEvent) => {
@@ -43,17 +54,19 @@ const AlertComponent = () => {
               <Button
                 variant="primary"
                 className={styles.buttonClick}
-                onClick={removeAlert}
+                onClick={clickYes}
               >
                 확인
               </Button>
-              <Button
-                variant="outline-danger"
-                className={styles.buttonClick}
-                onClick={removeAlert}
-              >
-                취소
-              </Button>
+              {comfirmModal && (
+                <Button
+                  variant="outline-danger"
+                  className={styles.buttonClick}
+                  onClick={removeAlert}
+                >
+                  취소
+                </Button>
+              )}
             </div>
           </div>
         </div>

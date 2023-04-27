@@ -1,5 +1,6 @@
 import { observable } from 'mobx';
 import history from '../utils/history';
+import { boolean } from 'yargs';
 
 const createStore = () => {
   const appStore = {
@@ -8,6 +9,7 @@ const createStore = () => {
 
     alertModalVisibility: observable.box(false),
     alertModalContent: observable.box(''),
+    confirmModal: observable.box(false),
 
     sideBarVisibility: observable.box(false),
 
@@ -25,9 +27,15 @@ const createStore = () => {
       history.push(data);
     },
 
+    setComfirm(content: any) {
+      appStore.alertModalVisibility.set(true);
+      appStore.alertModalContent.set(content);
+      appStore.confirmModal.set(true);
+    },
     setAlert(content: any) {
       appStore.alertModalVisibility.set(true);
       appStore.alertModalContent.set(content);
+      appStore.confirmModal.set(false);
     },
     removeAlert() {
       appStore.alertModalVisibility.set(false);

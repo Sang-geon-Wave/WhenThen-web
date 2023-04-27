@@ -1,23 +1,20 @@
 .mainBlock {
   display: flex;
   position: fixed;
+  align-items: center;
+  justify-content: center;
   top: 0;
   left: 0;
   min-width: 100vw;
   min-height: 100vh;
-  background-color: rgba(128, 128, 128, 0.5);
+  background-color: rgba(128, 128, 128, 0.6);
   z-index: 300;
 }
 
 .alertBlock {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -60%);
   height: 300px;
   width: 500px;
   background-color: white;
@@ -31,7 +28,7 @@
 }
 
 .buttonBlock {
-  text-align: center;
+  text-align: right;
   width: 100%;
 }
 
