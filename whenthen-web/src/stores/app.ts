@@ -27,7 +27,7 @@ const createStore = () => {
       history.push(data);
     },
 
-    setComfirm(content: any) {
+    setConfirm(content: any) {
       appStore.alertModalVisibility.set(true);
       appStore.alertModalContent.set(content);
       appStore.confirmModal.set(true);
