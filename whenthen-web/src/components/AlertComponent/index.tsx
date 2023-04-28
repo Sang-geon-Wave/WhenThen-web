@@ -15,13 +15,13 @@ export interface AlertProps {
   alertType?: AlertType;
   handleConfirm?: Function;
   handleCancel?: Function;
+  confirmText?: string;
+  cancelText?: string;
 }
 
 export const DefaultAlertProps: AlertProps = {
   alertContent: '',
   alertType: AlertType.Information,
-  handleConfirm: () => {},
-  handleCancel: () => {},
 };
 
 const AlertComponent = () => {
@@ -81,7 +81,9 @@ const AlertComponent = () => {
                 className={styles.buttonClick}
                 onClick={clickConfirm}
               >
-                확인
+                {!alertModalProps?.confirmText
+                  ? '확인'
+                  : alertModalProps?.confirmText}
               </Button>
               {(alertModalProps?.alertType == AlertType.Confirmation ||
                 alertModalProps?.alertType == AlertType.Danger) && (
@@ -94,7 +96,9 @@ const AlertComponent = () => {
                   className={styles.buttonClick}
                   onClick={clickCancel}
                 >
-                  취소
+                  {!alertModalProps?.cancelText
+                    ? '취소'
+                    : alertModalProps?.cancelText}
                 </Button>
               )}
             </div>

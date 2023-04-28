@@ -74,6 +74,7 @@ const LoginComponent = () => {
         handleConfirm: () => {
           console.log('login success');
         },
+        confirmText: 'OK',
       });
       changeLoginState(true);
       if (autoLogin) {

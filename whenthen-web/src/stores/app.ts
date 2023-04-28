@@ -1,11 +1,7 @@
 import { observable } from 'mobx';
 import history from '../utils/history';
 import { boolean } from 'yargs';
-import {
-  AlertProps,
-  AlertType,
-  DefaultAlertProps,
-} from '../components/AlertComponent';
+import { AlertProps, DefaultAlertProps } from '../components/AlertComponent';
 
 const createStore = () => {
   const appStore = {
