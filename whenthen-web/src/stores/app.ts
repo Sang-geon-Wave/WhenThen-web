@@ -1,7 +1,11 @@
 import { observable } from 'mobx';
 import history from '../utils/history';
 import { boolean } from 'yargs';
-import { AlertProps, AlertType } from '../components/AlertComponent';
+import {
+  AlertProps,
+  AlertType,
+  DefaultAlertProps,
+} from '../components/AlertComponent';
 
 const createStore = () => {
   const appStore = {
@@ -30,10 +34,7 @@ const createStore = () => {
     setAlert(props?: AlertProps) {
       appStore.alertModalVisibility.set(true);
       appStore.alertModalProps.set({
-        alertContent: '',
-        alertType: AlertType.Information,
-        handleConfirm: () => {},
-        handleCancel: () => {},
+        ...DefaultAlertProps,
         ...props,
       });
     },

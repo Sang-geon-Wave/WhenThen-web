@@ -17,6 +17,13 @@ export interface AlertProps {
   handleCancel?: Function;
 }
 
+export const DefaultAlertProps: AlertProps = {
+  alertContent: '',
+  alertType: AlertType.Information,
+  handleConfirm: () => {},
+  handleCancel: () => {},
+};
+
 const AlertComponent = () => {
   const { screenClass, alertModalVisibility, alertModalProps, removeAlert } =
     useRootData(({ appStore }) => ({
@@ -40,6 +47,7 @@ const AlertComponent = () => {
     removeAlert();
     if (alertModalProps!.handleCancel) alertModalProps?.handleCancel();
   };
+
   useEffect(() => {
     const onClickEvent = (event: MouseEvent) => {
       const target = event.target as HTMLDivElement;
