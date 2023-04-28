@@ -36,18 +36,20 @@ const App = () => {
   }, [currentScreenClass]);
 
   return (
-    <Router>
+    <>
       <AlertComponent />
-      <Routes>
-        <Route path="/mock" element={<MockPage />} />
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/timeline" element={<TimelinePage />} />
-        <Route path="/create-schedule" element={<CreateSchedulePage />} />
-        <Route path="/calendar" element={<CalendarPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/sign-up" element={<SignupPage />} />
-      </Routes>
-    </Router>
+      <Router>
+        <Routes>
+          <Route path="/mock" element={<MockPage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/timeline" element={<TimelinePage />} />
+          <Route path="/create-schedule" element={<CreateSchedulePage />} />
+          <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/sign-up" element={<SignupPage />} />
+        </Routes>
+      </Router>
+    </>
   );
 };
 
