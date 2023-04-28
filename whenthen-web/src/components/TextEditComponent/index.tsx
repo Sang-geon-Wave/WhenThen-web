@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import { Dropdown, ButtonGroup, Button } from 'react-bootstrap';
+import { Dropdown, ButtonGroup, Button, ToggleButton } from 'react-bootstrap';
 
-const TextEditorComponent = () => {
+export interface PropsTextEditorComponent {
+  defaultText?: string;
+}
+
+const TextEditorComponent: React.FunctionComponent<
+  PropsTextEditorComponent
+> = ({ defaultText }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -21,24 +27,44 @@ const TextEditorComponent = () => {
   const [textContent, setTextContent] = useState('');
   const [fontFamily, setFontFamily] = useState(fontSytleName.NanumGothic);
 
-  const handleSetValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTextContent(event.target.value);
+  const handleSetValue = () => {
+    const curText = document.getElementById('textEdit');
+    if (curText != null) setTextContent(curText.innerText);
   };
+
+  const keyDownHandling = (event: any) => {
+    if (event.ctrlKey && event.keyCode == 66) {
+      setBold(!bold);
+    } else if (event.ctrlKey && event.keyCode == 73) {
+      setItalic(!italic);
+    } else if (event.ctrlKey && event.keyCode == 85) {
+      setUnderline(!underline);
+    }
+  };
+
+  const [bold, setBold] = useState(false);
+  const [italic, setItalic] = useState(false);
+  const [underline, setUnderline] = useState(false);
+  const [strikeThrough, setStrikeThrough] = useState(false);
 
   const handleBold = () => {
-    document.execCommand('bold', false);
+    setBold(!bold);
+    document.execCommand('bold');
   };
   const handleItalic = () => {
-    document.execCommand('italic', false);
+    setItalic(!italic);
+    document.execCommand('italic', italic);
   };
   const handleUnderline = () => {
-    document.execCommand('underline', false);
+    setUnderline(!underline);
+    document.execCommand('underline', underline);
   };
   const handleStrike = () => {
-    document.execCommand('strikeThrough', false);
+    setStrikeThrough(!strikeThrough);
+    document.execCommand('strikeThrough', strikeThrough);
   };
 
-  const handleFont = (event) => {
+  const handleFont = (event: any) => {
     setFontFamily(event.target.value);
     document.execCommand('fontName', false, event.target.value);
   };
@@ -50,11 +76,18 @@ const TextEditorComponent = () => {
           <Button
             variant="success"
             id="fontSytleText"
-            className={styles.dropdownBox}
+            className={styles.dropdownClick}
+            value={fontFamily}
+            onClick={handleFont}
           >
             {fontFamily}
           </Button>
-          <Dropdown.Toggle split variant="success" id="dropdownSplit" />
+          <Dropdown.Toggle
+            className={styles.dropdownSelect}
+            split
+            variant="success"
+            id="dropdownSplit"
+          />
           <Dropdown.Menu>
             {Object.values(fontSytleName).map((font) => {
               return (
@@ -70,45 +103,60 @@ const TextEditorComponent = () => {
             })}
           </Dropdown.Menu>
         </Dropdown>
-        <Button
+        <ToggleButton
           id="boldBtn"
           className={styles.button}
           variant="light"
           onClick={handleBold}
+          type="checkbox"
+          checked={bold}
+          value={'B'}
         >
           <b>B</b>
-        </Button>
-        <Button
+        </ToggleButton>
+        <ToggleButton
           id="italicBtn"
           className={styles.button}
           variant="light"
           onClick={handleItalic}
+          type="checkbox"
+          checked={italic}
+          value={'I'}
         >
           <i>I</i>
-        </Button>
-        <Button
+        </ToggleButton>
+        <ToggleButton
           id="underlineBtn"
           className={styles.button}
           variant="light"
           onClick={handleUnderline}
+          type="checkbox"
+          checked={underline}
+          value={'U'}
         >
           <u>U</u>
-        </Button>
-        <Button
+        </ToggleButton>
+        <ToggleButton
           id="strikeThroughBtn"
           className={styles.button}
           variant="light"
           onClick={handleStrike}
+          type="checkbox"
+          checked={strikeThrough}
+          value={'S'}
         >
           <s>S</s>
-        </Button>
+        </ToggleButton>
       </div>
       <div className={styles.mainBox}>
         <div
           id="textEdit"
           className={styles.textBox}
           contentEditable="true"
+          role="textbox"
           onInput={handleSetValue}
+          defaultValue={defaultText}
+          onKeyDown={keyDownHandling}
         />
       </div>
     </div>
