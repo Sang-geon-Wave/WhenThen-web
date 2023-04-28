@@ -20,12 +20,6 @@ const LoginComponent = () => {
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  // Todo: implement actual login feature
-  const tmpCurrentLoginInfo = (ID: string | null, PW: string | null) => {
-    if (ID === 'usr' && PW === 'usr') return true;
-    return false;
-  };
-
   const navigate = useNavigate();
 
   // Try refresh token
@@ -67,22 +61,12 @@ const LoginComponent = () => {
       return;
     } else setLoginErr(false);
 
-    if (tmpCurrentLoginInfo(usrId, usrPw)) {
+    if (await login(usrId, usrPw, autoLogin)) {
       setAlert({
-        alertType: AlertType.Confirmation,
         alertContent: `환영합니다 ${usrId}님`,
-        handleConfirm: () => {
-          console.log('login success');
-        },
-        confirmText: 'OK',
+        alertType: AlertType.Confirmation,
       });
-      changeLoginState(true);
-      if (autoLogin) {
-        // 추후 서버에서 토큰이 날라오면 토큰 하나만 저장예정
-        localStorage.setItem('ID', usrId);
-        localStorage.setItem('PW', usrPw);
-        localStorage.setItem('autoLogin', 'true');
-      } else localStorage.setItem('autoLogin', 'false');
+      navigate('/');
     } else {
       setLoginErr(true);
       setLoginErrType('올바르지 않은 아이디 혹은 비밀번호');
