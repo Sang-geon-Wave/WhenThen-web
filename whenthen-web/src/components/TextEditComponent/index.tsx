@@ -29,7 +29,7 @@ const TextEditorComponent: React.FunctionComponent<
 
   const handleSetValue = () => {
     const curText = document.getElementById('textEdit');
-    if (curText != null) setTextContent(curText.innerText);
+    if (curText != null) setTextContent(curText.innerHTML);
   };
 
   const keyDownHandling = (event: any) => {
@@ -49,19 +49,19 @@ const TextEditorComponent: React.FunctionComponent<
 
   const handleBold = () => {
     setBold(!bold);
-    document.execCommand('bold');
+    document.execCommand('bold', false);
   };
   const handleItalic = () => {
     setItalic(!italic);
-    document.execCommand('italic', italic);
+    document.execCommand('italic', false);
   };
   const handleUnderline = () => {
     setUnderline(!underline);
-    document.execCommand('underline', underline);
+    document.execCommand('underline', false);
   };
   const handleStrike = () => {
     setStrikeThrough(!strikeThrough);
-    document.execCommand('strikeThrough', strikeThrough);
+    document.execCommand('strikeThrough', false);
   };
 
   const handleFont = (event: any) => {
@@ -153,7 +153,6 @@ const TextEditorComponent: React.FunctionComponent<
           id="textEdit"
           className={styles.textBox}
           contentEditable="true"
-          role="textbox"
           onInput={handleSetValue}
           defaultValue={defaultText}
           onKeyDown={keyDownHandling}
