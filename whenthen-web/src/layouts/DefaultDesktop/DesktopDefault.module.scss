@@ -7,10 +7,11 @@ body {
 .mainBlock {
   position: relative;
   vertical-align: middle;
+  width: 100%;
+  max-width: 100vw;
   height: auto;
-  min-height: 100%;
-  overscroll-behavior: contain;
-  padding-bottom: 150px;
+  min-height: 100vh;
+  margin-top: 50px;
 }
 .sideBarButton {
   position: absolute;
@@ -42,10 +43,7 @@ body {
 }
 .mainContentArea {
   position: relative;
-  display: flex;
   vertical-align: middle;
-  width: -webkit-fill-available;
   margin-right: 0;
-  padding-top: 50px;
-  width: fit-content;
+  padding: 2%;
 }
