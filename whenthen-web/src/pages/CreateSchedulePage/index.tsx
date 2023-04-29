@@ -40,7 +40,6 @@ const CreateSchedulePage = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(scheduleData);
   };
 
   return (
