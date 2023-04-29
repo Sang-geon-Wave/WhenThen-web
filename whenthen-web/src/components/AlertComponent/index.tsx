@@ -52,10 +52,9 @@ const AlertComponent = () => {
 
   useEffect(() => {
     const onClickEvent = (event: MouseEvent) => {
-      if (alertModalProps!.outsideClickDisabled == true) return () => {};
       const target = event.target as HTMLDivElement;
       if (target === alertRef.current && alertModalVisibility) {
-        removeAlert();
+        if (alertModalProps!.outsideClickDisabled == false) removeAlert();
       }
     };
 
