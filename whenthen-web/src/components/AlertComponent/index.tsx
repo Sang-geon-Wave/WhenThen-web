@@ -17,11 +17,13 @@ export interface AlertProps {
   handleCancel?: Function;
   confirmText?: string;
   cancelText?: string;
+  outsideClickDisabled?: boolean;
 }
 
 export const DefaultAlertProps: AlertProps = {
   alertContent: '',
   alertType: AlertType.Information,
+  outsideClickDisabled: false,
 };
 
 const AlertComponent = () => {
@@ -50,6 +52,7 @@ const AlertComponent = () => {
 
   useEffect(() => {
     const onClickEvent = (event: MouseEvent) => {
+      if (alertModalProps!.outsideClickDisabled == true) return () => {};
       const target = event.target as HTMLDivElement;
       if (target === alertRef.current && alertModalVisibility) {
         removeAlert();
