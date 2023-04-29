@@ -7,8 +7,9 @@ import stylesMobileDefault from './MobileDefault.module.scss';
 import { useLocation } from 'react-router-dom';
 interface Props {
   children: React.ReactNode;
+  hideSideBar: boolean;
 }
-const DefaultMobile = ({ children }: Props) => {
+const DefaultMobile = ({ children, hideSideBar }: Props) => {
   const { screenClass, sideBarVisibility, currentMainMenu } = useRootData(
     ({ appStore }) => ({
       screenClass: appStore.screenClass.get(),
@@ -24,8 +25,7 @@ const DefaultMobile = ({ children }: Props) => {
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
-        {(!sideBarVisibility && screenClass !== 'xl') ||
-        nowLocation.pathname === '/' ? (
+        {(!sideBarVisibility && screenClass !== 'xl') || hideSideBar ? (
           <div></div>
         ) : (
           <div className={styles.sideBarArea}>

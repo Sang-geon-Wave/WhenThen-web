@@ -1,0 +1,37 @@
+.mainBlock {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: rgba(128, 128, 128, 0.6);
+  z-index: 300;
+}
+
+.alertBlock {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 300px;
+  width: 500px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.alertContent {
+  margin: auto;
+  font-size: 1.2rem;
+}
+
+.buttonBlock {
+  text-align: right;
+  width: 100%;
+}
+
+.buttonClick {
+  margin-left: 5px;
+}

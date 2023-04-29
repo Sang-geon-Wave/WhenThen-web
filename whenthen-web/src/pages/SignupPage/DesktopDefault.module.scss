@@ -1,9 +1,12 @@
+$baseFontSize: 14px;
+
 .mainBlock {
   display: flex;
   justify-content: center;
-  align-items: center;
-  margin-top: 5%;
-  width: 98vw;
+  position: absolute;
+  top: 10%;
+  left: 25%;
+  width: 50%;
 }
 
 .titleText {
