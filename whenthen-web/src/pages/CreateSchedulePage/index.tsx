@@ -28,39 +28,19 @@ const CreateSchedulePage = () => {
     image: undefined,
   });
 
-  const handleFileChange = (file: File) => {
-    setscheduleData({
-      ...scheduleData,
-      image: file,
-    });
-  };
-
-  const handleLocationInputChange = (address: string) => {
-    setscheduleData({
-      ...scheduleData,
-      placeAddr: address,
-    });
-  };
-
-  const handleInputTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setscheduleData({
-      ...scheduleData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleDateSelected = (
+  const handleInputChanged = (
     name: keyof ScheduleDataType,
-    formattedDate: string,
+    value: string | File,
   ) => {
     setscheduleData({
       ...scheduleData,
-      [name]: formattedDate,
+      [name]: value,
     });
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(scheduleData);
   };
 
   return (
@@ -74,7 +54,9 @@ const CreateSchedulePage = () => {
               size="lg"
               placeholder="타이틀을 작성해주세요."
               name="title"
-              onChange={handleInputTextChange}
+              onChange={(event) =>
+                handleInputChanged('title', event.target.value)
+              }
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -84,7 +66,7 @@ const CreateSchedulePage = () => {
                   시작일
                   <DatepickerComponent
                     onDateSelected={(formattedDate) =>
-                      handleDateSelected('startDate', formattedDate)
+                      handleInputChanged('startDate', formattedDate)
                     }
                   ></DatepickerComponent>
                 </Col>
@@ -92,7 +74,7 @@ const CreateSchedulePage = () => {
                   종료일
                   <DatepickerComponent
                     onDateSelected={(formattedDate) =>
-                      handleDateSelected('endDate', formattedDate)
+                      handleInputChanged('endDate', formattedDate)
                     }
                   ></DatepickerComponent>
                 </Col>
@@ -102,7 +84,9 @@ const CreateSchedulePage = () => {
           <Form.Group className="mb-3">
             <Form.Label>장소</Form.Label>
             <LocationInputComponent
-              onAddressChange={handleLocationInputChange}
+              onAddressChange={(placeAddr) =>
+                handleInputChanged('placeAddr', placeAddr)
+              }
             ></LocationInputComponent>
           </Form.Group>
           <Form.Group className="mb-3">
@@ -110,13 +94,15 @@ const CreateSchedulePage = () => {
             <Form.Control
               placeholder="이벤트 관련 URL을 입력해보세요."
               name="eventUrl"
-              onChange={handleInputTextChange}
+              onChange={(event) =>
+                handleInputChanged('eventUrl', event.target.value)
+              }
             />
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>이미지</Form.Label>
             <ImageUploadComponent
-              onFileChange={handleFileChange}
+              onFileChange={(file) => handleInputChanged('image', file)}
             ></ImageUploadComponent>
           </Form.Group>
           <Form.Group className="mb-3">
@@ -125,7 +111,9 @@ const CreateSchedulePage = () => {
               as="textarea"
               placeholder="글을 쓰세요!"
               name="contents"
-              onChange={handleInputTextChange}
+              onChange={(event) =>
+                handleInputChanged('contents', event.target.value)
+              }
             />
           </Form.Group>
           <Button type="submit" variant="primary" size="lg" className="w-100">
