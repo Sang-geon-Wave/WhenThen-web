@@ -1,0 +1,51 @@
+@import '../../assets/scsses/config';
+
+html,
+body {
+  height: 100%;
+}
+.mainBlock {
+  position: relative;
+  vertical-align: middle;
+  height: auto;
+  min-height: 100%;
+  overscroll-behavior: contain;
+  padding-bottom: 150px;
+}
+.sideBarButton {
+  position: absolute;
+  border: fade-out($color: #000000, $amount: 0);
+  z-index: 10;
+}
+.logoImg {
+  position: fixed;
+  margin: 0, 0, 0, 0;
+  max-width: 46px;
+  max-height: 46px;
+}
+.sideBarArea {
+  position: absolute;
+  width: 200px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 99;
+}
+.sideBarAreaHide {
+  position: absolute;
+  width: 0px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 99;
+  visibility: hidden;
+}
+.mainContentArea {
+  position: relative;
+  display: flex;
+  vertical-align: middle;
+  width: -webkit-fill-available;
+  margin-right: 0;
+  padding-top: 50px;
+  width: fit-content;
+}

@@ -1,0 +1,61 @@
+@import '../../assets/scsses/config';
+
+.sideBar {
+  margin-top: 50px;
+  position: fixed;
+  width: 180px;
+  padding-left: 0px;
+  background: #c9c990;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 100;
+}
+
+.sideBarOutside {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
+.sideBarLink {
+  display: block;
+  padding: 0px 20px 0px 0px;
+  font-weight: bold;
+  font-size: 150%;
+  text-align: end;
+  word-wrap: break-word;
+  color: #000000;
+  text-decoration: none;
+
+  &:hover {
+    background: #a6ff4d;
+    color: #fffffe;
+    transform: translateY(-2px);
+    transition: 1s;
+  }
+
+  &:not {
+    color: #889e6e;
+    background: revert;
+    transform: none;
+  }
+}
+.sideBarLink > p {
+  color: #a6ff4d;
+  background: #83835d;
+  font-weight: bold;
+}
+.sideBarItem {
+  margin-top: 0px;
+}
+.sideBarList {
+  padding-left: 0px;
+  list-style: none;
+}

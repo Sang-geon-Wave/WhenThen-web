@@ -1,66 +1,121 @@
 import React from 'react';
+import { Nav, NavbarBrand, NavDropdown } from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
+import { useLocation, useNavigate } from 'react-router-dom';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import { observer } from 'mobx-react-lite';
-import { action, observe } from 'mobx';
 // import stylesMobileDefault from './MobileDefault.module.scss';
+import MyPageImg from '../../assets/images/person.svg';
+import HambergerImg from '../../assets/images/list.svg';
+import logoImg from '../../assets/images/aeyung.jpg';
+import api from '../../api';
 
 const HeaderComponent = () => {
-  const { screenClass, isLogin, changeLoginState } = useRootData(
-    ({ appStore, loginStore }) => ({
-      screenClass: appStore.screenClass.get(),
-      isLogin: loginStore.isLogin.get(),
-      changeLoginState: loginStore.changeLoginState,
-    }),
-  );
+  const {
+    screenClass,
+    isLogin,
+    currentMainMenu,
+    sideBarVisibility,
+    logout,
+    changeMainMenu,
+    changeSideBarVisibility,
+  } = useRootData(({ appStore, authStore }) => ({
+    screenClass: appStore.screenClass.get(),
+    isLogin: authStore.isLogin.get(),
+    currentMainMenu: appStore.currentMainMenu.get(),
+    sideBarVisibility: appStore.sideBarVisibility.get(),
+    logout: authStore.logout,
+    changeMainMenu: appStore.changeMainMenu,
+    changeSideBarVisibility: appStore.changeSideBarVisibility,
+  }));
 
   const isDesktop = screenClass === 'xl';
+  const nowLocation = useLocation();
+  const navigate = useNavigate();
 
-  let myPageSignInButtonClicked = () => {
-    !!isLogin ? alert('logout!') : alert('login!');
-    !!isLogin ? changeLoginState(false) : changeLoginState(true);
-    console.log(isLogin);
+  const logOutButtonClicked = async () => {
+    await logout();
+    navigate('/');
   };
-  let signUpLogoutButtonClicked = () => {
-    !!isLogin ? alert('logout!') : alert('sign up!');
-    !!isLogin ? changeLoginState(false) : changeLoginState(false); // 회원가입 페이지로 이동
+  const logInButtonClicked = async () => {
+    navigate('/login');
+  };
+  const sideBarButtonClicked = () => {
+    changeSideBarVisibility(!sideBarVisibility);
   };
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
   return (
     <div className={styles.header}>
-      <h1 className={styles.logo}>
-        <a href="#">
-          <img
-            className={styles.logoImg}
-            src="https://pbs.twimg.com/profile_images/1121985451907137536/2Uq0Ih-2_400x400.jpg"
-          />
-        </a>
-        <span>WhenThen</span>
-      </h1>
-      <div className={styles.topBarBlank}></div>
-      <div className={styles.topBarButton}>
-        <span>about</span>
-      </div>
-      <div
-        className={styles.topBarButton}
-        onClick={() => signUpLogoutButtonClicked()}
-      >
-        {!!isLogin ? <span>log out</span> : <span>sign up</span>}
-      </div>
-      <div
-        className={styles.topBarButton}
-        onClick={() => myPageSignInButtonClicked()}
-      >
+      {screenClass === 'xl' || nowLocation.pathname === '/' ? (
+        <></>
+      ) : (
+        <img src={HambergerImg} width="50px" onClick={sideBarButtonClicked} />
+      )}
+
+      {screenClass === 'xl' || nowLocation.pathname === '/' ? (
+        <></>
+      ) : (
+        <Nav className="me-auto" />
+      )}
+      <NavbarBrand>
+        <div className={styles.logo} onClick={() => navigate('/')}>
+          <img className={styles.logoImg} src={logoImg} />
+          <span>WhenThen</span>
+        </div>
+      </NavbarBrand>
+      <Nav className="me-auto" />
+      <div className={styles.nav}>
         {!!isLogin ? (
-          <a href="#">
-            <img
-              className={styles.myPageImg}
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpaboC_OonRfowhuzgVIZ7BkLQYiWNeSQkfA&usqp=CAU"
-            />
-          </a>
+          <NavDropdown
+            title={<img src={MyPageImg} width="50px" />}
+            id="basic-navbar-nav"
+          >
+            <Nav className="me-auto">
+              <NavDropdown.Item
+                onClick={async () => {
+                  const { data } = await api.get('/user/me');
+                  const { user_id: userId, email, nickname } = data;
+                  alert(`${userId}, ${email}, ${nickname}`);
+                  // Todo: navigate('/my-page')
+                }}
+              >
+                My Page
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => navigate('/timeline')}>
+                DashBoard
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={() => navigate('/')}>
+                Something
+              </NavDropdown.Item>
+              <NavDropdown.Item onClick={logOutButtonClicked}>
+                Log Out
+              </NavDropdown.Item>
+            </Nav>
+          </NavDropdown>
         ) : (
-          <span>sign in</span>
+          <>
+            {screenClass === 'xl' ? (
+              <>
+                <div
+                  className={styles.topBarButton}
+                  onClick={() => navigate('/layout')}
+                >
+                  <span>about</span>
+                </div>
+                <div
+                  className={styles.topBarButton}
+                  onClick={() => navigate('/sign-up')}
+                >
+                  <span>sign up</span>
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+            <div className={styles.topBarButton} onClick={logInButtonClicked}>
+              <span>sign in</span>
+            </div>
+          </>
         )}
       </div>
     </div>

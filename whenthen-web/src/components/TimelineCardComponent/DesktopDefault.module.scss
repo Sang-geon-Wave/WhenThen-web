@@ -3,25 +3,17 @@ $baseFont: 15px;
 $baseContainerSize: $baseFont * 5;
 
 .mainBlock {
-  margin: 1%;
   padding: 1%;
+  margin-top: 1%;
   display: inline-block;
   border-color: $baseColor;
   border-style: solid;
-  border-top-width: 5px;
+  border-top-width: 3px;
   border-bottom-width: 10px;
-  border-left-width: 20px;
-  border-right-width: 5px;
+  border-left-width: 5px;
+  border-right-width: 15px;
   background-color: white;
-  text-align: left;
-  width: 94%;
-}
-
-.movieIntroduceBlock {
-  float: left;
-  width: 78%;
-  height: 100%;
-  text-align: left;
+  width: 100%;
 }
 
 .imgBlock {
@@ -31,24 +23,49 @@ $baseContainerSize: $baseFont * 5;
   margin-right: 1%;
 }
 
+.movieIntroduceBlock {
+  float: left;
+  width: 79%;
+  height: 100%;
+}
+
+.titleBlock {
+  font-size: 8vh;
+  width: 100%;
+  word-break: break-all;
+}
+
+.titleClickBlock {
+  font-size: 5vh;
+  width: 100%;
+  word-break: break-all;
+}
+
+.subClickBlock {
+  font-size: 2.5vh;
+  width: 100%;
+  word-break: break-all;
+  color: gray;
+}
+
+.subBlock {
+  font-size: 4vh;
+  width: 100%;
+  word-break: break-all;
+  color: gray;
+}
+
 .contentClickBlock {
-  border: none;
-  outline: none;
   background-color: white;
   width: 100%;
-  resize: none;
-  overflow: auto;
   min-height: $baseContainerSize;
   font-size: $baseFont;
   white-space: pre-wrap;
 }
 
 .contentBlock {
-  border: none;
-  outline: none;
   background-color: white;
   width: 100%;
-  resize: none;
   overflow: hidden;
   max-height: $baseContainerSize;
   font-size: $baseFont;

@@ -2,21 +2,32 @@ import React, { useEffect, useRef } from 'react';
 import { useScreenClass } from 'react-grid-system';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import useRootData from './hooks/useRootData';
-import LandingPage from './pages/Landing';
+import LandingPage from './pages/LandingPage';
 import MockPage from './pages/MockPage';
 import CalendarPage from './pages/CalendarPage';
-import SidebarComponent from './components/SideBarComponent';
-import TimelineDatePage from './pages/TimelineDatePage';
+import TimelinePage from './pages/TimelinePage';
 import CreateSchedulePage from './pages/CreateSchedulePage';
+import LoginPage from './pages/LoginPage';
+import AlertComponent from './components/AlertComponent';
+import SignupPage from './pages/SignupPage';
+
 import TextPage from './pages/testPage';
 
 const App = () => {
   const componentRef = useRef(null);
   const currentScreenClass = useScreenClass(componentRef);
 
-  const { changeScreenClass } = useRootData(({ appStore }) => ({
-    changeScreenClass: appStore.changeScreenClass,
-  }));
+  const { changeScreenClass, refresh } = useRootData(
+    ({ appStore, authStore }) => ({
+      changeScreenClass: appStore.changeScreenClass,
+      refresh: authStore.refresh,
+    }),
+  );
+
+  useEffect(() => {
+    // Autologin
+    refresh();
+  }, []);
 
   useEffect(() => {
     changeScreenClass(
@@ -27,16 +38,22 @@ const App = () => {
   }, [currentScreenClass]);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/mock" element={<MockPage />} />
-        <Route path="/timeline-date" element={<TimelineDatePage />} />
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/createSchedule" element={<CreateSchedulePage />} />
-        <Route path="/calendar" element={<CalendarPage />} />
-        <Route path="/test" element={<TextPage />} />
-      </Routes>
-    </Router>
+    <>
+      <AlertComponent />
+      <Router>
+        <Routes>
+          <Route path="/mock" element={<MockPage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/timeline" element={<TimelinePage />} />
+          <Route path="/create-schedule" element={<CreateSchedulePage />} />
+          <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/sign-up" element={<SignupPage />} />
+
+          <Route path="/test" element={<TextPage />} />
+        </Routes>
+      </Router>
+    </>
   );
 };
 

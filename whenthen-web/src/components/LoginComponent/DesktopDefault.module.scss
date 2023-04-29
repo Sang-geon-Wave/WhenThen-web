@@ -1,0 +1,31 @@
+$baseFontSize: 14px;
+
+.mainBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.formBlock {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  padding: 3% 2%;
+  border: 0.5px solid rgb(61, 139, 253);
+  border-radius: 10px;
+}
+
+.formErrorBlock {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  padding: 3% 2%;
+  border: 1px solid red;
+  border-radius: 10px;
+}
+
+.errorMessageBlock {
+  --bs-text-opacity: 1;
+  color: red !important;
+}
