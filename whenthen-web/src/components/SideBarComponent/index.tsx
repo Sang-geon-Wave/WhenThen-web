@@ -56,7 +56,7 @@ const SidebarComponent = () => {
           </div>
           <div
             className={styles.sideBarItem}
-            onClick={() => navigate('/createSchedule')}
+            onClick={() => navigate('/create-schedule')}
           >
             <div className={styles.sideBarLink}>생성하기</div>
           </div>

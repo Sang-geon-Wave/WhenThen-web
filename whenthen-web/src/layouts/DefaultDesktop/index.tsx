@@ -9,8 +9,9 @@ import { Container } from 'react-bootstrap';
 
 interface Props {
   children: React.ReactNode;
+  hideSideBar: boolean;
 }
-const DefaultDesktop = ({ children }: Props) => {
+const DefaultDesktop = ({ children, hideSideBar }: Props) => {
   const { screenClass, sideBarVisibility, currentMainMenu } = useRootData(
     ({ appStore }) => ({
       screenClass: appStore.screenClass.get(),
@@ -26,8 +27,7 @@ const DefaultDesktop = ({ children }: Props) => {
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
-        {(!sideBarVisibility && screenClass !== 'xl') ||
-        nowLocation.pathname === '/' ? (
+        {(!sideBarVisibility && screenClass !== 'xl') || hideSideBar ? (
           <div></div>
         ) : (
           <div className={styles.sideBarArea}>

@@ -4,17 +4,18 @@ import DefaultMobile from '../DefaultMobile';
 
 interface Props {
   children: React.ReactNode;
+  hideSideBar: boolean;
 }
 
-const DefaultLayout = ({ children }: Props) => {
+const DefaultLayout = ({ children, hideSideBar }: Props) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
   const isDesktop = screenClass === 'xl';
   return isDesktop ? (
-    <DefaultDesktop>{children}</DefaultDesktop>
+    <DefaultDesktop hideSideBar={hideSideBar}>{children}</DefaultDesktop>
   ) : (
-    <DefaultMobile>{children}</DefaultMobile>
+    <DefaultMobile hideSideBar={hideSideBar}>{children}</DefaultMobile>
   );
 };
 

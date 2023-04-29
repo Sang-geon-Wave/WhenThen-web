@@ -17,7 +17,7 @@ const LandingPage = () => {
   const isDesktop = screenClass === 'xl';
   const styles = isDesktop ? stylesDesktopDefault : stylesMobileDefault;
   return (
-    <DefaultLayout>
+    <DefaultLayout hideSideBar={true}>
       <div>
         <CarouselComponent />
         <div className={styles.introductionCardBlock}>

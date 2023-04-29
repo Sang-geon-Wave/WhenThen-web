@@ -7,23 +7,24 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import MyPageImg from '../../assets/images/person.svg';
 import HambergerImg from '../../assets/images/list.svg';
 import logoImg from '../../assets/images/logo_header.svg';
+import api from '../../api';
 
 const HeaderComponent = () => {
   const {
     screenClass,
     isLogin,
-    changeLoginState,
     currentMainMenu,
-    changeMainMenu,
     sideBarVisibility,
+    logout,
+    changeMainMenu,
     changeSideBarVisibility,
-  } = useRootData(({ appStore, loginStore }) => ({
+  } = useRootData(({ appStore, authStore }) => ({
     screenClass: appStore.screenClass.get(),
-    isLogin: loginStore.isLogin.get(),
-    changeLoginState: loginStore.changeLoginState,
+    isLogin: authStore.isLogin.get(),
     currentMainMenu: appStore.currentMainMenu.get(),
-    changeMainMenu: appStore.changeMainMenu,
     sideBarVisibility: appStore.sideBarVisibility.get(),
+    logout: authStore.logout,
+    changeMainMenu: appStore.changeMainMenu,
     changeSideBarVisibility: appStore.changeSideBarVisibility,
   }));
 
@@ -31,14 +32,11 @@ const HeaderComponent = () => {
   const nowLocation = useLocation();
   const navigate = useNavigate();
 
-  const logOutButtonClicked = () => {
-    alert('logout!');
-    changeLoginState(false);
+  const logOutButtonClicked = async () => {
+    await logout();
     navigate('/');
   };
-  const logInButtonClicked = () => {
-    alert('login!');
-    changeLoginState(true);
+  const logInButtonClicked = async () => {
     navigate('/login');
   };
   const sideBarButtonClicked = () => {
@@ -70,7 +68,14 @@ const HeaderComponent = () => {
             id="basic-navbar-nav"
           >
             <Nav className="me-auto">
-              <NavDropdown.Item onClick={() => navigate('/myPage')}>
+              <NavDropdown.Item
+                onClick={async () => {
+                  const { data } = await api.get('/user/me');
+                  const { user_id: userId, email, nickname } = data;
+                  alert(`${userId}, ${email}, ${nickname}`);
+                  // Todo: navigate('/my-page')
+                }}
+              >
                 My Page
               </NavDropdown.Item>
               <NavDropdown.Item onClick={() => navigate('/timeline')}>
@@ -96,7 +101,7 @@ const HeaderComponent = () => {
                 </div>
                 <div
                   className={styles.topBarButton}
-                  onClick={() => navigate('/signUp')}
+                  onClick={() => navigate('/sign-up')}
                 >
                   <div className="px-2">SIGN UP</div>
                 </div>

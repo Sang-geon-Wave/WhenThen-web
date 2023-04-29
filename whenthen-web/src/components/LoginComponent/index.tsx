@@ -1,38 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom';
+import { AlertType } from '../AlertComponent';
 
 const LoginComponent = () => {
-  const { screenClass, isLogin, changeLoginState } = useRootData(
-    ({ appStore, loginStore }) => ({
+  const { screenClass, setAlert, isLogin, changeLoginState, login, refresh } =
+    useRootData(({ appStore, authStore }) => ({
       screenClass: appStore.screenClass.get(),
-      isLogin: loginStore.isLogin.get(),
-      changeLoginState: loginStore.changeLoginState,
-    }),
-  );
+      setAlert: appStore.setAlert,
+      isLogin: authStore.isLogin.get(),
+      changeLoginState: authStore.changeLoginState,
+      login: authStore.login,
+      refresh: authStore.refresh,
+    }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
-  const navigate = useNavigate();
-  // Todo: implement actual login feature
-  const tmpCurrentLoginInfo = (ID: string | null, PW: string | null) => {
-    if (ID === 'usr' && PW === 'usr') return true;
-    return false;
-  };
 
-  if (localStorage.getItem('autoLogin') === 'true') {
-    if (
-      // Todo: improve security by storing token values instead of ID/PW directly
-      tmpCurrentLoginInfo(
-        localStorage.getItem('ID'),
-        localStorage.getItem('PW'),
-      )
-    )
-      changeLoginState(true);
-  }
+  const navigate = useNavigate();
+
+  // Try refresh token
+  useEffect(() => {
+    refresh();
+  }, []);
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate('/');
+    }
+  }, [isLogin]);
 
   const [loginErrType, setLoginErrType] = useState('');
   const [loginErr, setLoginErr] = useState(false);
@@ -52,7 +51,7 @@ const LoginComponent = () => {
   const [autoLogin, setAutoLogin] = useState(false);
   const toggleAutoLogin = () => setAutoLogin(!autoLogin);
 
-  const submitInfo = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitInfo = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log('!!');
     if (isLogin === true) return;
@@ -63,16 +62,12 @@ const LoginComponent = () => {
       return;
     } else setLoginErr(false);
 
-    if (tmpCurrentLoginInfo(usrId, usrPw)) {
-      navigate('/calendar');
-      alert(`환영합니다 ${usrId}님`);
-      changeLoginState(true);
-      if (autoLogin) {
-        // 추후 서버에서 토큰이 날라오면 토큰 하나만 저장예정
-        localStorage.setItem('ID', usrId);
-        localStorage.setItem('PW', usrPw);
-        localStorage.setItem('autoLogin', 'true');
-      } else localStorage.setItem('autoLogin', 'false');
+    if (await login(usrId, usrPw, autoLogin)) {
+      setAlert({
+        alertContent: `환영합니다 ${usrId}님`,
+        alertType: AlertType.Confirmation,
+      });
+      navigate('/');
     } else {
       setLoginErr(true);
       setLoginErrType('올바르지 않은 아이디 혹은 비밀번호');
