@@ -16,7 +16,7 @@ const CalendarComponent = () => {
 
   return (
     <div>
-      <div style={{ margin: '50px' }}>
+      <div className={style.calendar}>
         <FullCalendar
           initialView="dayGridMonth"
           plugins={[daygridPlugin, interactionPlugin]}
