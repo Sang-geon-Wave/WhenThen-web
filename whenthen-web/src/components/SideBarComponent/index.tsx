@@ -26,39 +26,58 @@ const SidebarComponent = () => {
   const nowLocation = useLocation();
   const navigate = useNavigate();
 
+  const sideBarButtonClicked = (data: string) => {
+    navigate(data);
+    changeSideBarVisibility(!sideBarVisibility);
+  };
   return (
     <div className={styles.sideBarArea}>
-      {sideBarVisibility && screenClass !== 'xl' ? (
-        <div
-          className={styles.sideBarOutside}
-          onClick={() => changeSideBarVisibility(false)}
-        />
-      ) : (
-        <div />
-      )}
-
       <div className={styles.sideBar}>
         <div className={styles.sideBarList}>
           <div
             className={styles.sideBarItem}
-            onClick={() => navigate('/dashBoard')}
+            onClick={() => sideBarButtonClicked('/timeline')}
           >
             <div className={styles.sideBarLink}>
-              <img src={icon} width="12" height="12" alt="testA" />
-              대시보드
+              {nowLocation.pathname === '/timeline' ? (
+                <div>
+                  <img src={icon} width="20" height="20" alt="testA" />
+                  <span color="black">대시보드</span>
+                </div>
+              ) : (
+                <span>대시보드</span>
+              )}
             </div>
           </div>
           <div
             className={styles.sideBarItem}
-            onClick={() => navigate('/timeLine')}
+            onClick={() => sideBarButtonClicked('/timeLine')}
           >
-            <div className={styles.sideBarLink}>타임라인</div>
+            <div className={styles.sideBarLink}>
+              {nowLocation.pathname === '/timeLine' ? (
+                <div>
+                  <img src={icon} width="20" height="20" alt="testA" />
+                  <span color="black">타임라인</span>
+                </div>
+              ) : (
+                <span>타임라인</span>
+              )}
+            </div>
           </div>
           <div
             className={styles.sideBarItem}
-            onClick={() => navigate('/create-schedule')}
+            onClick={() => sideBarButtonClicked('/create-schedule')}
           >
-            <div className={styles.sideBarLink}>생성하기</div>
+            <div className={styles.sideBarLink}>
+              {nowLocation.pathname === '/create-schedule' ? (
+                <div>
+                  <img src={icon} width="20" height="20" alt="testA" />
+                  <span color="black">생성하기</span>
+                </div>
+              ) : (
+                <span>생성하기</span>
+              )}
+            </div>
           </div>
         </div>
       </div>
