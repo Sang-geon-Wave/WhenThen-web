@@ -43,7 +43,7 @@ const CreateSchedulePage = () => {
   };
 
   return (
-    <DefaultLayout>
+    <DefaultLayout hideSideBar={false}>
       <div>
         <h1>이벤트 생성</h1>
         <Form onSubmit={handleSubmit}>
