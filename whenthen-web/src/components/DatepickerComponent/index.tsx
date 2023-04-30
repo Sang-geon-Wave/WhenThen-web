@@ -4,11 +4,13 @@ import InputGroup, { InputGroupProps } from 'react-bootstrap/InputGroup';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 
-interface PropsDatepickerComponent {}
+interface PropsDatepickerComponent {
+  onDateSelected: (formattedDate: string) => void;
+}
 
 const DatepickerComponent: React.FunctionComponent<
   PropsDatepickerComponent
-> = ({}) => {
+> = ({ onDateSelected }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -36,7 +38,7 @@ const DatepickerComponent: React.FunctionComponent<
         firstDate.getDay() - 1 + lastDate.getDate() + (6 - lastDate.getDay()),
     };
   };
-  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
 
   const [hidden, setHidden] = useState(true);
   const [formattedDate, setFormattedDate] = useState('');
@@ -45,16 +47,22 @@ const DatepickerComponent: React.FunctionComponent<
   const datepickerRef = useRef<HTMLDivElement>(null);
 
   for (let i = 0; i < nowDate.offset; i++) {
-    squares.push(<div className={`${styles.square} ${styles.empty}`}> </div>);
+    squares.push(
+      <div key={'offset ' + i} className={`${styles.square} ${styles.empty}`}>
+        {' '}
+      </div>,
+    );
   }
   for (let i = 1; i <= nowDate.daysInMonth; i++) {
     let tempDate = new Date(nowDate.date);
     tempDate.setDate(i);
     squares.push(
       <div
+        key={tempDate.toLocaleDateString()}
         className={styles.square}
         onClick={() => {
           setFormattedDate(tempDate.toLocaleDateString());
+          onDateSelected(tempDate.toLocaleDateString());
           setHidden(!hidden);
         }}
       >
@@ -84,7 +92,7 @@ const DatepickerComponent: React.FunctionComponent<
 
   return (
     <div ref={datepickerRef} className={styles.datepicker}>
-      <InputGroup size="sm" onClick={() => setHidden(!hidden)}>
+      <InputGroup onClick={() => setHidden(!hidden)}>
         <Form.Control value={formattedDate} readOnly />
       </InputGroup>
       {!hidden && (
@@ -109,7 +117,9 @@ const DatepickerComponent: React.FunctionComponent<
           </div>
           <div className={styles.squares}>
             {days.map((day) => (
-              <div className={`${styles.square} ${styles.day}`}>{day}</div>
+              <div key={day} className={`${styles.square} ${styles.day}`}>
+                {day}
+              </div>
             ))}
             {squares.map((square) => square)}
           </div>

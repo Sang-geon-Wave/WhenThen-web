@@ -37,8 +37,8 @@ const DefaultDesktop = ({ children, hideSideBar }: Props) => {
           className={styles.mainContentArea}
           style={
             screenClass === 'xl' && hideSideBar
-              ? { left: '0' }
-              : { left: '180px' }
+              ? { marginLeft: '0' }
+              : { marginLeft: '180px' }
           }
         >
           {children}
