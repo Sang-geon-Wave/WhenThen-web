@@ -7,7 +7,13 @@ import DaumPostcode from 'react-daum-postcode';
 import { Button } from 'react-bootstrap';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
-const LocationInputComponent: React.FunctionComponent = () => {
+export interface PropsLocationInputComponent {
+  onAddressChange: (address: string) => void;
+}
+
+const LocationInputComponent: React.FunctionComponent<
+  PropsLocationInputComponent
+> = ({ onAddressChange }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -23,6 +29,7 @@ const LocationInputComponent: React.FunctionComponent = () => {
   };
 
   const handleComplete = (data: any) => {
+    onAddressChange(data.address);
     setLocationAddress(data.address);
     setIsSearchBtnClick(false);
   };

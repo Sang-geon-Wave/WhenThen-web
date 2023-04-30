@@ -1,5 +1,7 @@
 import { observable } from 'mobx';
 import history from '../utils/history';
+import { boolean } from 'yargs';
+import { AlertProps, DefaultAlertProps } from '../components/AlertComponent';
 
 const createStore = () => {
   const appStore = {
@@ -7,7 +9,7 @@ const createStore = () => {
     currentMainMenu: observable.box('/'),
 
     alertModalVisibility: observable.box(false),
-    alertModalContent: observable.box(''),
+    alertModalProps: observable.box<AlertProps>(),
 
     sideBarVisibility: observable.box(false),
 
@@ -25,12 +27,15 @@ const createStore = () => {
       history.push(data);
     },
 
-    changeAlertModalVisibility(data: any) {
-      appStore.alertModalVisibility.set(data);
+    setAlert(props?: AlertProps) {
+      appStore.alertModalVisibility.set(true);
+      appStore.alertModalProps.set({
+        ...DefaultAlertProps,
+        ...props,
+      });
     },
-    changeAlertModalContent(data: any) {
-      appStore.alertModalContent.set(data);
-      appStore.alertModalVisibility.set(!!data);
+    removeAlert() {
+      appStore.alertModalVisibility.set(false);
     },
   };
 

@@ -8,6 +8,7 @@ import CalendarPage from './pages/CalendarPage';
 import TimelinePage from './pages/TimelinePage';
 import CreateSchedulePage from './pages/CreateSchedulePage';
 import LoginPage from './pages/LoginPage';
+import AlertComponent from './components/AlertComponent';
 import SignupPage from './pages/SignupPage';
 
 const App = () => {
@@ -35,17 +36,20 @@ const App = () => {
   }, [currentScreenClass]);
 
   return (
-    <Router>
-      <Routes>
-        <Route path="/mock" element={<MockPage />} />
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/timeline" element={<TimelinePage />} />
-        <Route path="/create-schedule" element={<CreateSchedulePage />} />
-        <Route path="/calendar" element={<CalendarPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/sign-up" element={<SignupPage />} />
-      </Routes>
-    </Router>
+    <>
+      <AlertComponent />
+      <Router>
+        <Routes>
+          <Route path="/mock" element={<MockPage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/timeline" element={<TimelinePage />} />
+          <Route path="/create-schedule" element={<CreateSchedulePage />} />
+          <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/sign-up" element={<SignupPage />} />
+        </Routes>
+      </Router>
+    </>
   );
 };
 

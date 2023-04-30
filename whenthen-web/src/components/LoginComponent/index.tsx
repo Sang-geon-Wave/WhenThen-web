@@ -4,16 +4,18 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { AlertType } from '../AlertComponent';
 
 const LoginComponent = () => {
-  const { screenClass, isLogin, login, refresh } = useRootData(
-    ({ appStore, authStore }) => ({
+  const { screenClass, setAlert, isLogin, changeLoginState, login, refresh } =
+    useRootData(({ appStore, authStore }) => ({
       screenClass: appStore.screenClass.get(),
+      setAlert: appStore.setAlert,
       isLogin: authStore.isLogin.get(),
+      changeLoginState: authStore.changeLoginState,
       login: authStore.login,
       refresh: authStore.refresh,
-    }),
-  );
+    }));
   const isDesktop = screenClass === 'xl';
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
@@ -60,7 +62,10 @@ const LoginComponent = () => {
     } else setLoginErr(false);
 
     if (await login(usrId, usrPw, autoLogin)) {
-      alert(`환영합니다 ${usrId}님`);
+      setAlert({
+        alertContent: `환영합니다 ${usrId}님`,
+        alertType: AlertType.Confirmation,
+      });
       navigate('/');
     } else {
       setLoginErr(true);
