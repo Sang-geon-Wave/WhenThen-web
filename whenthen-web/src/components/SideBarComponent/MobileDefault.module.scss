@@ -1,23 +1,19 @@
 @import '../../assets/scsses/config';
-
+.sideBarArea {
+  width: 180px;
+  height: 100%;
+  background: #c9c990;
+}
 .sideBar {
-  margin-top: 50px;
+  top: 75px;
   position: fixed;
   width: 180px;
-  padding-left: 0px;
-  background: #c9c990;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  overflow: hidden;
-  z-index: 100;
 }
 
 .sideBarOutside {
   display: block;
-  background-color: rgba(0, 0, 0, 0.3);
   position: fixed;
-  top: 0;
+  top: 50;
   left: 0;
   right: 0;
   bottom: 0;
@@ -31,7 +27,7 @@
   font-size: 150%;
   text-align: end;
   word-wrap: break-word;
-  color: #000000;
+  color: #767575;
   text-decoration: none;
 
   &:hover {
@@ -46,6 +42,9 @@
     background: revert;
     transform: none;
   }
+}
+.sideBarLink > span {
+  color: inherit;
 }
 .sideBarLink > p {
   color: #a6ff4d;
