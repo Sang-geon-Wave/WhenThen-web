@@ -30,7 +30,7 @@ const TextEditComponent: React.FunctionComponent<PropsTextEditComponent> = ({
   const handleChangeTextContent = () => {
     const curText = document.getElementById('textEdit');
     if (curText != null) setTextContent(curText.innerHTML);
-    textChange(textContent);
+    // textChange(textContent);
   };
 
   const keyDownHandling = (event: any) => {
