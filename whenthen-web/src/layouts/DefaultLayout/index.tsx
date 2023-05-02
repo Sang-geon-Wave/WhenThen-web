@@ -4,10 +4,10 @@ import DefaultMobile from '../DefaultMobile';
 
 interface Props {
   children: React.ReactNode;
-  hideSideBar: boolean;
+  hideSideBar?: boolean;
 }
 
-const DefaultLayout = ({ children, hideSideBar }: Props) => {
+const DefaultLayout = ({ children, hideSideBar = false }: Props) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));

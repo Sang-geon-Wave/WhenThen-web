@@ -3,12 +3,12 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 // import stylesMobileDefault from './MobileDefault.module.scss';
 
-export interface ProbsTimelineDummyCardComponent {
+export interface PropsTimelineDummyCardComponent {
   text: string;
 }
 
 const TimelineDummyCardComponent: React.FunctionComponent<
-  ProbsTimelineDummyCardComponent
+  PropsTimelineDummyCardComponent
 > = ({ text }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
