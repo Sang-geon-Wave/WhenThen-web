@@ -3,13 +3,13 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Dropdown, ButtonGroup, Button, ToggleButton } from 'react-bootstrap';
 
-export interface PropsTextEditorComponent {
-  defaultText?: string;
+export interface PropsTextEditComponent {
+  textChange: (text: string) => void;
 }
 
-const TextEditorComponent: React.FunctionComponent<
-  PropsTextEditorComponent
-> = ({ defaultText }) => {
+const TextEditComponent: React.FunctionComponent<PropsTextEditComponent> = ({
+  textChange,
+}) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -27,9 +27,10 @@ const TextEditorComponent: React.FunctionComponent<
   const [textContent, setTextContent] = useState('');
   const [fontFamily, setFontFamily] = useState(fontSytleName.NanumGothic);
 
-  const handleSetValue = () => {
+  const handleChangeTextContent = () => {
     const curText = document.getElementById('textEdit');
     if (curText != null) setTextContent(curText.innerHTML);
+    textChange(textContent);
   };
 
   const keyDownHandling = (event: any) => {
@@ -153,8 +154,7 @@ const TextEditorComponent: React.FunctionComponent<
           id="textEdit"
           className={styles.textBox}
           contentEditable="true"
-          onInput={handleSetValue}
-          defaultValue={defaultText}
+          onInput={handleChangeTextContent}
           onKeyDown={keyDownHandling}
         />
       </div>
@@ -162,4 +162,4 @@ const TextEditorComponent: React.FunctionComponent<
   );
 };
 
-export default TextEditorComponent;
+export default TextEditComponent;
