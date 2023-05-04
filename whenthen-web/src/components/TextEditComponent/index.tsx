@@ -37,35 +37,16 @@ const TextEditComponent: React.FunctionComponent<PropsTextEditComponent> = ({
     }
   };
 
-  const keyDownHandling = (event: any) => {
-    if (event.ctrlKey && event.keyCode == 66) {
-      setBold(!bold);
-    } else if (event.ctrlKey && event.keyCode == 73) {
-      setItalic(!italic);
-    } else if (event.ctrlKey && event.keyCode == 85) {
-      setUnderline(!underline);
-    }
-  };
-
-  const [bold, setBold] = useState(false);
-  const [italic, setItalic] = useState(false);
-  const [underline, setUnderline] = useState(false);
-  const [strikeThrough, setStrikeThrough] = useState(false);
-
   const handleBold = () => {
-    setBold(!bold);
     document.execCommand('bold', false);
   };
   const handleItalic = () => {
-    setItalic(!italic);
     document.execCommand('italic', false);
   };
   const handleUnderline = () => {
-    setUnderline(!underline);
     document.execCommand('underline', false);
   };
   const handleStrike = () => {
-    setStrikeThrough(!strikeThrough);
     document.execCommand('strikeThrough', false);
   };
 
@@ -108,50 +89,38 @@ const TextEditComponent: React.FunctionComponent<PropsTextEditComponent> = ({
             })}
           </Dropdown.Menu>
         </Dropdown>
-        <ToggleButton
+        <Button
           id="boldBtn"
           className={styles.button}
           variant="light"
           onClick={handleBold}
-          type="checkbox"
-          checked={bold}
-          value={'B'}
         >
           <b>B</b>
-        </ToggleButton>
-        <ToggleButton
+        </Button>
+        <Button
           id="italicBtn"
           className={styles.button}
           variant="light"
           onClick={handleItalic}
-          type="checkbox"
-          checked={italic}
-          value={'I'}
         >
           <i>I</i>
-        </ToggleButton>
-        <ToggleButton
+        </Button>
+        <Button
           id="underlineBtn"
           className={styles.button}
           variant="light"
           onClick={handleUnderline}
-          type="checkbox"
-          checked={underline}
-          value={'U'}
         >
           <u>U</u>
-        </ToggleButton>
-        <ToggleButton
+        </Button>
+        <Button
           id="strikeThroughBtn"
           className={styles.button}
           variant="light"
           onClick={handleStrike}
-          type="checkbox"
-          checked={strikeThrough}
-          value={'S'}
         >
           <s>S</s>
-        </ToggleButton>
+        </Button>
       </div>
       <div className={styles.mainBox}>
         <div
@@ -159,7 +128,6 @@ const TextEditComponent: React.FunctionComponent<PropsTextEditComponent> = ({
           className={styles.textBox}
           contentEditable="true"
           onInput={handleChangeTextContent}
-          onKeyDown={keyDownHandling}
         />
       </div>
     </div>
