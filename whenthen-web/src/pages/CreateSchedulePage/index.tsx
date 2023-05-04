@@ -9,6 +9,7 @@ import LocationInputComponent from '../../components/LocationInputComponent';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import DatepickerComponent from '../../components/DatepickerComponent';
 import { ScheduleDataType } from '../../types/ScheduleDataType';
+import api from '../../api';
 
 const CreateSchedulePage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -38,8 +39,23 @@ const CreateSchedulePage = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('title', scheduleData.title);
+    formData.append('thumbnail', scheduleData.image as File);
+    formData.append('contents', scheduleData.contents);
+    formData.append('eventUrl', scheduleData.eventUrl);
+    formData.append('placeAddr', scheduleData.placeAddr);
+    formData.append('startDate', scheduleData.startDate);
+    formData.append('endDate', scheduleData.endDate);
+
+    const { data } = await api.post('/article/create', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
   };
 
   return (
