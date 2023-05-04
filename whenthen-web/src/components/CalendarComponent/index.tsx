@@ -4,6 +4,7 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import FullCalendar from '@fullcalendar/react';
 import daygridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import './dateColor.scss';
 import dateList from '../../assets/strings/CalendarComponent/dateDummy';
 
@@ -16,11 +17,11 @@ const CalendarComponent = () => {
 
   return (
     <div>
-      <div className={style.test}>headline</div>
-      <div className={style.calendar} style={{ margin: '50px' }}>
+      <div className={style.calendar}>
         <FullCalendar
           initialView="dayGridMonth"
-          plugins={[daygridPlugin, interactionPlugin]}
+          plugins={[daygridPlugin, interactionPlugin, googleCalendarPlugin]}
+          googleCalendarApiKey="AIzaSyCFu2uIuFlkFlDtR9tonk293gySqtnS1pQ"
           dateClick={(arg) => {
             alert(arg.dateStr);
           }}
