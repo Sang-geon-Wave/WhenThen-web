@@ -10,6 +10,7 @@ import CreateSchedulePage from './pages/CreateSchedulePage';
 import LoginPage from './pages/LoginPage';
 import AlertComponent from './components/AlertComponent';
 import SignupPage from './pages/SignupPage';
+import ArticleSearchPage from './pages/ArticleSearchPage';
 
 const App = () => {
   const componentRef = useRef(null);
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-up" element={<SignupPage />} />
+          <Route path="/article-search" element={<ArticleSearchPage />} />
         </Routes>
       </Router>
     </>
