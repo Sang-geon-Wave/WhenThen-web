@@ -38,8 +38,9 @@ const LocationInputComponent: React.FunctionComponent<
     <div>
       <InputGroup className="mb-3">
         <Form.Control
+          className={styles.inputReadOnly}
           placeholder="주소 검색 버튼을 눌러 주소를 입력하세요."
-          value={locationAddress}
+          defaultValue={locationAddress}
           required
         />
         <Button
