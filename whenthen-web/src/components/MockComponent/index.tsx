@@ -16,7 +16,6 @@ const MockComponent: React.FunctionComponent<PropsMockComponent> = ({
     screenClass: appStore.screenClass.get(),
   }));
   const isDesktop = screenClass === 'xl';
-
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   return highlight ? (
