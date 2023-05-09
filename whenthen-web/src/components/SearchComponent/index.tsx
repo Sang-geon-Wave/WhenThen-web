@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
@@ -20,20 +20,32 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   const [selectedType, setSelectedType] = useState(types[0]);
-  let searchValue = useRef('');
+  let valueRef = useRef('');
 
   useEffect(() => {}, [selectedType]);
 
-  const getSearchResult = async () => {
+  const getSearchResult = useCallback(async () => {
     try {
       const result = await api.get(
-        `/search?type=${selectedType}&value=${searchValue.current}`,
+        `/search?type=${selectedType}&value=${valueRef.current}`,
       );
       console.log(result);
     } catch (e: any) {
       console.log(e instanceof Error ? e.message : String(e));
     }
-  };
+  }, [selectedType]);
+
+  const handleTypeSelect = useCallback((type: string) => {
+    setSelectedType(type);
+  }, []);
+
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      valueRef.current = e.target.value;
+    },
+    [],
+  );
+
   // TODO: Form.Control customize(datetime input etc.)
   // TODO: optimize code
   return (
@@ -41,22 +53,12 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
       <InputGroup className="mb-3">
         <DropdownButton variant="secondary" title={selectedType}>
           {types.map((type) => (
-            <Dropdown.Item
-              key={type}
-              onClick={() => {
-                setSelectedType(type);
-              }}
-            >
+            <Dropdown.Item key={type} onClick={() => handleTypeSelect(type)}>
               {type}
             </Dropdown.Item>
           ))}
         </DropdownButton>
-        <Form.Control
-          aria-label="search"
-          onChange={(e) => {
-            searchValue.current = e.target.value;
-          }}
-        />
+        <Form.Control aria-label="search" onChange={handleInputChange} />
         <Button variant="primary" onClick={getSearchResult}>
           Search
         </Button>
