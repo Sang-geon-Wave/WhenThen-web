@@ -6,7 +6,7 @@ import { Button, Dropdown, DropdownButton, Form } from 'react-bootstrap';
 import api from '../../api';
 
 interface PropsSearchComponent {
-  types: String[];
+  types: string[];
 }
 
 const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
@@ -41,6 +41,7 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
         <DropdownButton variant="secondary" title={selectedType}>
           {types.map((type) => (
             <Dropdown.Item
+              key={type}
               onClick={() => {
                 setSelectedType(type);
               }}
