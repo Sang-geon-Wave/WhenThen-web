@@ -20,21 +20,22 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   const [selectedType, setSelectedType] = useState(types[0]);
-  let searchValue = '';
+  let searchValue = useRef('');
 
   useEffect(() => {}, [selectedType]);
 
   const getSearchResult = async () => {
     try {
       const result = await api.get(
-        `/search?type=${selectedType}&value=${searchValue}`,
+        `/search?type=${selectedType}&value=${searchValue.current}`,
       );
       console.log(result);
     } catch (e: any) {
       console.log(e instanceof Error ? e.message : String(e));
     }
   };
-  // TODO: connect api server, Form.Control customize(datetime input etc.)
+  // TODO: Form.Control customize(datetime input etc.)
+  // TODO: optimize code
   return (
     <div>
       <InputGroup className="mb-3">
@@ -53,7 +54,7 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
         <Form.Control
           aria-label="search"
           onChange={(e) => {
-            searchValue = e.target.value;
+            searchValue.current = e.target.value;
           }}
         />
         <Button variant="primary" onClick={getSearchResult}>
