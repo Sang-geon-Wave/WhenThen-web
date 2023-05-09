@@ -28,10 +28,7 @@ const CalendarComponent = () => {
           eventClick={(arg) => {
             alert(arg.event.title + '\n' + arg.event.start);
           }}
-          events={dateList.map(({ title, date }) => ({
-            title: title,
-            date: date,
-          }))}
+          // events={{ googleCalendarId = 'sgwave0@gmail.com' }}
         />
       </div>
     </div>
