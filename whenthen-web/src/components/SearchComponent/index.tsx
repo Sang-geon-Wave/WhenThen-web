@@ -22,34 +22,36 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
 
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  const [selectedType, setSelectedType] = useState(types[0]);
+  const [searchType, setSearchType] = useState(types[0]);
+  const [searchValue, setSearchValue] = useState('');
   const [isDateType, setDateType] = useState(
-    dateTypes && dateTypes.has(selectedType),
+    dateTypes && dateTypes.has(searchType),
   );
-  const valueRef = useRef('');
 
   useEffect(() => {
-    setDateType(dateTypes && dateTypes.has(selectedType));
-  }, [selectedType]);
+    setDateType(dateTypes && dateTypes.has(searchType));
+  }, [searchType]);
 
   const getSearchResult = useCallback(async () => {
+    if (!searchValue) return;
+
     try {
       const result = await api.get(
-        `/search?type=${selectedType}&value=${valueRef.current}`,
+        `/search?type=${searchType}&value=${searchValue}`,
       );
       console.log(result);
     } catch (e: any) {
       console.log(e instanceof Error ? e.message : String(e));
     }
-  }, [selectedType]);
+  }, [searchType, searchValue]);
 
   const handleTypeSelect = useCallback((type: string) => {
-    setSelectedType(type);
+    setSearchType(type);
   }, []);
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      valueRef.current = e.target.value;
+      setSearchValue(e.target.value);
     },
     [],
   );
@@ -57,7 +59,7 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
   return (
     <div>
       <InputGroup className="mb-3">
-        <DropdownButton variant="secondary" title={selectedType}>
+        <DropdownButton variant="secondary" title={searchType}>
           {types.map((type) => (
             <Dropdown.Item key={type} onClick={() => handleTypeSelect(type)}>
               {type}
@@ -67,7 +69,7 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
         {isDateType && (
           <DatepickerComponent
             onDateSelected={(formattedDate) => {
-              valueRef.current = formattedDate;
+              setSearchValue(formattedDate);
             }}
           ></DatepickerComponent>
         )}
