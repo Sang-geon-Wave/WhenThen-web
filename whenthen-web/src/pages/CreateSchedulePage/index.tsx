@@ -56,6 +56,7 @@ const CreateSchedulePage = () => {
         'Content-Type': 'multipart/form-data',
       },
     });
+    console.log(data);
   };
 
   return (
@@ -72,6 +73,7 @@ const CreateSchedulePage = () => {
               onChange={(event) =>
                 handleInputChanged('title', event.target.value)
               }
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -112,6 +114,7 @@ const CreateSchedulePage = () => {
               onChange={(event) =>
                 handleInputChanged('eventUrl', event.target.value)
               }
+              required
             />
           </Form.Group>
           <Form.Group className="mb-3">
@@ -129,6 +132,7 @@ const CreateSchedulePage = () => {
               onChange={(event) =>
                 handleInputChanged('contents', event.target.value)
               }
+              required
             />
           </Form.Group>
           <Button type="submit" variant="primary" size="lg" className="w-100">

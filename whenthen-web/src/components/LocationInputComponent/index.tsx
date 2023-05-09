@@ -40,7 +40,7 @@ const LocationInputComponent: React.FunctionComponent<
         <Form.Control
           placeholder="주소 검색 버튼을 눌러 주소를 입력하세요."
           value={locationAddress}
-          readOnly
+          required
         />
         <Button
           variant="outline-secondary bg-secondary text-white"
