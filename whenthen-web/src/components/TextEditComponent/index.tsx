@@ -4,11 +4,11 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Dropdown, ButtonGroup, Button, ToggleButton } from 'react-bootstrap';
 
 export interface PropsTextEditComponent {
-  getTextContent?: string;
+  onTextChange: (textContent: string) => void;
 }
 
 const TextEditComponent: React.FunctionComponent<PropsTextEditComponent> = ({
-  getTextContent,
+  onTextChange,
 }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
@@ -31,9 +31,9 @@ const TextEditComponent: React.FunctionComponent<PropsTextEditComponent> = ({
     const curText = document.getElementById('textEdit');
     if (curText != null) {
       setTextContent(curText.innerHTML);
-      getTextContent = curText.innerHTML;
+      onTextChange(curText.innerHTML);
     } else {
-      getTextContent = '';
+      onTextChange('');
     }
   };
 
