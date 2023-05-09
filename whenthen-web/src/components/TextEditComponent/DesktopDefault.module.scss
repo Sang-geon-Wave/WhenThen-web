@@ -1,0 +1,73 @@
+@import '../../assets/scsses/config';
+
+.dropdownClick {
+  width: 130px;
+  height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dropdownSelect {
+  height: 40px;
+}
+
+.buttonBox {
+  padding-left: 5%;
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+}
+
+.button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #d6d6d6;
+  border-radius: 4px;
+}
+
+.mainBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.textBox {
+  width: 90%;
+  min-height: 200px;
+  max-height: 200px;
+  padding: 3px 5px;
+  height: 90%;
+  border: 1px solid #d6d6d6;
+  border-radius: 5px;
+  margin-top: 5px;
+  overflow-y: auto;
+  resize: none;
+}
+
+.dropdown {
+  width: 200px;
+}
+
+@font-face {
+  font-family: '굴림1';
+  src: url('../../assets/fonts/Gulim01.ttf');
+}
+
+@font-face {
+  font-family: '굴림2';
+  src: url('../../assets/fonts/Gulim02.ttf');
+}
+
+@font-face {
+  font-family: '나눔고딕';
+  src: url('../../assets/fonts/NanumGothic.ttf');
+}
+
+@font-face {
+  font-family: '스퀘어라운드B';
+  src: url('../../assets/fonts/NanumSquareRoundB.ttf');
+}
+
+@font-face {
+  font-family: '스퀘어라운드R';
+  src: url('../../assets/fonts/NanumSquareRoundR.ttf');
+}

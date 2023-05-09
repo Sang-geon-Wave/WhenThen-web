@@ -7,15 +7,20 @@ import stylesMobileDefault from './MobileDefault.module.scss';
 import { useLocation } from 'react-router-dom';
 interface Props {
   children: React.ReactNode;
+  hideSideBar: boolean;
 }
-const DefaultMobile = ({ children }: Props) => {
-  const { screenClass, sideBarVisibility, currentMainMenu } = useRootData(
-    ({ appStore }) => ({
-      screenClass: appStore.screenClass.get(),
-      sideBarVisibility: appStore.sideBarVisibility.get(),
-      currentMainMenu: appStore.currentMainMenu.get(),
-    }),
-  );
+const DefaultMobile = ({ children, hideSideBar }: Props) => {
+  const {
+    screenClass,
+    sideBarVisibility,
+    currentMainMenu,
+    changeSideBarVisibility,
+  } = useRootData(({ appStore }) => ({
+    screenClass: appStore.screenClass.get(),
+    sideBarVisibility: appStore.sideBarVisibility.get(),
+    changeSideBarVisibility: appStore.changeSideBarVisibility,
+    currentMainMenu: appStore.currentMainMenu.get(),
+  }));
 
   const styles = stylesMobileDefault;
   const nowLocation = useLocation();
@@ -24,15 +29,24 @@ const DefaultMobile = ({ children }: Props) => {
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
-        {(!sideBarVisibility && screenClass !== 'xl') ||
-        nowLocation.pathname === '/' ? (
+        {(!sideBarVisibility && screenClass !== 'xl') || hideSideBar ? (
           <div></div>
         ) : (
           <div className={styles.sideBarArea}>
             <SidebarComponent />
           </div>
         )}
-        <div className={styles.mainContentArea}>{children}</div>
+        <div className={styles.mainContentArea}>
+          {(!sideBarVisibility && screenClass !== 'xl') || hideSideBar ? (
+            <div></div>
+          ) : (
+            <div
+              className={styles.sideBarOutside}
+              onClick={() => changeSideBarVisibility(false)}
+            />
+          )}
+          {children}
+        </div>
       </div>
 
       <FooterComponent />

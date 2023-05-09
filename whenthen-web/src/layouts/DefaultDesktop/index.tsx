@@ -8,8 +8,9 @@ import { useLocation } from 'react-router-dom';
 
 interface Props {
   children: React.ReactNode;
+  hideSideBar: boolean;
 }
-const DefaultDesktop = ({ children }: Props) => {
+const DefaultDesktop = ({ children, hideSideBar }: Props) => {
   const { screenClass, sideBarVisibility, currentMainMenu } = useRootData(
     ({ appStore }) => ({
       screenClass: appStore.screenClass.get(),
@@ -25,8 +26,7 @@ const DefaultDesktop = ({ children }: Props) => {
     <div>
       <HeaderComponent />
       <div className={styles.mainBlock}>
-        {(!sideBarVisibility && screenClass !== 'xl') ||
-        nowLocation.pathname === '/' ? (
+        {(!sideBarVisibility && screenClass !== 'xl') || hideSideBar ? (
           <div></div>
         ) : (
           <div className={styles.sideBarArea}>
@@ -36,9 +36,9 @@ const DefaultDesktop = ({ children }: Props) => {
         <div
           className={styles.mainContentArea}
           style={
-            screenClass === 'xl' && nowLocation.pathname === '/'
-              ? { left: '0' }
-              : { left: '180px' }
+            screenClass === 'xl' && hideSideBar
+              ? { marginLeft: '0' }
+              : { marginLeft: '180px' }
           }
         >
           {children}
