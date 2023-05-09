@@ -4,13 +4,16 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Button, Dropdown, DropdownButton, Form } from 'react-bootstrap';
 import api from '../../api';
+import DatepickerComponent from '../DatepickerComponent';
 
 interface PropsSearchComponent {
   types: string[];
+  dateTypes?: Set<string>;
 }
 
 const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
   types,
+  dateTypes,
 }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
@@ -20,9 +23,14 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
   const styles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
   const [selectedType, setSelectedType] = useState(types[0]);
-  let valueRef = useRef('');
+  const [isDateType, setDateType] = useState(
+    dateTypes && dateTypes.has(selectedType),
+  );
+  const valueRef = useRef('');
 
-  useEffect(() => {}, [selectedType]);
+  useEffect(() => {
+    setDateType(dateTypes && dateTypes.has(selectedType));
+  }, [selectedType]);
 
   const getSearchResult = useCallback(async () => {
     try {
@@ -46,8 +54,6 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
     [],
   );
 
-  // TODO: Form.Control customize(datetime input etc.)
-  // TODO: optimize code
   return (
     <div>
       <InputGroup className="mb-3">
@@ -58,7 +64,16 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
             </Dropdown.Item>
           ))}
         </DropdownButton>
-        <Form.Control aria-label="search" onChange={handleInputChange} />
+        {isDateType && (
+          <DatepickerComponent
+            onDateSelected={(formattedDate) => {
+              valueRef.current = formattedDate;
+            }}
+          ></DatepickerComponent>
+        )}
+        {!isDateType && (
+          <Form.Control aria-label="search" onChange={handleInputChange} />
+        )}
         <Button variant="primary" onClick={getSearchResult}>
           Search
         </Button>

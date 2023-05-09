@@ -62,7 +62,7 @@ const DatepickerComponent: React.FunctionComponent<
         className={styles.square}
         onClick={() => {
           setFormattedDate(tempDate.toLocaleDateString());
-          onDateSelected(tempDate.toLocaleDateString());
+          onDateSelected(tempDate.toISOString().slice(0, 10));
           setHidden(!hidden);
         }}
       >

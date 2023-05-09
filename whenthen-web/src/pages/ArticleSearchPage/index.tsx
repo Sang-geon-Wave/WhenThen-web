@@ -19,9 +19,10 @@ const ArticleSearchPage = () => {
     'end_datetime',
     'place',
   ];
+  const dateTypes = new Set(['start_datetime', 'end_datetime']);
   return (
     <div>
-      <SearchComponent types={types}></SearchComponent>
+      <SearchComponent types={types} dateTypes={dateTypes}></SearchComponent>
     </div>
   );
 };
