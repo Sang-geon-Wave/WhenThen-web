@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
-import ImageUploadComponent from '../../components/ImageUploadComponent';
+
 import { Button, Form, Row, Col } from 'react-bootstrap';
-import LocationInputComponent from '../../components/LocationInputComponent';
 
 import DefaultLayout from '../../layouts/DefaultLayout';
+import ImageUploadComponent from '../../components/ImageUploadComponent';
+import LocationInputComponent from '../../components/LocationInputComponent';
+import TextEditComponent from '../../components/TextEditComponent';
 import DatepickerComponent from '../../components/DatepickerComponent';
+
 import { ScheduleDataType } from '../../types/ScheduleDataType';
 import api from '../../api';
 
@@ -125,15 +128,11 @@ const CreateSchedulePage = () => {
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label>내용</Form.Label>
-            <Form.Control
-              as="textarea"
-              placeholder="글을 쓰세요!"
-              name="contents"
-              onChange={(event) =>
-                handleInputChanged('contents', event.target.value)
-              }
-              required
-            />
+            <TextEditComponent
+              onTextChange={(textContent) => {
+                handleInputChanged('contents', textContent);
+              }}
+            ></TextEditComponent>
           </Form.Group>
           <Button type="submit" variant="primary" size="lg" className="w-100">
             추가하기
