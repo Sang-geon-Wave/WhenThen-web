@@ -10,7 +10,15 @@ body {
   height: auto;
   min-height: 100%;
   overscroll-behavior: contain;
-  padding-bottom: 150px;
+}
+.sideBarOutside {
+  position: absolute;
+  top: 50px;
+  left: 180px;
+  bottom: 0;
+  width: 100%;
+  background-color: #a6a5a5;
+  opacity: 0.5;
 }
 .sideBarButton {
   position: absolute;

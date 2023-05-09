@@ -1,12 +1,12 @@
 import useRootData from '../../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 
-export interface ProbsCarouselItemComponent {
+export interface PropsCarouselItemComponent {
   src: string;
 }
 
 const CarouselItemComponent: React.FunctionComponent<
-  ProbsCarouselItemComponent
+  PropsCarouselItemComponent
 > = ({ src }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
