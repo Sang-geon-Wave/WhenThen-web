@@ -28,7 +28,9 @@ const CalendarComponent = () => {
           eventClick={(arg) => {
             alert(arg.event.title + '\n' + arg.event.start);
           }}
-          // events={{ googleCalendarId = 'sgwave0@gmail.com' }}
+          events={{
+            googleCalendarId: 'sgwave0@gmail.com',
+          }}
         />
       </div>
     </div>
