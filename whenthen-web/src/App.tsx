@@ -11,8 +11,6 @@ import LoginPage from './pages/LoginPage';
 import AlertComponent from './components/AlertComponent';
 import SignupPage from './pages/SignupPage';
 
-import TextPage from './pages/testPage';
-
 const App = () => {
   const componentRef = useRef(null);
   const currentScreenClass = useScreenClass(componentRef);
@@ -49,8 +47,6 @@ const App = () => {
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/sign-up" element={<SignupPage />} />
-
-          <Route path="/test" element={<TextPage />} />
         </Routes>
       </Router>
     </>
