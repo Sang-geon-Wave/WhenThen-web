@@ -24,10 +24,10 @@ const movie1: MovieListByDate = {
 이 모든 운명을 손에 쥔 제이크의 선택은?`,
     },
     {
-      title: '아바타2',
+      title: '분노의 질주',
       sub: '액션 | 미국 | 192분 | 2022',
       imgUrl:
-        'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20221215_185%2F1671091761840XXpCR_JPEG%2Fmovie_image.jpg',
+        'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230503_262%2F1683080729234M8bHL_JPEG%2Fmovie_image.jpg',
       content: `<아바타: 물의 길>은 판도라 행성에서
 '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
 살아남기 위해 떠나야 하는 긴 여정과 전투,

@@ -41,8 +41,7 @@ const SidebarComponent = () => {
             <div className={styles.sideBarLink}>
               {nowLocation.pathname === '/dashboard' ? (
                 <div>
-                  <img src={icon} width="20" height="20" alt="testA" />
-                  <span color="black">대시보드</span>
+                  <span className="text-light">대시보드</span>
                 </div>
               ) : (
                 <span>대시보드</span>
@@ -51,13 +50,12 @@ const SidebarComponent = () => {
           </div>
           <div
             className={styles.sideBarItem}
-            onClick={() => sideBarButtonClicked('/timeLine')}
+            onClick={() => sideBarButtonClicked('/timeline')}
           >
             <div className={styles.sideBarLink}>
-              {nowLocation.pathname === '/timeLine' ? (
+              {nowLocation.pathname === '/timeline' ? (
                 <div>
-                  <img src={icon} width="20" height="20" alt="testA" />
-                  <span color="black">타임라인</span>
+                  <span className="text-light">타임라인</span>
                 </div>
               ) : (
                 <span>타임라인</span>
@@ -71,8 +69,7 @@ const SidebarComponent = () => {
             <div className={styles.sideBarLink}>
               {nowLocation.pathname === '/create-schedule' ? (
                 <div>
-                  <img src={icon} width="20" height="20" alt="testA" />
-                  <span color="black">생성하기</span>
+                  <span className="text-light">생성하기</span>
                 </div>
               ) : (
                 <span>생성하기</span>

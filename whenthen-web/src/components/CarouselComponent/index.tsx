@@ -7,10 +7,10 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import useRootData from '../../hooks/useRootData';
 
 const imgSrc = [
-  'https://software.kookmin.ac.kr/_res/kookmin/software/img/main/img-main-vi02.jpg',
-  'https://software.kookmin.ac.kr/_res/kookmin/software/img/main/img-main-vi03.jpg',
-  'https://software.kookmin.ac.kr/_res/kookmin/software/img/main/img-main-vi04.jpg',
-  'https://software.kookmin.ac.kr/_res/kookmin/software/img/main/img-main-vi05.jpg',
+  'https://www.ygfamily.com/upload/main/jisoo_20230331_kr.jpg',
+  'https://www.ygfamily.com/upload/main/treasure_20221004_kr.jpg',
+  'https://www.ygfamily.com/upload/main/LCH_kr.jpg',
+  'https://www.ygfamily.com/upload/main/BLACKPINK_20220907_kr.jpg',
 ];
 
 const CarouselComponent = () => {

@@ -32,7 +32,7 @@ const IntroductionCardComponent: React.FunctionComponent<
       )}
       <Card.Body className="bg-light">
         <h3 className={styles.subtitle}>{subtitle}</h3>
-        <h2 className={styles.title}>{title}</h2>
+        <h3 className={styles.title}>{title}</h3>
         <h3 className={styles.content}>{content}</h3>
       </Card.Body>
     </Card>

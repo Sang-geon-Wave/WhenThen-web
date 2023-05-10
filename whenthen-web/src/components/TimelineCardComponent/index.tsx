@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { MovieIntro } from '../../types/MovieDataType';
-import { Row, Col, Card } from 'react-bootstrap';
+import { Row, Col, Card, Button } from 'react-bootstrap';
 
 export interface PropsTimelineCardComponent {
   movieIntro: MovieIntro;
@@ -48,7 +48,7 @@ const TimelineCardComponent: React.FunctionComponent<
         <Col md={10}>
           <Card.Body>
             <div className={cardStyles.movieIntroduceBlock}>
-              <h1 className={cardStyles.title}>Title: {title}</h1>
+              <h1 className={cardStyles.title}>{title}</h1>
               <h4>{sub}</h4>
               <hr />
               <p
@@ -64,9 +64,9 @@ const TimelineCardComponent: React.FunctionComponent<
               <hr />
               {moreInfo && (
                 <div className={cardStyles.moreInfoButtonBlock}>
-                  <button className={cardStyles.moreInfoButton}>추가</button>
-                  <button className={cardStyles.moreInfoButton}>삭제</button>
-                  <button className={cardStyles.moreInfoButton}>따봉</button>
+                  <Button variant="outline-secondary">수정</Button>{' '}
+                  <Button variant="outline-danger">삭제</Button>{' '}
+                  <Button variant="outline-success">좋아요</Button>{' '}
                 </div>
               )}
             </div>

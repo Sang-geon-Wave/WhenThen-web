@@ -2,13 +2,13 @@
 
 html,
 body {
+  width: 100%;
   height: 100%;
+  overflow-x: hidden;
 }
 .mainBlock {
   position: relative;
   vertical-align: middle;
-  width: 100%;
-  max-width: 100vw;
   height: auto;
   min-height: 100vh;
   margin-top: 50px;
@@ -26,7 +26,7 @@ body {
 }
 .sideBarArea {
   position: absolute;
-  width: 200px;
+  width: 180px;
   top: 0;
   left: 0;
   bottom: 0;
@@ -43,6 +43,4 @@ body {
 }
 .mainContentArea {
   position: relative;
-  vertical-align: middle;
-  margin-right: 0;
 }

@@ -5,7 +5,6 @@ import HeaderComponent from '../../components/HeaderComponent';
 import FooterComponent from '../../components/FooterComponent';
 import SidebarComponent from '../../components/SideBarComponent';
 import { useLocation } from 'react-router-dom';
-import { Container } from 'react-bootstrap';
 
 interface Props {
   children: React.ReactNode;
