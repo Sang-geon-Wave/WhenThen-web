@@ -30,6 +30,7 @@ const CalendarComponent = () => {
             title: title,
             date: date,
           }))}
+          themeSystem="bootstrap"
         />
       </div>
     </div>

@@ -8,7 +8,7 @@ const movie1: MovieListByDate = {
       title: '아바타1',
       sub: 'SF | 미국 | 166분 | 2009',
       imgUrl:
-        'https://i.namu.wiki/s/7381c33b342b8e500f560d8c6c81bc6f02d87cd60ca0d313863b6ed4dba7c373c1f6f0c1b117b99686aea877e2a7429cae6d11b2d554bf19eb7b2b7d99aa6a4d77e3ea0193d805934f1800b550b0170a9d164a920954df146128ba860dea19bf9ec4562c459b755d821d579da7f8685a',
+        'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20221215_185%2F1671091761840XXpCR_JPEG%2Fmovie_image.jpg',
       content: `인류의 마지막 희망, 행성 판도라!
 이곳을 정복하기 위한 ‘아바타 프로젝트’가 시작된다!
 가까운 미래, 지구는 에너지 고갈 문제를 해결하기 위해 머나먼 행성 판도라에서 대체 자원을 채굴하기 시작한다.
@@ -27,7 +27,7 @@ const movie1: MovieListByDate = {
       title: '아바타2',
       sub: '액션 | 미국 | 192분 | 2022',
       imgUrl:
-        'https://i.namu.wiki/s/e4518552dff291d24661ea0694b239fb1c7421a2f60152da3534456514a68184aabb58498e1e28e126f555735af6eef4dd8b0a3ae7394169f2bc5288a3ad9e28696237edece6b826527a2f91e2a2e9e94c53e192b5c5ce7b133167b5e7be2fc4461f52e8367e8423812935b7b05526f9',
+        'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20221215_185%2F1671091761840XXpCR_JPEG%2Fmovie_image.jpg',
       content: `<아바타: 물의 길>은 판도라 행성에서
 '제이크 설리'와 '네이티리'가 이룬 가족이 겪게 되는 무자비한 위협과
 살아남기 위해 떠나야 하는 긴 여정과 전투,

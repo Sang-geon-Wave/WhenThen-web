@@ -5,6 +5,7 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 
 import DefaultLayout from '../../layouts/DefaultLayout';
+import { Container } from 'react-bootstrap';
 
 const CalendarPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -15,7 +16,9 @@ const CalendarPage = () => {
 
   return (
     <DefaultLayout>
-      <CalendarComponent />
+      <div className="p-md-5">
+        <CalendarComponent />
+      </div>
     </DefaultLayout>
   );
 };

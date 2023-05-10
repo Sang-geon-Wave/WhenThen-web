@@ -25,7 +25,7 @@ const CarouselComponent = () => {
 
   useInterval(() => {
     setActiveIndex((activeIndex + 1) % imgSrc.length);
-  }, 2000);
+  }, 3000);
 
   return (
     <div className={styles.carousel}>
