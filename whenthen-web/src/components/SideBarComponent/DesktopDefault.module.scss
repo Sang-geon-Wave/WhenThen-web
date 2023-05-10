@@ -2,7 +2,7 @@
 .sideBarArea {
   width: 180px;
   height: 100%;
-  background: #c9c990;
+  background: $grey-sidebar;
 }
 .sideBar {
   top: 75px;
@@ -31,7 +31,7 @@
   text-decoration: none;
 
   &:hover {
-    background: #a6ff4d;
+    background: $primary-blue;
     color: #fffffe;
     transform: translateY(-2px);
     transition: 1s;

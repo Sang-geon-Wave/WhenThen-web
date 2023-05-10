@@ -34,6 +34,7 @@ $grey1: #efefef;
 $grey2: #e1e1e1;
 $grey3: #d8d8d8;
 $grey4: #adadad;
+$grey-sidebar: #2f3033;
 $greysh-white: #fcfcfc;
 $hashtag-purple: #f6f1ff;
 $header-bottom: #ededed;
@@ -43,6 +44,8 @@ $light-purple: #d7c1ff;
 $neon-purple: #7c4dff;
 $placeholder: #b7b7b7;
 $primary-purple: #742dd2;
+$primary-red: #e4032e;
+$primary-blue: #003764;
 $white: #ffffff;
 
 // Need to sort by name
@@ -76,5 +79,7 @@ $white: #ffffff;
   neonPurple: $neon-purple;
   placeholder: $placeholder;
   primaryPurple: $primary-purple;
+  primaryRed: $primary-red;
+  primaryBlue: $primary-blue;
   white: $white;
 }

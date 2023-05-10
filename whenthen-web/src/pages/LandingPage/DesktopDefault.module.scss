@@ -1,6 +1,8 @@
 @import '../../assets/scsses/config';
 .introductionCardBlock {
-  display: flow-root;
+  display: flex;
+  align-items: center;
+  width: 100%;
   margin: 150px 0px 50px 75px;
   min-height: auto;
 }
