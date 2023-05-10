@@ -10,8 +10,6 @@ body {
   height: auto;
   min-height: 100%;
   overscroll-behavior: contain;
-  margin-top: 50px;
-  padding-bottom: 150px;
 }
 .sideBarOutside {
   position: absolute;
@@ -53,7 +51,4 @@ body {
 .mainContentArea {
   position: relative;
   vertical-align: middle;
-  // width: 100%;
-  margin-right: 0;
-  padding: 2%;
 }
