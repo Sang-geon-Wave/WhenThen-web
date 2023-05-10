@@ -7,7 +7,7 @@ import stylesMobileDefault from './MobileDefault.module.scss';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import { Container } from 'react-bootstrap';
 
-const CalendarPage = () => {
+const DashboardPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
@@ -23,4 +23,4 @@ const CalendarPage = () => {
   );
 };
 
-export default CalendarPage;
+export default DashboardPage;

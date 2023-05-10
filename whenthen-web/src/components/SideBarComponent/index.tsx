@@ -36,10 +36,10 @@ const SidebarComponent = () => {
         <div className={styles.sideBarList}>
           <div
             className={styles.sideBarItem}
-            onClick={() => navigate('/calendar')}
+            onClick={() => navigate('/dashboard')}
           >
             <div className={styles.sideBarLink}>
-              {nowLocation.pathname === '/timeline' ? (
+              {nowLocation.pathname === '/dashboard' ? (
                 <div>
                   <img src={icon} width="20" height="20" alt="testA" />
                   <span color="black">대시보드</span>
