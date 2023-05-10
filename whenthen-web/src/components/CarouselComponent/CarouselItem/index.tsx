@@ -17,7 +17,7 @@ const CarouselItemComponent: React.FunctionComponent<
 
   return (
     <div className={styles.carouselItem}>
-      <img src={src} />
+      <img src={src} style={{ maxWidth: '100%' }} />
     </div>
   );
 };
