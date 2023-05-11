@@ -7,9 +7,10 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import useRootData from '../../hooks/useRootData';
 
 const imgSrc = [
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLpZ3AmUlI_h9TNBB-lEnxyFDIplBHlYyL1A&usqp=CAU',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSthULQX_46UhK1K35yNXHrcdfrL7zmHCWXDA&usqp=CAU',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4zRpZR__dX85rRE56oziBQHW9SmLNHK4AOw&usqp=CAU',
+  'https://www.ygfamily.com/upload/main/jisoo_20230331_kr.jpg',
+  'https://www.ygfamily.com/upload/main/treasure_20221004_kr.jpg',
+  'https://www.ygfamily.com/upload/main/LCH_kr.jpg',
+  'https://www.ygfamily.com/upload/main/BLACKPINK_20220907_kr.jpg',
 ];
 
 const CarouselComponent = () => {
@@ -24,7 +25,7 @@ const CarouselComponent = () => {
 
   useInterval(() => {
     setActiveIndex((activeIndex + 1) % imgSrc.length);
-  }, 2000);
+  }, 3000);
 
   return (
     <div className={styles.carousel}>

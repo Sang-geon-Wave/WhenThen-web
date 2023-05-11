@@ -6,7 +6,8 @@ import DefaultLayout from '../../layouts/DefaultLayout';
 const TimelinePage = () => {
   return (
     <DefaultLayout>
-      <div>
+      <div className="p-md-5">
+        <h1>타임라인</h1>
         {timeLineMockDataList.map((movieList, idx) => (
           <TimelineDateComponent movieList={movieList} key={`dateKey${idx}`} />
         ))}
