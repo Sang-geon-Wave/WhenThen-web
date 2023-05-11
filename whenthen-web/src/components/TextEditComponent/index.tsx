@@ -51,39 +51,39 @@ const TextEditComponent: React.FunctionComponent<PropsTextEditComponent> = ({
   };
 
   const handleFont = (event: any) => {
-    setFontFamily(event.target.value);
-    document.execCommand('fontName', false, event.target.value);
+    const selFont = event.currentTarget.getAttribute('value');
+    setFontFamily(selFont);
+    document.execCommand('fontName', false, selFont);
   };
 
   return (
     <div>
       <div className={styles.buttonBox}>
         <Dropdown as={ButtonGroup}>
-          <Button
+          <Dropdown.Toggle
+            className={styles.dropdownClick}
             variant="success"
             id="fontSytleText"
-            className={styles.dropdownClick}
-            value={fontFamily}
-            onClick={handleFont}
+            type="button"
           >
-            {fontFamily}
-          </Button>
-          <Dropdown.Toggle
-            className={styles.dropdownSelect}
-            split
-            variant="success"
-            id="dropdownSplit"
-          />
+            <span
+              className="text-white"
+              style={{ fontFamily: `${fontFamily}` }}
+            >
+              {fontFamily}
+            </span>
+          </Dropdown.Toggle>
           <Dropdown.Menu>
             {Object.values(fontSytleName).map((font) => {
               return (
                 <Dropdown.Item
                   as="button"
+                  type="button"
                   value={font}
                   onClick={handleFont}
                   key={font}
                 >
-                  {font}
+                  <span style={{ fontFamily: `${font}` }}>{font}</span>
                 </Dropdown.Item>
               );
             })}
