@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TimelineDateComponent from '../../components/TimelineDateComponent';
-import timeLineMockDataList from '../../assets/strings/TimeLinePage/testData';
 import DefaultLayout from '../../layouts/DefaultLayout';
 import api from '../../api';
 import { ArticleListByDate, ArticleIntro } from '../../types/ArticleDataType';
 
 const getArticle = async () => {
-  const { data } = await api.get('article/like');
+  const { data } = await api.get('article/all');
   const userLike = data.users;
   return userLike;
 };
@@ -14,31 +13,45 @@ const getArticle = async () => {
 const TimelinePage = () => {
   const defaultArray: ArticleListByDate[] = [];
   const [articleList, setArticleList] = useState(defaultArray);
-
-  getArticle().then((userLike) => {
-    const articleList: ArticleListByDate[] = [];
-    userLike.forEach((article: any) => {
-      const movieList: ArticleIntro[] = [];
-      const movieIntro: ArticleIntro = {
-        title: article.title,
-        imgUrl: article.thumbnail,
-        sub: article.place,
-        content: article.detail,
-      };
-      movieList.push(movieIntro);
+  useEffect(() => {
+    getArticle().then((userLike) => {
+      const articleList: ArticleListByDate[] = [];
+      var movieList: ArticleIntro[] = [];
+      var time: string = '';
+      userLike.forEach((article: any) => {
+        const movieIntro: ArticleIntro = {
+          title: article.title,
+          imgUrl: article.thumbnail,
+          sub: article.place,
+          content: article.detail,
+        };
+        if (time === article.start_date) {
+          movieList.push(movieIntro);
+        } else {
+          const movieData: ArticleListByDate = {
+            date: article.start_date,
+            message: 'test',
+            movieItems: movieList,
+          };
+          articleList.push(movieData);
+          time = article.start_date;
+          movieList = [];
+          movieList.push(movieIntro);
+        }
+      });
       const movieData: ArticleListByDate = {
-        date: article.start_datetime.substring(0, 10),
-        message: article.end_datetime.substring(0, 10),
+        date: time,
+        message: 'test',
         movieItems: movieList,
       };
       articleList.push(movieData);
+
+      setArticleList(articleList);
     });
-    setArticleList(articleList);
-    return;
-  });
+  }, []);
 
   return (
-    <DefaultLayout>
+    <DefaultLayout hideSideBar={false}>
       <div>
         {articleList.map((articles, idx) => (
           <TimelineDateComponent articleList={articles} key={`dateKey${idx}`} />

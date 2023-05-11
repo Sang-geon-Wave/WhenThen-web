@@ -22,19 +22,19 @@ const TimelineCardComponent: React.FunctionComponent<
 
   const title: string = articleIntro.title;
   const sub: string =
-    articleIntro.sub == null ? DefaultEnum.DefaultText : articleIntro.sub;
+    articleIntro.sub == null || articleIntro.sub == ''
+      ? DefaultEnum.DefaultText
+      : articleIntro.sub;
   const imgUrl: string =
-    articleIntro.imgUrl == null ? DefaultEnum.DefaultText : articleIntro.imgUrl;
+    articleIntro.imgUrl == null || articleIntro.imgUrl == ''
+      ? DefaultEnum.DefaultText
+      : articleIntro.imgUrl;
   const content: string =
-    articleIntro.content == null
+    articleIntro.content == null || articleIntro.content == ''
       ? DefaultEnum.DefaultText
       : articleIntro.content;
 
   const [moreInfo, setMoreInfo] = useState(false);
-  const switchMoreInfoState = () => {
-    if (content === DefaultEnum.DefaultText) return;
-    setMoreInfo(!moreInfo);
-  };
 
   return (
     <div className={cardStyles.mainBlock}>
@@ -43,7 +43,12 @@ const TimelineCardComponent: React.FunctionComponent<
         src={imgUrl}
         className={cardStyles.imgBlock}
       />
-      <div className={cardStyles.movieIntroduceBlock}>
+      <div
+        className={cardStyles.movieIntroduceBlock}
+        onClick={() => {
+          setMoreInfo(!moreInfo);
+        }}
+      >
         <h1
           className={
             moreInfo ? cardStyles.titleClickBlock : cardStyles.titleBlock
@@ -58,7 +63,6 @@ const TimelineCardComponent: React.FunctionComponent<
         </h2>
         <hr />
         <p
-          onClick={switchMoreInfoState}
           className={
             moreInfo ? cardStyles.contentClickBlock : cardStyles.contentBlock
           }

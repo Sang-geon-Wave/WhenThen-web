@@ -58,7 +58,7 @@ $baseContainerSize: $baseFont * 5;
 .contentClickBlock {
   background-color: white;
   width: 100%;
-  min-height: $baseContainerSize;
+  min-height: $baseFont;
   font-size: $baseFont;
   white-space: pre-wrap;
 }
