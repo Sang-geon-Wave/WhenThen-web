@@ -69,8 +69,6 @@ const CreateSchedulePage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (checkAllFieldsFilled(scheduleData) === false) {
-      setValidated(false);
-      console.log('not filled');
       handleVisibleChkAlert();
     } else {
       const formData = new FormData();
@@ -88,9 +86,8 @@ const CreateSchedulePage = () => {
           },
         });
 
-        const { status: status2 } = data;
-        console.log(status2);
-        if (status2 == HttpStatus.OK) {
+        const { status: statusResult } = data;
+        if (statusResult == HttpStatus.OK) {
           setAlert({
             alertContent: '이벤트가 정상적으로 등록되었어요!',
             alertType: AlertType.Information,
