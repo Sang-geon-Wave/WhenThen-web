@@ -40,6 +40,7 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
         `/search?type=${searchType}&value=${searchValue}`,
       );
       console.log(result);
+      // TODO: handling search result that received from backend api
     } catch (e: any) {
       console.log(e instanceof Error ? e.message : String(e));
     }
