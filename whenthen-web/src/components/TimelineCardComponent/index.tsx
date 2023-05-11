@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import { MovieIntro } from '../../types/MovieDataType';
 
 export interface PropsTimelineCardComponent {
-  movieIntro: MovieIntro;
+  title: string;
+  sub?: string;
+  imgUrl?: string;
+  content?: string;
 }
 
 enum DefaultEnum {
@@ -13,20 +15,19 @@ enum DefaultEnum {
 
 const TimelineCardComponent: React.FunctionComponent<
   PropsTimelineCardComponent
-> = ({ movieIntro }) => {
+> = (data) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
   const isDesktop = screenClass === 'xl';
   const cardStyles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  const title: string = movieIntro.title;
-  const sub: string =
-    movieIntro.sub == null ? DefaultEnum.DefaultText : movieIntro.sub;
+  const title: string = data.title;
+  const sub: string = data.sub == null ? DefaultEnum.DefaultText : data.sub;
   const imgUrl: string =
-    movieIntro.imgUrl == null ? DefaultEnum.DefaultText : movieIntro.imgUrl;
+    data.imgUrl == null ? DefaultEnum.DefaultText : data.imgUrl;
   const content: string =
-    movieIntro.content == null ? DefaultEnum.DefaultText : movieIntro.content;
+    data.content == null ? DefaultEnum.DefaultText : data.content;
 
   const [moreInfo, setMoreInfo] = useState(false);
   const switchMoreInfoState = () => {
@@ -36,12 +37,8 @@ const TimelineCardComponent: React.FunctionComponent<
 
   return (
     <div className={cardStyles.mainBlock}>
-      <img
-        alt="포스터 사진이 없어요"
-        src={imgUrl}
-        className={cardStyles.imgBlock}
-      />
-      <div className={cardStyles.movieIntroduceBlock}>
+      <img alt="No Image" src={imgUrl} className={cardStyles.imgBlock} />
+      <div className={cardStyles.introduceBlock}>
         <h1
           className={
             moreInfo ? cardStyles.titleClickBlock : cardStyles.titleBlock
