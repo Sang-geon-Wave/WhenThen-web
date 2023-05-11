@@ -5,15 +5,18 @@ import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { Button, Dropdown, DropdownButton, Form } from 'react-bootstrap';
 import api from '../../api';
 import DatepickerComponent from '../DatepickerComponent';
+import { AxiosResponse } from 'axios';
 
 interface PropsSearchComponent {
   types: string[];
   dateTypes?: Set<string>;
+  onSearchCompleted: (response: AxiosResponse<any, any>) => void;
 }
 
 const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
   types,
   dateTypes,
+  onSearchCompleted,
 }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
@@ -36,11 +39,11 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
     if (!searchValue) return;
 
     try {
-      const result = await api.get(
-        `/search?type=${searchType}&value=${searchValue}`,
+      const response: AxiosResponse<any, any> = await api.get(
+        `/search?type=${searchType}&value=${searchValue}&page=1`,
       );
-      console.log(result);
-      // TODO: handling search result that received from backend api
+      onSearchCompleted(response);
+      console.log(response);
     } catch (e: any) {
       console.log(e instanceof Error ? e.message : String(e));
     }
