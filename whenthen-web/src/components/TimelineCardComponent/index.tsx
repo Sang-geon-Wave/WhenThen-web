@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
-import { MovieIntro } from '../../types/MovieDataType';
+import { ArticleIntro } from '../../types/ArticleDataType';
 
 export interface PropsTimelineCardComponent {
-  movieIntro: MovieIntro;
+  articleIntro: ArticleIntro;
 }
 
 enum DefaultEnum {
@@ -13,20 +13,22 @@ enum DefaultEnum {
 
 const TimelineCardComponent: React.FunctionComponent<
   PropsTimelineCardComponent
-> = ({ movieIntro }) => {
+> = ({ articleIntro }) => {
   const { screenClass } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
   }));
   const isDesktop = screenClass === 'xl';
   const cardStyles = isDesktop ? stylesDesktopDefault : stylesDesktopDefault;
 
-  const title: string = movieIntro.title;
+  const title: string = articleIntro.title;
   const sub: string =
-    movieIntro.sub == null ? DefaultEnum.DefaultText : movieIntro.sub;
+    articleIntro.sub == null ? DefaultEnum.DefaultText : articleIntro.sub;
   const imgUrl: string =
-    movieIntro.imgUrl == null ? DefaultEnum.DefaultText : movieIntro.imgUrl;
+    articleIntro.imgUrl == null ? DefaultEnum.DefaultText : articleIntro.imgUrl;
   const content: string =
-    movieIntro.content == null ? DefaultEnum.DefaultText : movieIntro.content;
+    articleIntro.content == null
+      ? DefaultEnum.DefaultText
+      : articleIntro.content;
 
   const [moreInfo, setMoreInfo] = useState(false);
   const switchMoreInfoState = () => {

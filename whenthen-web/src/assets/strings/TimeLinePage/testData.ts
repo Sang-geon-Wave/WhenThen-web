@@ -1,4 +1,4 @@
-import { MovieListByDate } from '../../../types/MovieDataType';
+import { MovieListByDate } from '../../../types/ArticleDataType';
 
 const movie1: MovieListByDate = {
   date: '2023-01-01',
