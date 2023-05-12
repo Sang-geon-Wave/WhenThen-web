@@ -25,7 +25,10 @@ const TimelinePage = () => {
           sub: article.place,
           content: article.detail,
         };
-        if (time === article.start_date) {
+        if (time === '') {
+          time = article.start_date;
+          movieList.push(movieIntro);
+        } else if (time === article.start_date) {
           movieList.push(movieIntro);
         } else {
           const movieData: ArticleListByDate = {
