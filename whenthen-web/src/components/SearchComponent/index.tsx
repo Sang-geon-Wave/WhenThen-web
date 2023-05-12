@@ -6,20 +6,28 @@ import { Button, Dropdown, DropdownButton, Form } from 'react-bootstrap';
 import api from '../../api';
 import DatepickerComponent from '../DatepickerComponent';
 import { AxiosResponse } from 'axios';
+import { AlertType } from '../AlertComponent';
 
 interface PropsSearchComponent {
   types: string[];
   dateTypes?: Set<string>;
   onSearchCompleted: (response: AxiosResponse<any, any>) => void;
+  onSearchBefore?: () => boolean;
+  onSearchStart?: () => void;
+  onSearchError?: (errmsg: string) => void;
 }
 
 const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
   types,
   dateTypes,
   onSearchCompleted,
+  onSearchBefore,
+  onSearchStart,
+  onSearchError,
 }) => {
-  const { screenClass } = useRootData(({ appStore }) => ({
+  const { screenClass, setAlert } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
+    setAlert: appStore.setAlert,
   }));
   const isDesktop = screenClass === 'xl';
 
@@ -39,13 +47,21 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
     if (!searchValue) return;
 
     try {
+      if (onSearchBefore && !onSearchBefore()) return; // cancel event feature before starts
+      if (onSearchStart) onSearchStart();
       const response: AxiosResponse<any, any> = await api.get(
         `/search?type=${searchType}&value=${searchValue}&page=1`,
       );
       onSearchCompleted(response);
-      console.log(response);
     } catch (e: any) {
-      console.log(e instanceof Error ? e.message : String(e));
+      const errmsg = e instanceof Error ? e.message : String(e);
+      if (onSearchError) onSearchError(errmsg);
+      console.log(errmsg);
+      setAlert({
+        alertType: AlertType.Warning,
+        alertContent: `${errmsg}`,
+        confirmText: 'Confirm',
+      });
     }
   }, [searchType, searchValue]);
 
