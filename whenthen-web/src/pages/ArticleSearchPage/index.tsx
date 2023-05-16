@@ -51,7 +51,6 @@ const ArticleSearchPage = () => {
       articles: [],
       searchStatus: SearchStatus.BEGIN,
     });
-    console.log('before');
     return true;
   };
   const onSearchStart = () => {
@@ -59,7 +58,6 @@ const ArticleSearchPage = () => {
       ...searchState,
       searchStatus: SearchStatus.RUNNING,
     });
-    console.log('start');
   };
   const onSearchCompleted = (response: AxiosResponse<any, any>) => {
     const fetchedArticles = response.data.data;
@@ -67,7 +65,6 @@ const ArticleSearchPage = () => {
       articles: fetchedArticles,
       searchStatus: SearchStatus.DONE,
     });
-    console.log('completed');
   };
   const MemoCard = memo(TimelineCardComponent);
 
@@ -87,7 +84,20 @@ const ArticleSearchPage = () => {
             title={article.title}
             content={article.detail}
             imgUrl={getImageUrl(article.thumbnail)}
-            sub={article.sub}
+            sub={(() => {
+              const contents: string[] = [];
+              if (article.url) contents.push('URL: ' + article.url);
+              if (article.place) contents.push('장소: ' + article.place);
+              if (article.start_datetime)
+                contents.push(
+                  '시작 날짜: ' + article.start_datetime.slice(0, 10),
+                );
+              if (article.end_datetime)
+                contents.push(
+                  '끝나는 날짜: ' + article.end_datetime.slice(0, 10),
+                );
+              return contents.join(', ');
+            })()}
           />
         ))}
       {searchState.searchStatus == SearchStatus.RUNNING && (
