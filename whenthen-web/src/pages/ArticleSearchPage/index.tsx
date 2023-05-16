@@ -7,6 +7,7 @@ import { memo, useState } from 'react';
 import TimelineCardComponent from '../../components/TimelineCardComponent';
 import empty from '../../assets/images/empty.png';
 import searching from '../../assets/images/searching.png';
+import { Pagination } from 'react-bootstrap';
 
 const ArticleSearchPage = () => {
   const { screenClass } = useRootData(({ appStore }) => ({
@@ -66,6 +67,12 @@ const ArticleSearchPage = () => {
       searchStatus: SearchStatus.DONE,
     });
   };
+  const onSearchError = (errmsg: string) => {
+    setSearchState({
+      articles: [],
+      searchStatus: SearchStatus.BEGIN,
+    });
+  };
   const MemoCard = memo(TimelineCardComponent);
 
   return (
@@ -76,6 +83,7 @@ const ArticleSearchPage = () => {
         onSearchBefore={onSearchBefore}
         onSearchStart={onSearchStart}
         onSearchCompleted={onSearchCompleted}
+        onSearchError={onSearchError}
       ></SearchComponent>
       {searchState.articles &&
         searchState.articles.map((article: any, idx) => (
@@ -112,6 +120,15 @@ const ArticleSearchPage = () => {
             sub=" "
           />
         )}
+      {searchState.searchStatus == SearchStatus.DONE && (
+        <Pagination size="lg">
+          <Pagination.First />
+          <Pagination.Prev />
+
+          <Pagination.Next />
+          <Pagination.Last />
+        </Pagination>
+      )}
     </div>
   );
 };

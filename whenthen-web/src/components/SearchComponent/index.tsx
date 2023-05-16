@@ -77,7 +77,7 @@ const SearchComponent: React.FunctionComponent<PropsSearchComponent> = ({
   );
 
   return (
-    <div>
+    <div className={styles.container}>
       <InputGroup className="mb-3">
         <DropdownButton variant="secondary" title={searchType}>
           {types.map((type) => (
