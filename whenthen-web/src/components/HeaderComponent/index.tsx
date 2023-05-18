@@ -16,7 +16,6 @@ const HeaderComponent = () => {
     currentMainMenu,
     sideBarVisibility,
     logout,
-    changeMainMenu,
     changeSideBarVisibility,
   } = useRootData(({ appStore, authStore }) => ({
     screenClass: appStore.screenClass.get(),
@@ -24,7 +23,6 @@ const HeaderComponent = () => {
     currentMainMenu: appStore.currentMainMenu.get(),
     sideBarVisibility: appStore.sideBarVisibility.get(),
     logout: authStore.logout,
-    changeMainMenu: appStore.changeMainMenu,
     changeSideBarVisibility: appStore.changeSideBarVisibility,
   }));
 

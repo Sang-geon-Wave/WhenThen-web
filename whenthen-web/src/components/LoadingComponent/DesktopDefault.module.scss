@@ -1,0 +1,12 @@
+.mainBlock {
+  display: flex;
+  position: fixed;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: rgba(128, 128, 128, 0.6);
+  z-index: 300;
+}

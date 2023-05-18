@@ -12,19 +12,18 @@ const createStore = () => {
     alertModalProps: observable.box<AlertProps>(),
 
     sideBarVisibility: observable.box(false),
+    loadingVisibility: observable.box(false),
 
     changeSideBarVisibility(data: boolean) {
       appStore.sideBarVisibility.set(data);
+    },
+    setLoading(data: boolean) {
+      appStore.loadingVisibility.set(data);
     },
 
     // Set screen class
     changeScreenClass(data: any) {
       appStore.screenClass.set(data);
-    },
-
-    changeMainMenu(data: any) {
-      appStore.currentMainMenu.set(data);
-      history.push(data);
     },
 
     setAlert(props?: AlertProps) {
