@@ -3,7 +3,7 @@ import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
 import ImageUploadComponent from '../../components/ImageUploadComponent';
-import { Button, Form, Row, Col } from 'react-bootstrap';
+import { Button, Form, Row, Col, Container } from 'react-bootstrap';
 import LocationInputComponent from '../../components/LocationInputComponent';
 
 import DefaultLayout from '../../layouts/DefaultLayout';
@@ -44,7 +44,7 @@ const CreateSchedulePage = () => {
 
   return (
     <DefaultLayout>
-      <div>
+      <div className="p-md-5">
         <h1>이벤트 생성</h1>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">

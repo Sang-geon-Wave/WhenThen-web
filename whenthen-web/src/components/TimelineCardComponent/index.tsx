@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import { MovieIntro } from '../../types/MovieDataType';
+import { Row, Col, Card, Button } from 'react-bootstrap';
 
 export interface PropsTimelineCardComponent {
   movieIntro: MovieIntro;
@@ -35,44 +36,44 @@ const TimelineCardComponent: React.FunctionComponent<
   };
 
   return (
-    <div className={cardStyles.mainBlock}>
-      <img
-        alt="포스터 사진이 없어요"
-        src={imgUrl}
-        className={cardStyles.imgBlock}
-      />
-      <div className={cardStyles.movieIntroduceBlock}>
-        <h1
-          className={
-            moreInfo ? cardStyles.titleClickBlock : cardStyles.titleBlock
-          }
-        >
-          Title: {title}
-        </h1>
-        <h2
-          className={moreInfo ? cardStyles.subClickBlock : cardStyles.subBlock}
-        >
-          {sub}
-        </h2>
-        <hr />
-        <p
-          onClick={switchMoreInfoState}
-          className={
-            moreInfo ? cardStyles.contentClickBlock : cardStyles.contentBlock
-          }
-        >
-          {content}
-        </p>
-        <hr />
-        {moreInfo && (
-          <div className={cardStyles.moreInfoButtonBlock}>
-            <button className={cardStyles.moreInfoButton}>추가</button>
-            <button className={cardStyles.moreInfoButton}>삭제</button>
-            <button className={cardStyles.moreInfoButton}>따봉</button>
-          </div>
-        )}
-      </div>
-    </div>
+    <Card className={cardStyles.containerCard}>
+      <Row>
+        <Col md={2}>
+          <Card.Img
+            alt="포스터 사진이 없어요"
+            src={imgUrl}
+            className={cardStyles.imgBlock}
+          />
+        </Col>
+        <Col md={10}>
+          <Card.Body>
+            <div className={cardStyles.movieIntroduceBlock}>
+              <h1 className={cardStyles.title}>{title}</h1>
+              <h4>{sub}</h4>
+              <hr />
+              <p
+                onClick={switchMoreInfoState}
+                className={
+                  moreInfo
+                    ? cardStyles.contentClickBlock
+                    : cardStyles.contentBlock
+                }
+              >
+                {content}
+              </p>
+              <hr />
+              {moreInfo && (
+                <div className={cardStyles.moreInfoButtonBlock}>
+                  <Button variant="outline-secondary">수정</Button>{' '}
+                  <Button variant="outline-danger">삭제</Button>{' '}
+                  <Button variant="outline-success">좋아요</Button>{' '}
+                </div>
+              )}
+            </div>
+          </Card.Body>
+        </Col>
+      </Row>
+    </Card>
   );
 };
 

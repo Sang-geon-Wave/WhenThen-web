@@ -53,6 +53,7 @@ const LoginComponent = () => {
 
   const submitInfo = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log('!!');
     if (isLogin === true) return;
 
     if (!usrId || !usrPw) {
