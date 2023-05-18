@@ -48,6 +48,18 @@ const ArticleSearchPage = () => {
     page: 1,
   });
 
+  const setPage = (page: number) => {
+    setSearchState({
+      articles: [],
+      searchStatus: SearchStatus.BEGIN,
+      page: page,
+    });
+  };
+
+  useEffect(() => {
+    getSearchResult();
+  }, [searchState.page]);
+
   const getImageUrl = (thumbnail: any) => {
     if (thumbnail && thumbnail.data) {
       const arrayBuffer = new Uint8Array(thumbnail.data).buffer;
@@ -102,7 +114,7 @@ const ArticleSearchPage = () => {
       if (onSearchBefore && !onSearchBefore()) return; // cancel event feature before starts
       if (onSearchStart) onSearchStart();
       const response: AxiosResponse<any, any> = await api.get(
-        `/search?type=${searchType}&value=${searchValue}&page=${searchPage}`,
+        `/search?type=${searchType}&value=${searchValue}&page=${page}`,
       );
       onSearchCompleted(response);
     } catch (e: any) {
@@ -135,7 +147,41 @@ const ArticleSearchPage = () => {
     setDateType(dateTypes && dateTypes.has(searchType));
   }, [searchType]);
 
-  const { articles, searchStatus } = searchState;
+  const { articles, searchStatus, page } = searchState;
+
+  const renderPaginationItems = () => {
+    const paginationItems: JSX.Element[] = [];
+
+    const addPaginationItem = (pageNumber: number) => {
+      paginationItems.push(
+        <Pagination.Item
+          key={pageNumber}
+          active={pageNumber === searchState.page}
+          onClick={() => setPage(pageNumber)}
+        >
+          {pageNumber}
+        </Pagination.Item>,
+      );
+    };
+
+    if (searchState.page >= 3) {
+      addPaginationItem(searchState.page - 2);
+    }
+    if (searchState.page >= 2) {
+      addPaginationItem(searchState.page - 1);
+    }
+    addPaginationItem(searchState.page);
+    addPaginationItem(searchState.page + 1);
+    addPaginationItem(searchState.page + 2);
+    if (searchState.page <= 2) {
+      addPaginationItem(searchState.page + 3);
+    }
+    if (searchState.page <= 1) {
+      addPaginationItem(searchState.page + 4);
+    }
+
+    return paginationItems;
+  };
 
   return (
     <div className={styles.container}>
@@ -163,6 +209,9 @@ const ArticleSearchPage = () => {
           </Button>
         </InputGroup>
       </div>
+      {searchStatus == SearchStatus.DONE && (
+        <Pagination size="lg">{renderPaginationItems()}</Pagination>
+      )}
       {articles &&
         articles.map((article: any, idx: number) => (
           <TimelineCardComponent
@@ -198,13 +247,7 @@ const ArticleSearchPage = () => {
         />
       )}
       {searchStatus == SearchStatus.DONE && (
-        <Pagination size="lg">
-          <Pagination.First />
-          <Pagination.Prev />
-
-          <Pagination.Next />
-          <Pagination.Last />
-        </Pagination>
+        <Pagination size="lg">{renderPaginationItems()}</Pagination>
       )}
     </div>
   );
