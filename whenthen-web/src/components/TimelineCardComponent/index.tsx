@@ -43,33 +43,37 @@ const TimelineCardComponent: React.FunctionComponent<
         src={imgUrl}
         className={cardStyles.imgBlock}
       />
-      <div
-        className={cardStyles.movieIntroduceBlock}
-        onClick={() => {
-          setMoreInfo(!moreInfo);
-        }}
-      >
-        <h1
-          className={
-            moreInfo ? cardStyles.titleClickBlock : cardStyles.titleBlock
-          }
+      <div>
+        <div
+          className={cardStyles.movieIntroduceBlock}
+          onClick={() => {
+            setMoreInfo(!moreInfo);
+          }}
         >
-          Title: {title}
-        </h1>
-        <h2
-          className={moreInfo ? cardStyles.subClickBlock : cardStyles.subBlock}
-        >
-          {sub}
-        </h2>
-        <hr />
-        <p
-          className={
-            moreInfo ? cardStyles.contentClickBlock : cardStyles.contentBlock
-          }
-        >
-          {content}
-        </p>
-        <hr />
+          <h1
+            className={
+              moreInfo ? cardStyles.titleClickBlock : cardStyles.titleBlock
+            }
+          >
+            Title: {title}
+          </h1>
+          <h2
+            className={
+              moreInfo ? cardStyles.subClickBlock : cardStyles.subBlock
+            }
+          >
+            {sub}
+          </h2>
+          <hr />
+          <p
+            className={
+              moreInfo ? cardStyles.contentClickBlock : cardStyles.contentBlock
+            }
+          >
+            {content}
+          </p>
+          <hr />
+        </div>
         {moreInfo && (
           <div className={cardStyles.moreInfoButtonBlock}>
             <button className={cardStyles.moreInfoButton}>추가</button>
