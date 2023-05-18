@@ -32,7 +32,7 @@ const TimelinePage = () => {
           movieList.push(movieIntro);
         } else {
           const movieData: ArticleListByDate = {
-            date: article.start_date,
+            date: article.start_date.substring(0, 10),
             message: 'test',
             movieItems: movieList,
           };
@@ -43,7 +43,7 @@ const TimelinePage = () => {
         }
       });
       const movieData: ArticleListByDate = {
-        date: time,
+        date: time.substring(0, 10),
         message: 'test',
         movieItems: movieList,
       };
