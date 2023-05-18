@@ -1,17 +1,27 @@
 import { AxiosResponse } from 'axios';
-import SearchComponent from '../../components/SearchComponent';
+import React, { memo, useEffect, useState } from 'react';
+import InputGroup from 'react-bootstrap/InputGroup';
+import {
+  Button,
+  Dropdown,
+  DropdownButton,
+  Form,
+  Pagination,
+} from 'react-bootstrap';
 import useRootData from '../../hooks/useRootData';
 import stylesDesktopDefault from './DesktopDefault.module.scss';
 import stylesMobileDefault from './MobileDefault.module.scss';
-import { memo, useState } from 'react';
 import TimelineCardComponent from '../../components/TimelineCardComponent';
 import empty from '../../assets/images/empty.png';
 import searching from '../../assets/images/searching.png';
-import { Pagination } from 'react-bootstrap';
+import api from '../../api';
+import DatepickerComponent from '../../components/DatepickerComponent';
+import { AlertType } from '../../components/AlertComponent';
 
 const ArticleSearchPage = () => {
-  const { screenClass } = useRootData(({ appStore }) => ({
+  const { screenClass, setAlert } = useRootData(({ appStore }) => ({
     screenClass: appStore.screenClass.get(),
+    setAlert: appStore.setAlert,
   }));
   const isDesktop = screenClass === 'xl';
 
@@ -35,6 +45,7 @@ const ArticleSearchPage = () => {
   const [searchState, setSearchState] = useState({
     articles: [],
     searchStatus: SearchStatus.BEGIN,
+    page: 1,
   });
 
   const getImageUrl = (thumbnail: any) => {
@@ -47,46 +58,113 @@ const ArticleSearchPage = () => {
     }
     return '';
   };
+
   const onSearchBefore = () => {
     setSearchState({
       articles: [],
       searchStatus: SearchStatus.BEGIN,
+      page: searchState.page,
     });
     return true;
   };
+
   const onSearchStart = () => {
     setSearchState({
       ...searchState,
       searchStatus: SearchStatus.RUNNING,
+      page: searchState.page,
     });
   };
+
   const onSearchCompleted = (response: AxiosResponse<any, any>) => {
     const fetchedArticles = response.data.data;
     setSearchState({
       articles: fetchedArticles,
       searchStatus: SearchStatus.DONE,
+      page: searchState.page,
     });
   };
+
   const onSearchError = (errmsg: string) => {
     setSearchState({
       articles: [],
       searchStatus: SearchStatus.BEGIN,
+      page: searchState.page,
     });
   };
+
   const MemoCard = memo(TimelineCardComponent);
 
+  const getSearchResult = async () => {
+    if (!searchValue) return;
+
+    try {
+      if (onSearchBefore && !onSearchBefore()) return; // cancel event feature before starts
+      if (onSearchStart) onSearchStart();
+      const response: AxiosResponse<any, any> = await api.get(
+        `/search?type=${searchType}&value=${searchValue}&page=${searchPage}`,
+      );
+      onSearchCompleted(response);
+    } catch (e: any) {
+      const errmsg = e instanceof Error ? e.message : String(e);
+      if (onSearchError) onSearchError(errmsg);
+      console.log(errmsg);
+      setAlert({
+        alertType: AlertType.Warning,
+        alertContent: `${errmsg}`,
+        confirmText: 'Confirm',
+      });
+    }
+  };
+
+  const handleTypeSelect = (type: string) => {
+    setSearchType(type);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+
+  const [searchType, setSearchType] = useState(types[0]);
+  const [searchValue, setSearchValue] = useState('');
+  const [isDateType, setDateType] = useState(
+    dateTypes && dateTypes.has(searchType),
+  );
+
+  useEffect(() => {
+    setDateType(dateTypes && dateTypes.has(searchType));
+  }, [searchType]);
+
+  const { articles, searchStatus } = searchState;
+
   return (
-    <div>
-      <SearchComponent
-        types={types}
-        dateTypes={dateTypes}
-        onSearchBefore={onSearchBefore}
-        onSearchStart={onSearchStart}
-        onSearchCompleted={onSearchCompleted}
-        onSearchError={onSearchError}
-      ></SearchComponent>
-      {searchState.articles &&
-        searchState.articles.map((article: any, idx) => (
+    <div className={styles.container}>
+      <div>
+        <InputGroup className="mb-3">
+          <DropdownButton variant="secondary" title={searchType}>
+            {types.map((type) => (
+              <Dropdown.Item key={type} onClick={() => handleTypeSelect(type)}>
+                {type}
+              </Dropdown.Item>
+            ))}
+          </DropdownButton>
+          {isDateType && (
+            <DatepickerComponent
+              onDateSelected={(formattedDate) => {
+                setSearchValue(formattedDate);
+              }}
+            ></DatepickerComponent>
+          )}
+          {!isDateType && (
+            <Form.Control aria-label="search" onChange={handleInputChange} />
+          )}
+          <Button variant="primary" onClick={getSearchResult}>
+            Search
+          </Button>
+        </InputGroup>
+      </div>
+      {articles &&
+        articles.map((article: any, idx: number) => (
           <TimelineCardComponent
             key={idx}
             title={article.title}
@@ -108,19 +186,18 @@ const ArticleSearchPage = () => {
             })()}
           />
         ))}
-      {searchState.searchStatus == SearchStatus.RUNNING && (
+      {searchStatus == SearchStatus.RUNNING && (
         <MemoCard title="검색중 ..." imgUrl={searching} content=" " sub=" " />
       )}
-      {searchState.searchStatus == SearchStatus.DONE &&
-        searchState.articles.length == 0 && (
-          <MemoCard
-            title="검색 결과가 없습니다!"
-            imgUrl={empty}
-            content=" "
-            sub=" "
-          />
-        )}
-      {searchState.searchStatus == SearchStatus.DONE && (
+      {searchStatus == SearchStatus.DONE && articles.length == 0 && (
+        <MemoCard
+          title="검색 결과가 없습니다!"
+          imgUrl={empty}
+          content=" "
+          sub=" "
+        />
+      )}
+      {searchStatus == SearchStatus.DONE && (
         <Pagination size="lg">
           <Pagination.First />
           <Pagination.Prev />
